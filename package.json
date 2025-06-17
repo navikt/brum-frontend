@@ -12,6 +12,7 @@
     "@navikt/aksel-icons": "^7.23.0",
     "@navikt/ds-css": "^7.23.0",
     "@navikt/ds-react": "^7.23.0",
+    "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
