@@ -3,11 +3,9 @@
 import { PageBlock } from "@navikt/ds-react/Page";
 import styles from "./page.module.css";
 import { Chart, PlotOptions, Title, XAxis, YAxis } from "@highcharts/react";
-
 import { Column } from "@highcharts/react/series";
-
 import { useState } from "react";
-import { Label, Radio, RadioGroup } from "@navikt/ds-react";
+import { Radio, RadioGroup, Switch } from "@navikt/ds-react";
 
 const tiltaksdata = {
   grot: { vedtak: [0, 3, 2], opptak: [1, 6, 5], skippertak: [0, 5, 4] },
@@ -17,6 +15,7 @@ const tiltaksdata = {
 
 const Home = () => {
   const [avdeling, setAvdeling] = useState("grot");
+  const [prosent, setProsent] = useState(false);
 
   return (
     <main>
@@ -29,17 +28,23 @@ const Home = () => {
           <Radio value="grot">Grøtavdelingen</Radio>
           <Radio value="suppe">Suppeavdelingen</Radio>
           <Radio value="spag">Spagettiavdelingen</Radio>
-        </RadioGroup>
+        </RadioGroup>{" "}
+        <Switch
+          checked={prosent}
+          onChange={(e) => setProsent(e.target.checked)}
+        >
+          Prosent
+        </Switch>
       </PageBlock>
       <PageBlock width="md" gutters>
         <Chart>
           <Title>Andel av tiltak</Title>
-          <XAxis categories={["Februar", "Mars", "April"]} />
-          <YAxis min={0} stackLabels={{ enabled: true }} />
 
+          <XAxis categories={["Februar", "Mars", "April"]} />
+          <YAxis min={0} />
           <PlotOptions
             series={{
-              stacking: "normal",
+              stacking: prosent ? "percent" : null,
               dataLabels: {
                 enabled: true,
               },
