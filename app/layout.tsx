@@ -1,11 +1,7 @@
 import type { Metadata } from 'next';
 import '@navikt/ds-css';
-import { Page, InternalHeader, Spacer} from '@navikt/ds-react';
-
-import * as ds from '@navikt/ds-react';
+import { Page, InternalHeader, Spacer } from '@navikt/ds-react';
 import { InternalHeaderTitle } from '@navikt/ds-react/InternalHeader';
-console.log(ds);
-
 
 export const metadata: Metadata = {
   title: 'Brum',
