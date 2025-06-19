@@ -1,15 +1,7 @@
-import React from "react";
-import {
-  Alert,
-  BodyShort,
-  Box,
-  Heading,
-  Link,
-  List,
-  VStack,
-} from "@navikt/ds-react";
-import { PageBlock } from "@navikt/ds-react/Page";
-import { ListItem } from "@navikt/ds-react/List";
+import React from 'react';
+import { Alert, BodyShort, Box, Heading, Link, List, VStack } from '@navikt/ds-react';
+import { PageBlock } from '@navikt/ds-react/Page';
+import { ListItem } from '@navikt/ds-react/List';
 
 const NotFound = () => {
   return (
@@ -18,9 +10,9 @@ const NotFound = () => {
         <VStack gap="space-40">
           <Alert variant="warning">
             <BodyShort>
-              Dette er en veldig enkel mal som er hardkoded i Golden Path
-              artikkelen, og kan muligens være utdatert. For å se den mest
-              oppdaterte versjonen av malene til aksel kan du besøke{" "}
+              Dette er en veldig enkel mal som er hardkoded i Golden Path artikkelen, og kan
+              muligens være utdatert. For å se den mest oppdaterte versjonen av malene til aksel kan
+              du besøke{' '}
               <Link href="https://aksel.nav.no/monster-maler/stotte/404-side">
                 siden til Aksel malen for 404 sider.
               </Link>
@@ -31,8 +23,7 @@ const NotFound = () => {
               Beklager, vi fant ikke siden
             </Heading>
             <BodyShort>
-              Denne siden kan være slettet eller flyttet, eller det er en feil i
-              lenken.
+              Denne siden kan være slettet eller flyttet, eller det er en feil i lenken.
             </BodyShort>
             <List>
               <ListItem>Bruk gjerne søket eller menyen</ListItem>

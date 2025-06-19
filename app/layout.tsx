@@ -1,31 +1,24 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import "@navikt/ds-css";
-import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
-import { Page } from "@navikt/ds-react";
+import type { Metadata } from 'next';
+import '@navikt/ds-css';
+import { Page, InternalHeader, Spacer } from '@navikt/ds-react';
+import { InternalHeaderTitle } from '@navikt/ds-react/InternalHeader';
 
 export const metadata: Metadata = {
-  title: "Brum",
-  description: "Frontend for Brum",
+  title: 'Brum',
+  description: 'Frontend for Brum',
 };
 
-const RootLayout = async ({
-  children,
-}: Readonly<{ children: React.ReactNode }>) => {
-  const Decorator = await fetchDecoratorReact({
-    env: "prod",
-  });
-
+const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="no">
-      <head>
-        <Decorator.HeadAssets />
-      </head>
+      <head></head>
       <body>
         <Page>
-          <Decorator.Header />
+          <InternalHeader>
+            <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
+            <Spacer />
+          </InternalHeader>
           {children}
-          <Decorator.Scripts loader={Script} />
         </Page>
       </body>
     </html>
