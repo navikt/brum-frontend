@@ -4,7 +4,7 @@ import { PageBlock } from '@navikt/ds-react/Page';
 import styles from './page.module.css';
 import { Chart, PlotOptions, Title, XAxis, YAxis } from '@highcharts/react';
 import { Column } from '@highcharts/react/series';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Radio, RadioGroup, Switch } from '@navikt/ds-react';
 import { Exporting } from '@highcharts/react/options/Exporting';
 
