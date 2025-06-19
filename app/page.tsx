@@ -20,12 +20,49 @@ const Home = () => {
   return (
     <main>
       <PageBlock width="md" gutters>
-        <Button
-          icon={<ThumbUpIcon title="a11y tittel" />}
-          className={styles.limeButton}
+        <RadioGroup
+          legend="Velg avdeling."
+          onChange={setAvdeling}
+          value={avdeling}
         >
-          Knapp
-        </Button>
+          <Radio value="grot">Grøtavdelingen</Radio>
+          <Radio value="suppe">Suppeavdelingen</Radio>
+          <Radio value="spag">Spagettiavdelingen</Radio>
+        </RadioGroup>
+        <Switch
+          checked={prosent}
+          onChange={(e) => setProsent(e.target.checked)}
+        >
+          Prosent
+        </Switch>
+      </PageBlock>
+      <PageBlock width="md" gutters>
+        <Chart>
+          <Title>Andel av tiltak</Title>
+
+          <XAxis categories={["Februar", "Mars", "April"]} />
+          <YAxis min={0} />
+          <PlotOptions
+            series={{
+              stacking: prosent ? "percent" : null,
+              dataLabels: {
+                enabled: true,
+              },
+            }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].vedtak}
+            options={{ name: "Vedtakstiltak" }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].opptak}
+            options={{ name: "Opptakstiltak" }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].skippertak}
+            options={{ name: "Skippertakstiltak" }}
+          />
+        </Chart>
       </PageBlock>
     </main>
   );
