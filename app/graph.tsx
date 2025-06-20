@@ -17,9 +17,9 @@ const Graph = () => {
   const [avdeling, setAvdeling] = useState('grot');
   const [prosent, setProsent] = useState(false);
   const [inverted, setInverted] = useState(false);
-  const ref = useRef();
+  const ref = useRef<any>(null);
 
-  const swapInversion = (e) => {
+  const swapInversion = (e:boolean) => {
     setInverted(e);
     ref.current.chart.update({ chart: { inverted: inverted } });
   };
@@ -45,7 +45,7 @@ const Graph = () => {
           <YAxis min={0} />
           <PlotOptions
             series={{
-              stacking: prosent ? 'percent' : null,
+              stacking: prosent ? 'percent' : undefined,
               dataLabels: {
                 enabled: true,
               },
