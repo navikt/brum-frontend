@@ -12,6 +12,7 @@ RUN npm ci
 COPY next.config.ts tsconfig.json ./
 COPY app app
 COPY public public
+COPY styles styles
 
 
 RUN npm run build
@@ -22,6 +23,7 @@ WORKDIR /app
 
 COPY --from=builder /app/.next/standalone /app
 COPY --from=builder /app/public /app/public
+COPY --from=builder /app/styles /app/styles
 
 EXPOSE 3000
 
