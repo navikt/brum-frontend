@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   assetPrefix:
     process.env.NODE_ENV === "production"
-      ? "https://cdn.nav.no/frontend-golden-path"
+      ? "https://cdn.nav.no/brum"
       : undefined,
 };
 

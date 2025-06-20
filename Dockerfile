@@ -9,11 +9,10 @@ RUN npm config set @navikt:registry=https://npm.pkg.github.com
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY next.config.ts tsconfig.json ./
-COPY app app
-COPY public public
+COPY next.config.mjs tsconfig.json ./
+COPY pages pages
 COPY styles styles
-
+COPY public public
 
 RUN npm run build
 
@@ -23,7 +22,6 @@ WORKDIR /app
 
 COPY --from=builder /app/.next/standalone /app
 COPY --from=builder /app/public /app/public
-COPY --from=builder /app/styles /app/styles
 
 EXPOSE 3000
 
