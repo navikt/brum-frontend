@@ -11,6 +11,7 @@ const Graph = ({ filnavn }) => {
         <Title>t</Title>
         <Data csvURL={'/data/' + filnavn} />
       </Chart>
+
     </div>
   );
 };
