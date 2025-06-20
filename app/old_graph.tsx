@@ -1,3 +1,4 @@
+/*
 'use client'; // ??
 
 import { PageBlock } from '@navikt/ds-react/Page';
@@ -74,3 +75,4 @@ const Graph = () => {
 };
 
 export default Graph;
+*/
