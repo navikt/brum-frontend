@@ -1,0 +1,21 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+
+metadata:
+  labels:
+    team: brum
+  name: brum
+  namespace: brum
+spec:
+  ingresses:
+    - https://brum.intern.dev.nav.no
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+    sidecar:
+      enabled: true  
+  image: {{image}}
+  port: 3000
+  idporten:
+    enabled: true
