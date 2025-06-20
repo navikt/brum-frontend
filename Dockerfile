@@ -11,7 +11,6 @@ RUN npm ci
 
 COPY next.config.mjs tsconfig.json ./
 COPY pages pages
-COPY styles styles
 COPY public public
 
 RUN npm run build
