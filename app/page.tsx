@@ -4,7 +4,7 @@ import Graph from './graph';
 const Home = () => {
   return (
     <main>
-      <Graph></Graph>
+      <Graph data_url="https://demo-live-data.highcharts.com/vs-load.csv"></Graph>
     </main>
   );
 };
