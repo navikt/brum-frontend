@@ -6,7 +6,6 @@ import { Chart, PlotOptions, Title, XAxis, YAxis } from '@highcharts/react';
 import { Column } from '@highcharts/react/series';
 import { useRef, useState } from 'react';
 import { Radio, RadioGroup, Switch } from '@navikt/ds-react';
-import { Exporting } from '@highcharts/react/options/Exporting';
 
 const tiltaksdata = {
   grot: { vedtak: [0, 3, 2], opptak: [1, 6, 5], skippertak: [0, 5, 4] },
