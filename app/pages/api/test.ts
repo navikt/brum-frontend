@@ -27,6 +27,8 @@ export const getOboToken = async (user_token: string | undefined) => {
     })
     const data: TexasResult = await response.json()
 
+    console.log("OBO token exchange response:", data)
+
     return data.access_token
 }
 //     const obsResult = await requestOboToken({accessToekm, "api://dev-gcp.brum.brum-api/.default"})
