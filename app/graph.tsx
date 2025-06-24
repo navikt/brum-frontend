@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Chart, PlotOptions } from '@highcharts/react';
 import { Data } from '@highcharts/react/options/Data';
@@ -20,7 +20,7 @@ const Graph = ({ filnavn }: GraphProps) => {
 
   return (
     <div>
-      <PageBlock width="md" gutters>
+      <Chart options={chartOptions} ref={ref}>
         <Exporting />
         <Data csvURL={'/data/' + filnavn} />
         <PlotOptions series={{ stacking: 'normal' }} />
