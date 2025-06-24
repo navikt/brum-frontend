@@ -1,9 +1,10 @@
 'use client';
 
-import { Chart, PlotOptions } from '@highcharts/react';
+import { Chart, PlotOptions, Title } from '@highcharts/react';
 import { Data } from '@highcharts/react/options/Data';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { Radio, RadioGroup } from '@navikt/ds-react';
+import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
+import { title } from 'process';
 import { useRef, useState } from 'react';
 
 interface GraphProps {
@@ -13,13 +14,16 @@ interface GraphProps {
 const Graph = ({ filnavn }: GraphProps) => {
   const [inverted, setInverted] = useState(true);
   const ref = useRef<any>(null);
+  const [chartTitle, setChartTitle] = useState('');
 
   const swapInversion = (e: boolean) => {
     setInverted(e);
     ref.current?.chart.update({ chart: { inverted: inverted } });
   };
-
-  const chartOptions = { chart: { type: 'column', inverted: inverted } };
+  const chartOptions = {
+    title: { text: chartTitle },
+    chart: { type: 'column', inverted: inverted },
+  };
 
   return (
     <div>
@@ -33,6 +37,14 @@ const Graph = ({ filnavn }: GraphProps) => {
         <Radio value={true}>Yes</Radio>
         <Radio value={false}>No</Radio>
       </RadioGroup>
+
+      <TextField
+        onChange={(e) => {
+          setChartTitle(e.target.value);
+        }}
+        value={chartTitle}
+        label="Sett tittel"
+      />
     </div>
   );
 };
