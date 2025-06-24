@@ -6,6 +6,8 @@ metadata:
     team: brum
   name: brum
   namespace: brum
+  annotations:
+    texas.nais.io/enabled: "true"
 
 spec:
   ingresses:
@@ -21,12 +23,16 @@ spec:
       allowAllUsers: true
     sidecar:
       enabled: true     
+  env:
+    - name: BRUM_API_URL
+      value: https://brum-api.intern.dev.nav.no
+    - name: BACKEND_AUDIENCE
+      value: api://dev-gcp.brum.brum-api/.default
+
   accessPolicy:
     outbound:
       rules:
         - application: brum-api
         - application: brum
           namespace: brum
-  tokenx:
-    enabled: true
 

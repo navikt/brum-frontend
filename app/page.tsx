@@ -1,9 +1,9 @@
 import Graph from './graph';
 
-const Home = () => {
+const Home = async () => {
   return (
     <main>
-      <Graph filnavn="test.csv"></Graph>
+      <Graph></Graph>
     </main>
   );
 };
