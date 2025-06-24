@@ -3,7 +3,7 @@ import Graph from './graph';
 const Home = async () => {
   return (
     <main>
-      <Graph></Graph>
+      <Graph filnavn="test.csv"></Graph>
     </main>
   );
 };
