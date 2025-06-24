@@ -1,0 +1,63 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getOboToken } from '../test';
+
+// This is the GET handler for your API route
+export async function GET(req: NextRequest) {
+    try {
+        // Step 1: Extract the user's token from the incoming request
+        const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
+
+        if (!userToken) {
+            console.error("No user token provided in the request headers (Authorization header missing or empty).");
+            return NextResponse.json(
+                { message: 'Unauthorized: User session required.' },
+                { status: 401 }
+            );
+        }
+
+        // Step 2: Get an OBO access token for the Ktor backend
+        const oboAccessToken = await getOboToken(userToken);
+        if (!oboAccessToken) {
+            console.error("Failed to obtain OBO access token from Texas.");
+            return NextResponse.json(
+                { message: 'Internal Server Error: Unable to obtain OBO token.' },
+                { status: 500 }
+            );
+        } else {
+            console.log("OBO access token obtained successfully");
+        }
+
+        // Step 3: Call the Ktor backend with the OBO access token
+        const BRUM_API_URL = process.env.BRUM_API_URL;
+        if (!BRUM_API_URL) {
+            throw new Error("BRUM_API_URL is not defined in environment variables for Next.js API route.");
+        }
+
+        const ktorResponse = await fetch(`${BRUM_API_URL}/testAuth`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${oboAccessToken}`,
+            },
+        });
+
+        if(!ktorResponse.ok) {
+            const ktorErrorBody = await ktorResponse.text();
+            console.error(`Ktor API request failed with status ${ktorResponse.status}:`, ktorErrorBody);
+            return NextResponse.json(
+                { message: 'Ktor API request failed', error: ktorErrorBody },
+                { status: ktorResponse.status }
+            );
+        }
+
+        const dataFromKtor = await ktorResponse.json();
+        return NextResponse.json(dataFromKtor, { status: 200 });
+
+    } catch (error) {
+        console.error("An error occurred while processing the request in Next.js API route:", error);
+        return NextResponse.json(
+            { message: 'Internal Server Error', error: error instanceof Error ? error.message : 'Unknown error' },
+            { status: 500 }
+        );
+    }
+}
