@@ -23,13 +23,12 @@ spec:
       allowAllUsers: true
     sidecar:
       enabled: true     
-  env:
+env:
     - name: BRUM_API_URL
     - value: http://brum-api.brum:8080 
     - name: BACKEND_AUDIENCE
       value: api://dev-gcp.brum.brum-api/.default
-
-  accessPolicy:
+accessPolicy:
     outbound:
       rules:
         - application: brum-api
