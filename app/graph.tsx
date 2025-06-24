@@ -3,7 +3,7 @@
 import { Chart, PlotOptions } from '@highcharts/react';
 import { Data } from '@highcharts/react/options/Data';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ChartMenu from './chartmenu';
 
 interface GraphProps {
@@ -12,6 +12,17 @@ interface GraphProps {
 
 const Graph = ({ filnavn }: GraphProps) => {
   const ref = useRef<any>(null);
+  const [tulleData, setTulledata] = useState(null);
+
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch data');
+        return res.text();
+      })
+      .then(setTulledata)
+      .catch(console.error);
+  }, []);
 
   const [chartOptions, setChartOptions] = useState({
     title: { text: '' },
@@ -22,7 +33,7 @@ const Graph = ({ filnavn }: GraphProps) => {
     <div>
       <Chart options={chartOptions} ref={ref}>
         <Exporting />
-        <Data csvURL={'/data/' + filnavn} />
+        <Data csv={tulleData} />
         <PlotOptions series={{ stacking: 'normal' }} />
       </Chart>
 
