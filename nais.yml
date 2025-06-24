@@ -25,7 +25,7 @@ spec:
       enabled: true     
   env:
     - name: BRUM_API_URL
-      value: http://brum-api.brum:8080
+      value: http://brum-api
     - name: BACKEND_AUDIENCE
       value: api://dev-gcp.brum.brum-api/.default
 
