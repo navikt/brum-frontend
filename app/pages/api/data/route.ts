@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
             throw new Error("BRUM_API_URL is not defined in environment variables for Next.js API route.");
         }
 
-        const ktorResponse = await fetch(`${BRUM_API_URL}/api/data`, {
+        const ktorResponse = await fetch(`${BRUM_API_URL}/testAuth`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
