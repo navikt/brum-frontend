@@ -1,28 +1,35 @@
-'use client'; // ??
+"use client";
 
 import { PageBlock } from '@navikt/ds-react/Page';
 import { Chart, PlotOptions, Title, XAxis, YAxis } from '@highcharts/react';
 import { Column } from '@highcharts/react/series';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Radio, RadioGroup, Switch } from '@navikt/ds-react';
 import { Exporting } from '@highcharts/react/options/Exporting';
-
-const tiltaksdata = {
-  grot: { vedtak: [0, 3, 2], opptak: [1, 6, 5], skippertak: [0, 5, 4] },
-  suppe: { vedtak: [3, 1, 1], opptak: [2, 2, 2], skippertak: [2, 0, 1] },
-  spag: { vedtak: [6, 6, 4], opptak: [4, 5, 4], skippertak: [2, 1, 4] },
-};
 
 const Graph = () => {
   const [avdeling, setAvdeling] = useState('grot');
   const [prosent, setProsent] = useState(false);
   const [inverted, setInverted] = useState(false);
+  const [tiltaksdata, setTiltaksdata] = useState<any>(null);
   const ref = useRef<any>(null);
+
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch data');
+        return res.json();
+      })
+      .then(setTiltaksdata)
+      .catch(console.error);
+  }, []);
 
   const swapInversion = (e:boolean) => {
     setInverted(e);
     ref.current.chart.update({ chart: { inverted: inverted } });
   };
+
+  if (!tiltaksdata) return <div>Laster data...</div>;
 
   return (
     <div>
