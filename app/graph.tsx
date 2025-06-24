@@ -12,7 +12,7 @@ interface GraphProps {
 
 const Graph = ({ filnavn }: GraphProps) => {
   const ref = useRef<any>(null);
-  const [tulleData, setTulledata] = useState(null);
+  const [tulleData, setTulledata] = useState('');
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
