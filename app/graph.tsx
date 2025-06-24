@@ -24,35 +24,58 @@ const Graph = () => {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch data');
-        return res.json();
-      })
-      .then(setTiltaksdata)
-      .catch(console.error);
-  }, []);
-
-  const swapInversion = (e: boolean) => {
+  const swapInversion = (e:boolean) => {
     setInverted(e);
-    ref.current?.chart.update({ chart: { inverted: inverted } });
+    ref.current.chart.update({ chart: { inverted: inverted } });
   };
 
   if (!tiltaksdata) return <div>Laster data...</div>;
 
   return (
     <div>
-      <Chart options={chartOptions} ref={ref}>
+      <PageBlock width="md" gutters>
         <Exporting />
-        <Data csvURL={'/data/' + filnavn} />
-        <PlotOptions series={{ stacking: 'normal' }} />
-      </Chart>
+        <RadioGroup legend="Velg avdeling." onChange={setAvdeling} value={avdeling}>
+          <Radio value="grot">Grøtavdelingen</Radio>
+          <Radio value="suppe">Suppeavdelingen</Radio>
+          <Radio value="spag">Spagettiavdelingen</Radio>
+        </RadioGroup>
+        <Switch checked={prosent} onChange={(e) => setProsent(e.target.checked)}>
+          Prosent
+        </Switch>
+      </PageBlock>
+      <PageBlock width="md" gutters>
+        <Chart ref={ref}>
+          <Title>Andel av tiltak</Title>
 
-      <RadioGroup legend="Inverted?" onChange={swapInversion} value={inverted}>
-        <Radio value={true}>Yes</Radio>
-        <Radio value={false}>No</Radio>
-      </RadioGroup>
+          <XAxis categories={['Februar', 'Mars', 'April']} />
+          <YAxis min={0} />
+          <PlotOptions
+            series={{
+              stacking: prosent ? 'percent' : undefined,
+              dataLabels: {
+                enabled: true,
+              },
+            }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].vedtak}
+            options={{ name: 'Vedtakstiltak' }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].opptak}
+            options={{ name: 'Opptakstiltak' }}
+          />
+          <Column.Series
+            data={tiltaksdata[avdeling as keyof typeof tiltaksdata].skippertak}
+            options={{ name: 'Skippertakstiltak' }}
+          />
+        </Chart>
+        <RadioGroup legend="Invert?" onChange={swapInversion} value={inverted}>
+          <Radio value={true}>Yes</Radio>
+          <Radio value={false}>No</Radio>
+        </RadioGroup>
+      </PageBlock>
     </div>
   );
 };
