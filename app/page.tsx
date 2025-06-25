@@ -15,7 +15,7 @@ const Home = () => {
       try {
         const response = await fetch('/oauth2/session');
         const authData = await response.json();
-        authData.active ? setIsAuthenticated(true) : setIsAuthenticated(false);
+        authData.session.active ? setIsAuthenticated(true) : setIsAuthenticated(false);
       } catch (error) {
         console.error('Error checking authentication:', error);
         setError('Kunne ikke sjekke autentisering');
