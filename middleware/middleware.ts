@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     const sessionResponse = await fetch(`${origin}/oauth2/session`);
     const sessionData = await sessionResponse.json();
 
-    if (!sessionData.active) {
+    if (!sessionData.session?.active) {
     
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
 
