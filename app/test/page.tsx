@@ -1,4 +1,4 @@
-import { getOboToken } from '../pages/api/test';
+import { getOboToken } from '../api/test';
 import { headers } from 'next/headers';
 
 const Test = async () => {

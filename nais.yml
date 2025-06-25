@@ -25,7 +25,7 @@ spec:
       enabled: true     
   env:
     - name: BRUM_API_URL
-      value: https://brum-api.intern.dev.nav.no
+      value: http://brum-api
     - name: BACKEND_AUDIENCE
       value: api://dev-gcp.brum.brum-api/.default
 
@@ -35,4 +35,3 @@ spec:
         - application: brum-api
         - application: brum
           namespace: brum
-
