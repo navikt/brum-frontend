@@ -5,10 +5,9 @@ import { Data } from '@highcharts/react/options/Data';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { useRef, useState, useEffect } from 'react';
 import ChartMenu from './chartmenu';
+import { GraphProps } from '@/types/chartTypes';
 
-interface GraphProps {
-  filnavn: string;
-}
+
 
 const Graph = ({ filnavn }: GraphProps) => {
   const ref = useRef<any>(null);

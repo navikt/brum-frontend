@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../test';
 
-// This is the GET handler for your API route
 export async function GET(req: NextRequest) {
     try {
-        // Step 1: Extract the user's token from the incoming request
+      
         const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
 
         if (!userToken) {
@@ -15,7 +14,6 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        // Step 2: Get an OBO access token for the Ktor backend
         const oboAccessToken = await getOboToken(userToken);
         if (!oboAccessToken) {
             console.error("Failed to obtain OBO access token from Texas.");
@@ -27,7 +25,6 @@ export async function GET(req: NextRequest) {
             console.log("OBO access token obtained successfully");
         }
 
-        // Step 3: Call the Ktor backend with the OBO access token
         const BRUM_API_URL = process.env.BRUM_API_URL;
         if (!BRUM_API_URL) {
             throw new Error("BRUM_API_URL is not defined in environment variables for Next.js API route.");

@@ -1,4 +1,4 @@
-import { getServerEnv } from '@/app/env'
+import { getServerEnv } from '@/utils/env'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 

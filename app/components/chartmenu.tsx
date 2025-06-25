@@ -1,19 +1,8 @@
 'use client';
-
+import { MenuProps } from '@/types/chartTypes';
 import { Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { RefObject, Dispatch, SetStateAction } from 'react';
 
-interface chartOptionType {
-  title: { text: string };
-  chart: { type: string; inverted: boolean };
-  plotOptions: { series: { stacking: string } };
-}
-
-interface MenuProps {
-  chartOptions: chartOptionType;
-  setChartOptions: Dispatch<SetStateAction<chartOptionType>>;
-  ref: RefObject<null>;
-}
 
 const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
   return (
