@@ -1,13 +1,17 @@
 'use client';
 
-import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
+import { Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { RefObject, Dispatch, SetStateAction } from 'react';
 
+interface chartOptionType {
+  title: { text: string };
+  chart: { type: string; inverted: boolean };
+  plotOptions: { series: { stacking: string } };
+}
+
 interface MenuProps {
-  chartOptions: { title: { text: string }; chart: { type: string; inverted: boolean } };
-  setChartOptions: Dispatch<
-    SetStateAction<{ title: { text: string }; chart: { type: string; inverted: boolean } }>
-  >;
+  chartOptions: chartOptionType;
+  setChartOptions: Dispatch<SetStateAction<chartOptionType>>;
   ref: RefObject<null>;
 }
 
@@ -35,6 +39,20 @@ const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
         value={chartOptions.title.text}
         label="Sett tittel"
       />
+
+      <RadioGroup
+        legend="Stacking?"
+        onChange={(e) => {
+          setChartOptions({
+            ...chartOptions,
+            plotOptions: { series: { stacking: e } },
+          });
+        }}
+        value={chartOptions.plotOptions.series.stacking}
+      >
+        <Radio value={'normal'}>Normal</Radio>
+        <Radio value={'percent'}>Percent</Radio>
+      </RadioGroup>
     </div>
   );
 };

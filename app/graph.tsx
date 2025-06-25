@@ -15,7 +15,7 @@ const Graph = ({ filnavn }: GraphProps) => {
   const [tulleData, setTulledata] = useState('');
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
+    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/staticFile/test-data.csv')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.text();
@@ -27,6 +27,7 @@ const Graph = ({ filnavn }: GraphProps) => {
   const [chartOptions, setChartOptions] = useState({
     title: { text: '' },
     chart: { type: 'column', inverted: false },
+    plotOptions: { series: { stacking: undefined } },
   });
 
   return (
@@ -34,7 +35,6 @@ const Graph = ({ filnavn }: GraphProps) => {
       <Chart options={chartOptions} ref={ref}>
         <Exporting />
         <Data csv={tulleData} />
-        <PlotOptions series={{ stacking: 'normal' }} />
       </Chart>
 
       <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} ref={ref} />
