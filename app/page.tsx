@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { use, useState, useEffect } from 'react';
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const route = useRouter();
