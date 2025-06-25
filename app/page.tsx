@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch('/oauth2/session`');
+        const response = await fetch('/oauth2/session');
         const authData = await response.json();
         authData.active ? setIsAuthenticated(true) : setIsAuthenticated(false);
       } catch (error) {
