@@ -7,8 +7,6 @@ import { useRef, useState, useEffect } from 'react';
 import ChartMenu from './chartmenu';
 import { GraphProps } from '@/types/chartTypes';
 
-
-
 const Graph = ({ filnavn }: GraphProps) => {
   const ref = useRef<any>(null);
   const [tulleData, setTulledata] = useState('');
