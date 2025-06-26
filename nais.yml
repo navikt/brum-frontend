@@ -7,22 +7,22 @@ metadata:
   name: brum
   namespace: brum
   annotations:
-    texas.nais.io/enabled: "true"
+    texas.nais.io/enabled: 'true'
 
 spec:
   ingresses:
     - https://brum.intern.dev.nav.no
-  image: {{image}}
+  image: {{ image }}
   port: 3000
   prometheus:
     enabled: true
-    path: "/api/metrics"
+    path: '/api/metrics'
   azure:
     application:
       enabled: true
       allowAllUsers: true
     sidecar:
-      enabled: true     
+      enabled: true
   env:
     - name: BRUM_API_URL
       value: http://brum-api

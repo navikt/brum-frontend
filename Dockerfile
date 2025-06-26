@@ -11,8 +11,9 @@ RUN npm ci
 
 COPY next.config.ts tsconfig.json ./
 COPY app app
-COPY utils utils
-COPY types types
+COPY common common
+COPY styles styles
+COPY middleware.ts middleware.ts
 COPY public public
 
 RUN npm run build

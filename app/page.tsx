@@ -3,20 +3,29 @@
 import { Button, ErrorSummary, ExpansionCard, Heading, Loader, Spacer } from '@navikt/ds-react';
 import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
 import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import Graph from '@/common/components/graph';
+import { ExpansionCardContent, ExpansionCardHeader } from '@navikt/ds-react/ExpansionCard';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const route = useRouter();
+
   useEffect(() => {
     const checkAuthStatus = async () => {
+      setLoading(true);
       try {
         const response = await fetch('/oauth2/session');
+        if (!response.ok) throw new Error('Network response was not ok');
         const authData = await response.json();
-        authData.session.active ? setIsAuthenticated(true) : setIsAuthenticated(false);
+        if (authData.session && authData.session.active) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       } catch (error) {
         console.error('Error checking authentication:', error);
         setError('Kunne ikke sjekke autentisering');
@@ -85,13 +94,12 @@ const Home = () => {
             Logg inn
           </Button>
         )}
+
+          <ExpansionCard aria-label='dev check graph'>
+            <ExpansionCard.Header>Dev: Inspect graph</ExpansionCard.Header>
+            <ExpansionCard.Content><Graph filnavn='xx'/></ExpansionCard.Content>
+          </ExpansionCard>
       </div>
-      <ExpansionCard aria-label="dev check graph">
-        <ExpansionCard.Header>Dev: Inspect graph</ExpansionCard.Header>
-        <ExpansionCard.Content>
-          <Graph filnavn="aa" />
-        </ExpansionCard.Content>
-      </ExpansionCard>
       <Spacer />
     </main>
   );
