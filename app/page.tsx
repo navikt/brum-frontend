@@ -2,7 +2,6 @@
 
 import { Button, ErrorSummary, ExpansionCard, Heading, Loader, Spacer } from '@navikt/ds-react';
 import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
-import { ExpansionCardContent, ExpansionCardHeader } from '@navikt/ds-react/ExpansionCard';
 import { useRouter } from 'next/navigation';
 import { use, useState, useEffect } from 'react';
 import Graph from '@/common/components/graph';
