@@ -87,7 +87,7 @@ const Home = () => {
           </Button>
         )}
       </div>
-      <ExpansionCard size="big" aria-label="dev check graph">
+      <ExpansionCard aria-label="dev check graph">
         <ExpansionCard.Header>Dev: Inspect graph</ExpansionCard.Header>
         <ExpansionCard.Content>
           <Graph filnavn="aa" />
