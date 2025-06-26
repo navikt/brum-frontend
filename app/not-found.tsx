@@ -35,10 +35,6 @@ const NotFound = () => {
           </div>
         </VStack>
       </Box>
-      <Box>
-        <Tag variant="success">Hei :) Putta en graf her for å ha et lett sted å sjekke.</Tag>
-        <Graph filnavn="ignore" />
-      </Box>
     </PageBlock>
   );
 };
