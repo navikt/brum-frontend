@@ -5,7 +5,7 @@ import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
 import { ExpansionCardContent, ExpansionCardHeader } from '@navikt/ds-react/ExpansionCard';
 import { useRouter } from 'next/navigation';
 import { use, useState, useEffect } from 'react';
-import Graph from './components/graph';
+import Graph from '@/common/components/graph';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);

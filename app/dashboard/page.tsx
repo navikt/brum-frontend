@@ -1,4 +1,4 @@
-import Graph from '../components/graph';
+import Graph from '@/common/components/graph';
 
 export default function Dashboard() {
   return (
