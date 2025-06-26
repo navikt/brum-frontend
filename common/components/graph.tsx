@@ -12,7 +12,7 @@ const Graph = ({ filnavn }: GraphProps) => {
   const [tulleData, setTulledata] = useState('');
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/staticFile/test-data.csv')
+    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.text();
