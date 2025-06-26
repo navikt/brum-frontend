@@ -1,17 +1,16 @@
 'use client';
 
-import { Button, ErrorSummary, ExpansionCard, Heading, Loader, Spacer } from '@navikt/ds-react';
+import { Button, ErrorSummary, Heading, Loader, Spacer } from '@navikt/ds-react';
 import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
-import { ExpansionCardContent, ExpansionCardHeader } from '@navikt/ds-react/ExpansionCard';
 import { useRouter } from 'next/navigation';
 import { use, useState, useEffect } from 'react';
-import Graph from '@/common/components/graph';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const route = useRouter();
+  
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
@@ -34,6 +33,7 @@ const Home = () => {
   };
 
   const handleGoToDashboardClick = () => {
+ 
     route.push('/dashboard');
   };
 
@@ -71,28 +71,29 @@ const Home = () => {
   }
 
   return (
-    <main style={mainStyles}>
+ <main style={mainStyles}>
       <Heading level="1" size="large" align="center" spacing>
         Velkommen til Brum
       </Heading>
-      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>Analyse av tiltak</p>
+      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>
+        Analyse av tiltak
+      </p>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
         {isAuthenticated ? (
           <Button variant="primary" onClick={handleGoToDashboardClick}>
             Gå til Dashboard
           </Button>
         ) : (
-          <Button variant="primary" onClick={handleLoginClick} style={{ width: '200px' }}>
+         
+          <Button
+            variant="primary"
+            onClick={handleLoginClick}
+            style={{ width: '200px' }}
+          >
             Logg inn
           </Button>
         )}
       </div>
-      <ExpansionCard aria-label="dev check graph">
-        <ExpansionCard.Header>Dev: Inspect graph</ExpansionCard.Header>
-        <ExpansionCard.Content>
-          <Graph filnavn="aa" />
-        </ExpansionCard.Content>
-      </ExpansionCard>
       <Spacer />
     </main>
   );

@@ -14,6 +14,7 @@ COPY app app
 COPY common common
 COPY styles styles
 COPY middleware.ts middleware.ts
+COPY public public
 
 RUN npm run build
 
