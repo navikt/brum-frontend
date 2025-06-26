@@ -10,13 +10,19 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const route = useRouter();
-  
+
   useEffect(() => {
     const checkAuthStatus = async () => {
+      setLoading(true);
       try {
         const response = await fetch('/oauth2/session');
+        if (!response.ok) throw new Error('Network response was not ok');
         const authData = await response.json();
-        authData.session.active ? setIsAuthenticated(true) : setIsAuthenticated(false);
+        if (authData.session && authData.session.active) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       } catch (error) {
         console.error('Error checking authentication:', error);
         setError('Kunne ikke sjekke autentisering');
@@ -33,7 +39,6 @@ const Home = () => {
   };
 
   const handleGoToDashboardClick = () => {
- 
     route.push('/dashboard');
   };
 
@@ -71,25 +76,18 @@ const Home = () => {
   }
 
   return (
- <main style={mainStyles}>
+    <main style={mainStyles}>
       <Heading level="1" size="large" align="center" spacing>
         Velkommen til Brum
       </Heading>
-      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>
-        Analyse av tiltak
-      </p>
+      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>Analyse av tiltak</p>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
         {isAuthenticated ? (
           <Button variant="primary" onClick={handleGoToDashboardClick}>
             Gå til Dashboard
           </Button>
         ) : (
-         
-          <Button
-            variant="primary"
-            onClick={handleLoginClick}
-            style={{ width: '200px' }}
-          >
+          <Button variant="primary" onClick={handleLoginClick} style={{ width: '200px' }}>
             Logg inn
           </Button>
         )}
