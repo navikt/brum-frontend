@@ -5,6 +5,7 @@ import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Graph from '@/common/components/graph';
+import { PageBlock } from '@navikt/ds-react/Page';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -92,15 +93,16 @@ const Home = () => {
             Logg inn
           </Button>
         )}
-
+      </div>
+      <Spacer />
+      <PageBlock>
         <ExpansionCard aria-label="dev check graph">
           <ExpansionCard.Header>Dev: Inspect graph</ExpansionCard.Header>
           <ExpansionCard.Content>
             <Graph filnavn="xxy" />
           </ExpansionCard.Content>
         </ExpansionCard>
-      </div>
-      <Spacer />
+      </PageBlock>
     </main>
   );
 };
