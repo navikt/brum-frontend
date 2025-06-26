@@ -3,7 +3,7 @@
 import { Button, ErrorSummary, ExpansionCard, Heading, Loader, Spacer } from '@navikt/ds-react';
 import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
 import { useRouter } from 'next/navigation';
-import { use, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Graph from '@/common/components/graph';
 
 const Home = () => {
