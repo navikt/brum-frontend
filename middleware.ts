@@ -24,9 +24,9 @@ export async function middleware(request: NextRequest) {
     console.log(`Middleware: Checking session for protected path '${pathname}'.`);
 
     // Hent session data from the OAuth2 session endpoint
-    const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
-    logger.warn(`session url ${sessionUrl}`);
-    const sessionResponse = await fetch(sessionUrl, {
+    // const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
+    // logger.warn(`session url ${sessionUrl}`);
+    const sessionResponse = await fetch('https://brum.intern.dev.nav.no/oauth2/session', {
       headers: {
         cookie: request.headers.get('cookie') || '',
       },
