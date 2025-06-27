@@ -26,11 +26,8 @@ export async function middleware(request: NextRequest) {
     // Hent session data from the OAuth2 session endpoint
     const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
     logger.warn(`session url ${sessionUrl}`);
-    const sessionResponse = await fetch(sessionUrl, {
-      headers: {
-        cookie: request.headers.get('cookie') || '',
-      },
-    });
+    const sessionResponse = await fetch(`${origin}/oauth2/session`);
+
     if (!sessionResponse.ok) {
       throw new Error('session endpoint returend non-200');
     }
