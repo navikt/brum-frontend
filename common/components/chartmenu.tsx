@@ -1,9 +1,8 @@
 'use client';
 import { MenuProps } from '@/common/types/chartTypes';
-import { Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
-import { RefObject, Dispatch, SetStateAction } from 'react';
+import { Radio, RadioGroup, TextField } from '@navikt/ds-react';
 
-const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
+const ChartMenu = ({ chartOptions, setChartOptions }: MenuProps) => {
   return (
     <div>
       <RadioGroup
@@ -11,10 +10,10 @@ const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
         onChange={(e) => {
           setChartOptions({
             ...chartOptions,
-            chart: { type: chartOptions.chart.type, inverted: e },
+            chart: { type: chartOptions.chart!.type, inverted: e },
           });
         }}
-        value={chartOptions.chart.inverted}
+        value={chartOptions.chart!.inverted}
       >
         <Radio value={true}>Yes</Radio>
         <Radio value={false}>No</Radio>
@@ -24,7 +23,7 @@ const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
         onChange={(e) => {
           setChartOptions({ ...chartOptions, title: { text: e.target.value } });
         }}
-        value={chartOptions.title.text}
+        value={chartOptions.title!.text}
         label="Sett tittel"
       />
 
@@ -36,7 +35,7 @@ const ChartMenu = ({ chartOptions, setChartOptions, ref }: MenuProps) => {
             plotOptions: { series: { stacking: e } },
           });
         }}
-        value={chartOptions.plotOptions.series.stacking}
+        value={chartOptions.plotOptions!.series!.stacking}
       >
         <Radio value={'normal'}>Normal</Radio>
         <Radio value={'percent'}>Percent</Radio>
