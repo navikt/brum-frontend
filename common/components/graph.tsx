@@ -1,6 +1,6 @@
 'use client';
 
-import { Chart, PlotOptions } from '@highcharts/react';
+import { Chart } from '@highcharts/react';
 import { Data } from '@highcharts/react/options/Data';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { useRef, useState, useEffect } from 'react';
@@ -21,6 +21,7 @@ const Graph = ({ filnavn }: GraphProps) => {
       .catch(console.error);
   }, []);
 
+  console.log('DATA', tulleData);
   const [chartOptions, setChartOptions] = useState({
     title: { text: '' },
     chart: { type: 'column', inverted: false },
