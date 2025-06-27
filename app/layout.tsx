@@ -18,13 +18,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Page>
           <InternalHeader>
             <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
-            <Spacer />
             <ActionMenu>
               <ActionMenuTrigger>
                 <InternalHeaderButton>Se graf</InternalHeaderButton>
               </ActionMenuTrigger>
               <ActionMenuContent>
-                <Graph filnavn="xyz" />
+                <div style={{ minWidth: 500 }}>
+                  <Graph filnavn="xyz" />{' '}
+                </div>
               </ActionMenuContent>
             </ActionMenu>
           </InternalHeader>
