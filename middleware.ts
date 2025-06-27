@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
 
   if (isPublicPath || isNaisLoginPath) {
     console.log(`Middleware: Public/Login path '${pathname}'. Proceeding.`);
-    logger.warn(`Middleware: Public/Login path '${pathname}'. Proceeding.`)
+    logger.warn(`Middleware: Public/Login path '${pathname}'. Proceeding.`);
     return NextResponse.next();
   }
 
@@ -24,12 +24,19 @@ export async function middleware(request: NextRequest) {
     console.log(`Middleware: Checking session for protected path '${pathname}'.`);
 
     // Hent session data from the OAuth2 session endpoint
-    const sessionResponse = await fetch(`${origin}/oauth2/session`);
+    const sessionResponse = await fetch('/oauth2/session', {
+      headers: {
+        cookie: request.headers.get('cookie') || '',
+      },
+    });
+    if(!sessionResponse.ok){
+      throw new Error("session endpoint returend non-200")
+    }
     const sessionData = await sessionResponse.json();
 
     if (!sessionData.session?.active) {
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
-      logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`)
+      logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
 
       // Hvis ikke sesion ikke er aktiv, omdiriger til login
       const loginUrl = new URL(NAIS_LOGIN_PATH, origin);
@@ -54,5 +61,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|oauth2/login|oauth2/session|api/auth|api/metrics).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|oauth2/login|oauth2/session|api/auth|api/metrics).*)',
+  ],
 };
