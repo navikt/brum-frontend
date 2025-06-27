@@ -24,13 +24,15 @@ export async function middleware(request: NextRequest) {
     console.log(`Middleware: Checking session for protected path '${pathname}'.`);
 
     // Hent session data from the OAuth2 session endpoint
-    const sessionResponse = await fetch('/oauth2/session', {
+    const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
+    logger.warn(`session url ${sessionUrl}`);
+    const sessionResponse = await fetch(sessionUrl, {
       headers: {
         cookie: request.headers.get('cookie') || '',
       },
     });
-    if(!sessionResponse.ok){
-      throw new Error("session endpoint returend non-200")
+    if (!sessionResponse.ok) {
+      throw new Error('session endpoint returend non-200');
     }
     const sessionData = await sessionResponse.json();
 
