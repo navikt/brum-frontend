@@ -11,8 +11,8 @@ const Graph = ({ filnavn }: GraphProps) => {
   const ref = useRef<any>(null);
   const [tulleData, setTulledata] = useState('');
 
-  useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL!! + '/getTestData')
+  useEffect(() => { 
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/getTestData`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.text();
