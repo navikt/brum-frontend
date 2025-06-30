@@ -4,7 +4,6 @@ import { Button, ErrorSummary, Heading, Loader, Spacer } from '@navikt/ds-react'
 import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import UserInfo from '@/common/components/userInfo';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -16,10 +15,7 @@ const Home = () => {
     const checkAuthStatus = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/oauth2/session', 
-          { credentials: 'include' 
-            
-          })
+        const response = await fetch('/oauth2/session', { credentials: 'include' });
         if (!response.ok) throw new Error('Network response was not ok');
         const authData = await response.json();
         if (authData.session && authData.session.active) {
