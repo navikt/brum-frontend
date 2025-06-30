@@ -1,7 +1,9 @@
-import * as z from 'zod/v4';
+import * as z from 'zod/v4'; // runtime validation library
 
+// zod utility that takes "ServerEnvSchema" and creates a type
 type ServerEnv = z.infer<typeof ServerEnvSchema>;
 
+//define the zod schema
 const ServerEnvSchema = z.object({
   tokenExchangeEndpoint: z.string(),
   backendAudience: z.string(),
