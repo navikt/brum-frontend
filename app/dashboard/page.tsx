@@ -7,7 +7,7 @@ export default function Dashboard() {
       <p>Velkommen til Brum Dashboard!</p>
       <p>Her kan du se statistikk og annen informasjon.</p>
 
-      <Graph filnavn="rkr" />
+      <Graph />
     </div>
   );
 }

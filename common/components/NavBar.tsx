@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import '@navikt/ds-css';
 import { ActionMenu, InternalHeader, Page } from '@navikt/ds-react';
 import Graph from '@/common/components/graph';
@@ -8,44 +8,43 @@ import { ActionMenuContent, ActionMenuTrigger } from '@navikt/ds-react/ActionMen
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
 
-
-export default function NavBar(){
+export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("/oauth2/session", { credentials: "include" });
-        if (!response.ok) throw new Error("Failed to check session");
-        const data = await response.json()
-        setIsLoggedIn(data.session?.active ?? false)
+        const response = await fetch('/oauth2/session', { credentials: 'include' });
+        if (!response.ok) throw new Error('Failed to check session');
+        const data = await response.json();
+        setIsLoggedIn(data.session?.active ?? false);
       } catch (error) {
-        logger.warn("Not logged in cant render navbar");
+        logger.warn('Not logged in cant render navbar');
         console.error(error);
         setIsLoggedIn(false);
       }
     };
     checkAuthStatus();
-  },[])
+  }, []);
 
-if(isLoggedIn){
-  return(
-    <div>
-      <InternalHeader>
-        <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
-        <ActionMenu>
-          <ActionMenuTrigger>
-            <InternalHeaderButton>Se graf</InternalHeaderButton>
-          </ActionMenuTrigger>
-          <ActionMenuContent>
-            <div style={{ minWidth: 500 }}>
-              <Graph filnavn="xyz" />{' '}
-            </div>
-          </ActionMenuContent>
-        </ActionMenu>
-      </InternalHeader>
-    </div>
-  )
-}
+  if (isLoggedIn) {
+    return (
+      <div>
+        <InternalHeader>
+          <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
+          <ActionMenu>
+            <ActionMenuTrigger>
+              <InternalHeaderButton>Se graf</InternalHeaderButton>
+            </ActionMenuTrigger>
+            <ActionMenuContent>
+              <div style={{ minWidth: 500 }}>
+                <Graph />
+              </div>
+            </ActionMenuContent>
+          </ActionMenu>
+        </InternalHeader>
+      </div>
+    );
+  }
   return (
     <div>
       <InternalHeader>
@@ -58,7 +57,7 @@ if(isLoggedIn){
             </ActionMenuTrigger>
             <ActionMenuContent>
               <div style={{ minWidth: 500 }}>
-                <Graph filnavn="xyz" />
+                <Graph />
               </div>
             </ActionMenuContent>
           </ActionMenu>
@@ -69,6 +68,5 @@ if(isLoggedIn){
         </div>
       </InternalHeader>
     </div>
-
-  )
+  );
 }

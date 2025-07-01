@@ -3,13 +3,12 @@
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { useRef, useState } from 'react';
 import ChartMenu from './chartmenu';
-import { GraphProps } from '@/common/types/chartTypes';
 import TableX from './tablex';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { useFetchTestData } from '@/common/utils/fetchTestData';
 import { Skeleton } from '@navikt/ds-react';
 
-const Graph = ({ filnavn }: GraphProps) => {
+const Graph = () => {
   const ref = useRef<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,12 +28,11 @@ const Graph = ({ filnavn }: GraphProps) => {
         </>
       ) : (
         <>
-          {' '}
           <Chart options={chartOptions} ref={ref}>
             <Exporting />
           </Chart>
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
-          <TableX />{' '}
+          <TableX />
         </>
       )}
     </div>

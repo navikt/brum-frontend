@@ -12,7 +12,3 @@ export interface MenuProps {
   chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
 }
-
-export interface GraphProps {
-  filnavn: string;
-}
