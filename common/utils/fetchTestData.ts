@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useFetchTestData(setChartOptions: Function, setLoading: Function) {
+export function useFetchTestData(setData: Function, setLoading: Function, setChartOptions: any) {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/testData`)
       .then((res) => {
@@ -8,15 +8,20 @@ export function useFetchTestData(setChartOptions: Function, setLoading: Function
         return res.json();
       })
       .then((data) => {
-        setChartOptions((prev: any) => ({
-          ...prev,
-          series: data.map((d: Object) => ({
-            type: 'column',
-            data: Object.values(d),
-          })),
-        }));
-        setLoading(false);
+        setData(data);
       })
       .catch(console.error);
-  }, [setChartOptions]);
+  }, [setData]);
+}
+
+export function updateGraphSeries(data: any, setChartOptions: Function, setLoading: any) {
+  console.log(data);
+  setChartOptions((prev: any) => ({
+    ...prev,
+    series: data.map((d: Object) => ({
+      type: 'column',
+      data: Object.values(d),
+    })),
+  }));
+  data && data.length ? setLoading(false) : setLoading(true);
 }
