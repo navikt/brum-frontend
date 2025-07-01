@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
 import { getOboToken } from '@/app/api/test';
+import { string } from 'zod';
 
 // oauth2 login path
 const NAIS_LOGIN_PATH = '/oauth2/login';
@@ -29,8 +30,25 @@ export async function middleware(request: NextRequest) {
     //const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
     //logger.warn(`session url ${sessionUrl}`);
 
-    const oboAccessToken = await getOboToken(userToken);
-    if(!oboAccessToken) {
+    const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
+    if (!introspectionUrl) {
+      throw new Error("NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables");
+    }
+    const checkIntrospectionEndpoint = await fetch(introspectionUrl,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'identity_provider': "azuread",
+        'token': userToken
+      })
+    });
+
+    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json()
+
+    logger.warn(checkIntrospectionEndpoint)
+    if(!checkIntrospectionEndpointBody.active){
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       // Hvis ikke sesion ikke er aktiv, omdiriger til login
@@ -39,7 +57,6 @@ export async function middleware(request: NextRequest) {
       loginUrl.searchParams.set('redirect_uri', href);
       return NextResponse.redirect(loginUrl);
     }
-
     // Hvis session er aktiv, fortsett til den beskyttede siden
     console.log(`Middleware: User authenticated for ${pathname}. Proceeding.`);
     logger.warn(`Middleware: User authenticated for ${pathname}. Proceeding.`);
