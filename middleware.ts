@@ -28,6 +28,8 @@ export async function middleware(request: NextRequest) {
     logger.warn(`session url ${sessionUrl}`);
     const sessionResponse = await fetch(`${origin}/oauth2/session`);
 
+
+
     if (!sessionResponse.ok) {
       throw new Error('session endpoint returend non-200');
     }
