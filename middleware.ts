@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
     // Hent session data from the OAuth2 session endpoint
     //const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
     //logger.warn(`session url ${sessionUrl}`);
-    const sessionResponse = await fetch(`/oauth2/session`);
+    const sessionResponse = await fetch(`http://localhost:3000/oauth2/session`);
 
 
 
