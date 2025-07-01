@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../test';
+import { logger } from '@navikt/next-logger';
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,9 +16,36 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
+    if (!introspectionUrl) {
+      throw new Error("NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables");
+    }
+    const checkIntrospectionEndpoint = await fetch(introspectionUrl,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'identity_provider': "azuread",
+        'token': userToken
+      })
+    });
+
+    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json()
+
+    logger.warn(checkIntrospectionEndpoint)
+    if(!checkIntrospectionEndpointBody.active){
+      console.error('Failed to obtain OBO access token from Texas.');
+      return NextResponse.json(
+        { message: 'Internal Server Error: Unable to obtain OBO token.' },
+        { status: 500 },
+      );
+    }
+
+
     const oboAccessToken = await getOboToken(userToken);
     if (!oboAccessToken) {
-      console.error('Failed to obtain OBO access token from Texas.');
+      console.error('Failed to obtain OBO access token from Texas(userinfo).');
       return NextResponse.json(
         { message: 'Internal Server Error: Unable to obtain OBO token.' },
         { status: 500 },
