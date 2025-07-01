@@ -26,7 +26,7 @@ export default function NavBar() {
     checkAuthStatus();
   }, []);
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <div>
         <InternalHeader>
