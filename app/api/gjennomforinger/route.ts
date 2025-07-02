@@ -58,6 +58,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    console.log('ktor response:' + ktorResponse);
+
     if (!ktorResponse.ok) {
       const errorBody = await ktorResponse.text();
       console.error(`Ktor API request failed with status ${ktorResponse.status}:`, errorBody);
