@@ -9,7 +9,6 @@ export default function NavBar() {
     <div>
       <InternalHeader>
         <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
-
         <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
           <div style={{ marginLeft: 'auto' }}>
             <UserInfo />
