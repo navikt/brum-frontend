@@ -10,7 +10,6 @@ import { Skeleton } from '@navikt/ds-react';
 
 const Graph = () => {
   const [data, setData] = useState<any>([]);
-  const ref = useRef<any>(null);
   const [loading, setLoading] = useState(true);
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
@@ -30,7 +29,7 @@ const Graph = () => {
         <Skeleton width="100%" height={500} style={{ marginBottom: '1rem' }} />
       ) : (
         <>
-          <Chart options={chartOptions} ref={ref}>
+          <Chart options={chartOptions}>
             <Exporting />
           </Chart>
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
