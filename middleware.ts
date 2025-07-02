@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
-import { getOboToken } from '@/app/api/test';
+import { getOboToken } from '@/common/utils/getOboToken';
 import { string } from 'zod';
 
 // oauth2 login path

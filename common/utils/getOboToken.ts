@@ -30,10 +30,3 @@ export const getOboToken = async (user_token: string | undefined) => {
 
   return data.access_token;
 };
-//     const obsResult = await requestOboToken({accessToekm, "api://dev-gcp.brum.brum-api/.default"})
-//    if (!oboResult.ok) {
-//         logger.error(new Error(`Unable to exchange token: ${oboResult.error.message}`, { cause: oboResult.error }))
-//         res.status(500)
-//         res.send(null)
-//         return
-//     }
