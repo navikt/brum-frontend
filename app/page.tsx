@@ -14,7 +14,6 @@ const Home = () => {
   const handleGoToDashboardClick = () => {
     route.push('/dashboard');
   };
-
   return (
     <main style={mainStyles}>
       <Heading level="1" size="large" align="center" spacing>
