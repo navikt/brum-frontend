@@ -3,7 +3,6 @@ import '@navikt/ds-css';
 import { Page } from '@navikt/ds-react';
 import NavBar from '@/common/components/NavBar';
 
-
 export const metadata: Metadata = {
   title: 'Brum',
   description: 'Frontend for Brum',
@@ -15,7 +14,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <head></head>
       <body>
         <Page>
-          <NavBar/>
+          <NavBar />
           {children}
         </Page>
       </body>

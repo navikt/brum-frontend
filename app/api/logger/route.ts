@@ -1,1 +1,1 @@
-export { POST } from '@navikt/next-logger/app-dir'
+export { POST } from '@navikt/next-logger/app-dir';

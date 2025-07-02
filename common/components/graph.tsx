@@ -1,7 +1,7 @@
 'use client';
 
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChartMenu from './chartmenu';
 import TableX from './tablex';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
@@ -9,8 +9,7 @@ import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestDat
 import { Skeleton } from '@navikt/ds-react';
 
 const Graph = () => {
-  const [data, setData] = useState<any>([]);
-  const ref = useRef<any>(null);
+  const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
@@ -30,7 +29,7 @@ const Graph = () => {
         <Skeleton width="100%" height={500} style={{ marginBottom: '1rem' }} />
       ) : (
         <>
-          <Chart options={chartOptions} ref={ref}>
+          <Chart options={chartOptions}>
             <Exporting />
           </Chart>
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
