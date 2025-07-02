@@ -44,6 +44,7 @@ const TableX = () => {
   return (
     <>
       <Table
+        zebraStripes
         sort={sort}
         onSortChange={(sortKey) => handleSort(sortKey as ScopedSortState['orderBy'])}
       >
