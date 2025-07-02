@@ -10,7 +10,6 @@ export default function  UserInfo() {
   const [userInfo, setUserInfo] = useState<{
     oid: string;
     username: string;
-    groups: string[];
   } | null>(null);
 
   useEffect(() => {
@@ -30,50 +29,44 @@ export default function  UserInfo() {
   }, []);
 
 
-  const handlelogoutClick = () => {
-    localStorage.removeItem("token");
-    redirect('/oauth2/logout');
-  };
+  //const handlelogoutClick = () => {
+    // localStorage.removeItem("token");
+    // redirect('/oauth2/logout');
+  // };
 
-  if(userInfo == null){
+  if(userInfo ){
     return (
-      <div>
-        null
+      <div className="min-h-32">
+        <Dropdown>
+          <Button as={Dropdown.Toggle}>
+            {userInfo.username}
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuGroupedList>
+              <DropdownMenuGroupedListHeading>
+                Konto
+              </DropdownMenuGroupedListHeading>
+              <DropdownMenuGroupedListItem>
+                {userInfo.username}
+              </DropdownMenuGroupedListItem>
+              <DropdownMenuGroupedListItem as="a" href="#">
+                {userInfo.username}
+              </DropdownMenuGroupedListItem>
+            </DropdownMenuGroupedList>
+            <DropdownMenuDivider />
+            <DropdownMenuList>
+              <DropdownMenuListItem as={Link} href="https://nav.no">
+                Kontakt
+              </DropdownMenuListItem>
+              <DropdownMenuListItem as={Link} href="/oauth2/logout">
+                Logg ut
+              </DropdownMenuListItem>
+            </DropdownMenuList>
+          </DropdownMenu>
+        </Dropdown>
       </div>
-    )
+    );
   }
-
-  return (
-    <div className="min-h-32">
-      <Dropdown>
-        <Button as={Dropdown.Toggle}>
-          {userInfo.username}
-        </Button>
-        <DropdownMenu>
-          <DropdownMenuGroupedList>
-            <DropdownMenuGroupedListHeading>
-              Konto
-            </DropdownMenuGroupedListHeading>
-            <DropdownMenuGroupedListItem>
-              {userInfo.username}
-            </DropdownMenuGroupedListItem>
-            <DropdownMenuGroupedListItem as="a" href="#">
-              {userInfo.username}
-            </DropdownMenuGroupedListItem>
-          </DropdownMenuGroupedList>
-          <DropdownMenuDivider />
-          <DropdownMenuList>
-            <DropdownMenuListItem as={Link} href="https://nav.no">
-              Kontakt
-            </DropdownMenuListItem>
-            <DropdownMenuListItem onClick={handlelogoutClick()}>
-              Logg ut
-            </DropdownMenuListItem>
-          </DropdownMenuList>
-        </DropdownMenu>
-      </Dropdown>
-    </div>
-  );
 };
 
 const mainStyles: React.CSSProperties = {
