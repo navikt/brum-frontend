@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, BodyShort, Box, Heading, Link, List, Tag, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Heading, Link, List, VStack } from '@navikt/ds-react';
 import { PageBlock } from '@navikt/ds-react/Page';
 import { ListItem } from '@navikt/ds-react/List';
 

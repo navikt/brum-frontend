@@ -1,7 +1,7 @@
 'use client';
 
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChartMenu from './chartmenu';
 import TableX from './tablex';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';

@@ -1,5 +1,4 @@
 import { getServerEnv } from '@/common/utils/getServerEnv';
-import { NextApiRequest, NextApiResponse } from 'next';
 
 interface TexasResult {
   access_token: string;

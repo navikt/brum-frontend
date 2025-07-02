@@ -1,11 +1,19 @@
-'use client'
-import Link from "next/link";
-import { Button, Dropdown, Loader } from '@navikt/ds-react';
-import { DropdownMenuGroupedList,DropdownMenuGroupedListHeading,DropdownMenuGroupedListItem,DropdownMenuList,DropdownMenuListItem,DropdownMenu,DropdownMenuDivider} from '@navikt/ds-react/Dropdown';
+'use client';
+import Link from 'next/link';
+import { Button, Dropdown } from '@navikt/ds-react';
+import {
+  DropdownMenuGroupedList,
+  DropdownMenuGroupedListHeading,
+  DropdownMenuGroupedListItem,
+  DropdownMenuList,
+  DropdownMenuListItem,
+  DropdownMenu,
+  DropdownMenuDivider,
+} from '@navikt/ds-react/Dropdown';
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
 
-export default function  UserInfo() {
+export default function UserInfo() {
   const [userInfo, setUserInfo] = useState<{
     oid: string;
     username: string;
@@ -15,8 +23,8 @@ export default function  UserInfo() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("/api/userInfo");
-        if (!response.ok) throw new Error("Failed to fetch user info");
+        const response = await fetch('/api/userInfo');
+        if (!response.ok) throw new Error('Failed to fetch user info');
         const userData = await response.json();
         setUserInfo(userData);
       } catch (error) {
@@ -28,29 +36,18 @@ export default function  UserInfo() {
     fetchUserInfo();
   }, []);
 
-
-  if(userInfo == null){
-    return (
-      <div>
-        null
-      </div>
-    )
+  if (userInfo == null) {
+    return <div>null</div>;
   }
 
   return (
     <div className="min-h-32">
       <Dropdown>
-        <Button as={Dropdown.Toggle}>
-          {userInfo.username}
-        </Button>
+        <Button as={Dropdown.Toggle}>{userInfo.username}</Button>
         <DropdownMenu>
           <DropdownMenuGroupedList>
-            <DropdownMenuGroupedListHeading>
-              Konto
-            </DropdownMenuGroupedListHeading>
-            <DropdownMenuGroupedListItem>
-              {userInfo.username}
-            </DropdownMenuGroupedListItem>
+            <DropdownMenuGroupedListHeading>Konto</DropdownMenuGroupedListHeading>
+            <DropdownMenuGroupedListItem>{userInfo.username}</DropdownMenuGroupedListItem>
             <DropdownMenuGroupedListItem as="a" href="#">
               {userInfo.username}
             </DropdownMenuGroupedListItem>
@@ -68,7 +65,7 @@ export default function  UserInfo() {
       </Dropdown>
     </div>
   );
-};
+}
 
 const mainStyles: React.CSSProperties = {
   minHeight: '100vh',

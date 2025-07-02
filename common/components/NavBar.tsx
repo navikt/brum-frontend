@@ -1,12 +1,10 @@
 'use client';
 import '@navikt/ds-css';
-import { ActionMenu, InternalHeader, Page } from '@navikt/ds-react';
+import { ActionMenu, InternalHeader } from '@navikt/ds-react';
 import Graph from '@/common/components/graph';
 import UserInfo from '@/common/components/userInfo';
 import { InternalHeaderButton, InternalHeaderTitle } from '@navikt/ds-react/InternalHeader';
 import { ActionMenuContent, ActionMenuTrigger } from '@navikt/ds-react/ActionMenu';
-import { useEffect, useState } from 'react';
-import { logger } from '@navikt/next-logger';
 
 export default function NavBar() {
   return (
