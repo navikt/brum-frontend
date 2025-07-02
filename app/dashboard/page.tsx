@@ -1,6 +1,6 @@
 'use client';
 import Graph from '@/common/components/graph';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, HGrid, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
 
@@ -20,17 +20,16 @@ export default function Dashboard() {
   console.log(data);
   return (
     <Page>
-      <Page.Block as="main" width="2xl" gutters>
-        <VStack margin="4" gap="4" align="center">
-          <Heading level="1" size="xlarge">
-            Dashboard
-          </Heading>
+      <HGrid margin="4" gap="4">
+        <Heading level="1" size="xlarge">
+          Dashboard
+        </Heading>
+        <>
           <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
           <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
-          Analyse av tiltak
-          <Graph />
-        </VStack>
-      </Page.Block>
+        </>
+        <Graph />
+      </HGrid>
     </Page>
   );
 }
