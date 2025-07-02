@@ -9,7 +9,7 @@ import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestDat
 import { Skeleton } from '@navikt/ds-react';
 
 const Graph = () => {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({

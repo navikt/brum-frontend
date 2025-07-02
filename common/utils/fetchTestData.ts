@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { HighchartsOptionsType } from '@highcharts/react';
+import { UpdateSeriesProps } from '../types/propTypes';
 
-export function useFetchTestData(setData: Function, setLoading: Function, setChartOptions: any) {
+export function useFetchTestData(setData: Dispatch<SetStateAction<Object[]>>) {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/testData`)
       .then((res) => {
@@ -14,9 +16,8 @@ export function useFetchTestData(setData: Function, setLoading: Function, setCha
   }, [setData]);
 }
 
-export function updateGraphSeries(data: any, setChartOptions: Function, setLoading: any) {
-  console.log(data);
-  setChartOptions((prev: any) => ({
+export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
+  setChartOptions((prev: HighchartsOptionsType) => ({
     ...prev,
     series: data.map((d: Object) => ({
       type: 'column',
