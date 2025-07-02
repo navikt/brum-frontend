@@ -4,7 +4,7 @@ import { UpdateSeriesProps } from '../types/propTypes';
 
 export function useFetchTestData(setData: Dispatch<SetStateAction<Object[]>>) {
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/testData`)
+    fetch(`${process.env.BRUM_API_URL}/testData`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
