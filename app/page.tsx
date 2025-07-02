@@ -1,14 +1,9 @@
 'use client';
 
-import { Button, ErrorSummary, Heading, Loader, Spacer } from '@navikt/ds-react';
-import { ErrorSummaryItem } from '@navikt/ds-react/ErrorSummary';
+import { Button, Heading, Spacer } from '@navikt/ds-react';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const route = useRouter();
 
   const handleGoToDashboardClick = () => {
@@ -21,9 +16,9 @@ const Home = () => {
       </Heading>
       <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>Analyse av tiltak</p>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
-          <Button variant="primary" onClick={handleGoToDashboardClick}>
-            Gå til Dashboard
-          </Button>
+        <Button variant="primary" onClick={handleGoToDashboardClick}>
+          Gå til Dashboard
+        </Button>
       </div>
       <Spacer />
     </main>
