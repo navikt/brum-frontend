@@ -22,15 +22,17 @@ export default function Dashboard() {
     <Page>
       <Page.Block width="2xl" as="main">
         <HGrid align="center" columns={3} overflow="auto">
-          <>
+          <div>
             <Heading level="1" size="xlarge">
               Dashboard
             </Heading>
 
             <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
             <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
-          </>
-          <Graph />
+          </div>
+          <div span-column="2">
+            <Graph />{' '}
+          </div>
         </HGrid>
       </Page.Block>
     </Page>
