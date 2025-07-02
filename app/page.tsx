@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Heading, Spacer } from '@navikt/ds-react';
+import { Button, Heading, Page, VStack } from '@navikt/ds-react';
 import { useRouter } from 'next/navigation';
 
 const Home = () => {
@@ -9,29 +9,24 @@ const Home = () => {
   const handleGoToDashboardClick = () => {
     route.push('/dashboard');
   };
-  return (
-    <main style={mainStyles}>
-      <Heading level="1" size="large" align="center" spacing>
-        Velkommen til Brum
-      </Heading>
-      <p style={{ textAlign: 'center', marginBottom: '2rem', color: '#444' }}>Analyse av tiltak</p>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
-        <Button variant="primary" onClick={handleGoToDashboardClick}>
-          Gå til Dashboard
-        </Button>
-      </div>
-      <Spacer />
-    </main>
-  );
-};
 
-const mainStyles: React.CSSProperties = {
-  minHeight: '100vh',
-  background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
+  return (
+    <Page>
+      <Page.Block as="main" width="2xl" gutters>
+        <VStack margin="4" gap="4" align="center">
+          <Heading level="1" size="xlarge">
+            Velkommen til Brum
+          </Heading>
+          <Heading level="2" size="small">
+            Analyse av tiltak
+          </Heading>
+          <Button variant="primary" onClick={handleGoToDashboardClick}>
+            Gå til Dashboard
+          </Button>
+        </VStack>
+      </Page.Block>
+    </Page>
+  );
 };
 
 export default Home;
