@@ -20,7 +20,7 @@ export default function Dashboard() {
   console.log(data);
   return (
     <Page>
-      <HGrid margin="4" gap="4">
+      <Page.Block width="2xl" as="main">
         <Heading level="1" size="xlarge">
           Dashboard
         </Heading>
@@ -29,7 +29,7 @@ export default function Dashboard() {
           <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
         </>
         <Graph />
-      </HGrid>
+      </Page.Block>
     </Page>
   );
 }
