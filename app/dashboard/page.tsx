@@ -1,36 +1,21 @@
 'use client'
 import Graph from '@/common/components/graph';
-import { useEffect, useState } from 'react';
-import { logger } from '@navikt/next-logger';
-import { Loader } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';;
 
 export default function Dashboard() {
-  const [data, setData] = useState<Object[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await fetch("/api/gjennomforinger");
-        if (!response.ok) throw new Error("Failed to fetch user info");
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        logger.warn("Not logged in, can't render user info");
-        console.error(error);
-        setLoading(true);
-      }
-    };
-    fetchUserInfo();
-  }, []);
-
-
-    if(loading){
-      return <Loader />;
-    }
-
-    console.log(data);
-
+  const [data, setData] = useState("");
+   useEffect(() => {
+       fetch('/api/gjennomforinger')
+           .then((res) => {
+               if (!res.ok) throw new Error('Failed to fetch data');
+               return res.text();
+           })
+       .then((data) => {
+           setData(data);
+       })
+       .catch(console.error);
+   }, [setData]);
+   console.log(data); 
   return (
     <div>
       <h1>Dashboard</h1>
