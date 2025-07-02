@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const ktorResponse = await fetch(`${BRUM_API_URL}/testAuth`, {
+    const ktorResponse = await fetch(`${BRUM_API_URL}/testData`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
