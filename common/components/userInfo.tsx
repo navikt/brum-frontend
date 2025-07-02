@@ -5,6 +5,7 @@ import { DropdownMenuGroupedList,DropdownMenuGroupedListHeading,DropdownMenuGrou
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
 import { redirect } from 'next/navigation'
+import { PersonIcon } from '@navikt/aksel-icons';
 
 export default function  UserInfo() {
   const [userInfo, setUserInfo] = useState<{
@@ -37,10 +38,8 @@ export default function  UserInfo() {
   if(userInfo ){
     return (
       <div className="min-h-32">
+        <PersonIcon title="a11y-title" fontSize="1.5rem" />
         <Dropdown>
-          <Button as={Dropdown.Toggle}>
-            {userInfo.username}
-          </Button>
           <DropdownMenu>
             <DropdownMenuGroupedList>
               <DropdownMenuGroupedListHeading>
@@ -64,6 +63,7 @@ export default function  UserInfo() {
             </DropdownMenuList>
           </DropdownMenu>
         </Dropdown>
+        <PersonIcon/>
       </div>
     );
   }
