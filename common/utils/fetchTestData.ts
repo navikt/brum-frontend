@@ -9,9 +9,7 @@ export function useFetchTestData(setData: Dispatch<SetStateAction<Object[]>>) {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
       })
-      .then((data) => {
-        setData(data);
-      })
+      .then(setData)
       .catch(console.error);
   }, [setData]);
 }
