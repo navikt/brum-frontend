@@ -1,5 +1,5 @@
 'use client';
-import { ChartOptionsProps, PercentModeProps, StackingRadioProps } from '@/common/types/chartTypes';
+import { ChartOptionsProps, PercentModeProps, StackingRadioProps } from '@/common/types/propTypes';
 import { Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 

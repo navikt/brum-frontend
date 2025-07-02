@@ -18,9 +18,9 @@ const Graph = () => {
     plotOptions: { series: { stacking: undefined } },
   });
 
-  useFetchTestData(setData, setLoading, setChartOptions);
+  useFetchTestData(setData);
   useEffect(() => {
-    updateGraphSeries(data, setChartOptions, setLoading);
+    updateGraphSeries({ data, setChartOptions, setLoading });
   }, [data]);
 
   return (
