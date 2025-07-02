@@ -1,5 +1,6 @@
 'use client';
 import Graph from '@/common/components/graph';
+import { PageBlock } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
@@ -17,12 +18,12 @@ export default function Dashboard() {
   }, [setData]);
   console.log(data);
   return (
-    <div>
+    <PageBlock>
       <h1>Dashboard</h1>
       <p>Velkommen til Brum Dashboard!</p>
       <p>Her kan du se statistikk og annen informasjon.</p>
 
       <Graph />
-    </div>
+    </PageBlock>
   );
 }
