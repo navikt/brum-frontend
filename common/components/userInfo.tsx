@@ -31,7 +31,7 @@ export default function  UserInfo() {
   if(userInfo ){
     return (
       <div className="min-h-32">
-        <PersonIcon title="a11y-title" fontSize="1.5rem" />
+        <PersonIcon title="a11y-title" fontSize="1.5rem" >
         <Dropdown>
           <DropdownMenu>
             <DropdownMenuGroupedList>
@@ -56,7 +56,7 @@ export default function  UserInfo() {
             </DropdownMenuList>
           </DropdownMenu>
         </Dropdown>
-        <PersonIcon/>
+        </PersonIcon>
       </div>
     );
   }
