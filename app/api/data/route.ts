@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOboToken } from '../test';
+import { getOboToken } from '../../../common/utils/getOboToken';
 
 export async function GET(req: NextRequest) {
   try {

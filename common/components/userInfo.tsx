@@ -12,6 +12,7 @@ import {
 } from '@navikt/ds-react/Dropdown';
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
+import { redirect } from 'next/navigation';
 
 export default function UserInfo() {
   const [userInfo, setUserInfo] = useState<{
@@ -36,6 +37,11 @@ export default function UserInfo() {
     fetchUserInfo();
   }, []);
 
+  const handlelogoutClick = () => {
+    localStorage.removeItem('token');
+    redirect('/oauth2/logout');
+  };
+
   if (userInfo == null) {
     return <div>null</div>;
   }
@@ -57,9 +63,7 @@ export default function UserInfo() {
             <DropdownMenuListItem as={Link} href="https://nav.no">
               Kontakt
             </DropdownMenuListItem>
-            <DropdownMenuListItem as={Link} href="/oauth2/logout">
-              Logg ut
-            </DropdownMenuListItem>
+            <DropdownMenuListItem onClick={handlelogoutClick()}>Logg ut</DropdownMenuListItem>
           </DropdownMenuList>
         </DropdownMenu>
       </Dropdown>
