@@ -58,19 +58,25 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    console.log('ktor response:' + ktorResponse);
+
     if (!ktorResponse.ok) {
       const errorBody = await ktorResponse.text();
       console.error(`Ktor API request failed with status ${ktorResponse.status}:`, errorBody);
-      return NextResponse.json(
-        { message: 'Ktor API request failed', error: errorBody },
-        { status: ktorResponse.status },
-      );
+      return new NextResponse(errorBody, {
+        status: ktorResponse.status,
+        headers: { 'Content-Type': 'text/plain' },
+      });
     }
 
-    const data = await ktorResponse.json();
-    return NextResponse.json(data, { status: 200 });
+    const data = await ktorResponse.text();
+    logger.info('Ktor API response:', data);
+    return new NextResponse(data, {
+      status: 200,
+      headers: { 'Content-Type': 'text/plain' },
+    });
   } catch (error) {
-    console.error('Error in userInfo API handler:', error);
+    console.error('Error in gjennomforinger API handler:', error);
     return NextResponse.json(
       {
         message: 'Internal Server Error',
