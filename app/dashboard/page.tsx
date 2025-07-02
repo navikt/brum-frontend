@@ -21,19 +21,16 @@ export default function Dashboard() {
   return (
     <Page>
       <Page.Block width="2xl" as="main">
-        <HGrid align="center" columns={3} overflow="auto">
-          <div>
-            <Heading level="1" size="xlarge">
-              Dashboard
-            </Heading>
+        <VStack>
+          <Heading level="1" size="xlarge">
+            Dashboard
+          </Heading>
 
-            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
-            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
-          </div>
-          <div span-column="2">
-            <Graph />{' '}
-          </div>
-        </HGrid>
+          <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
+          <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+        </VStack>
+
+        <Graph></Graph>
       </Page.Block>
     </Page>
   );
