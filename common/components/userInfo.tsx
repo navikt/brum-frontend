@@ -1,10 +1,10 @@
 'use client'
 import Link from "next/link";
-import { Button, Dropdown, Loader } from '@navikt/ds-react';
+import {Dropdown } from '@navikt/ds-react';
 import { DropdownMenuGroupedList,DropdownMenuGroupedListHeading,DropdownMenuGroupedListItem,DropdownMenuList,DropdownMenuListItem,DropdownMenu,DropdownMenuDivider} from '@navikt/ds-react/Dropdown';
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
-import { redirect } from 'next/navigation'
+import { PersonIcon } from '@navikt/aksel-icons';
 
 export default function  UserInfo() {
   const [userInfo, setUserInfo] = useState<{
@@ -28,19 +28,11 @@ export default function  UserInfo() {
     fetchUserInfo();
   }, []);
 
-
-  //const handlelogoutClick = () => {
-    // localStorage.removeItem("token");
-    // redirect('/oauth2/logout');
-  // };
-
   if(userInfo ){
     return (
       <div className="min-h-32">
+        <PersonIcon title="a11y-title" fontSize="1.5rem" >
         <Dropdown>
-          <Button as={Dropdown.Toggle}>
-            {userInfo.username}
-          </Button>
           <DropdownMenu>
             <DropdownMenuGroupedList>
               <DropdownMenuGroupedListHeading>
@@ -64,16 +56,8 @@ export default function  UserInfo() {
             </DropdownMenuList>
           </DropdownMenu>
         </Dropdown>
+        </PersonIcon>
       </div>
     );
   }
-};
-
-const mainStyles: React.CSSProperties = {
-  minHeight: '100vh',
-  background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
 };
