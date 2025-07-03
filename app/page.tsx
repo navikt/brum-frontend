@@ -1,15 +1,8 @@
 'use client';
 
-import { Button, Heading, Page, VStack } from '@navikt/ds-react';
-import { useRouter } from 'next/navigation';
+import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
 
 const Home = () => {
-  const route = useRouter();
-
-  const handleGoToDashboardClick = () => {
-    route.push('/dashboard');
-  };
-
   return (
     <Page>
       <Page.Block as="main" width="2xl" gutters>
@@ -20,9 +13,11 @@ const Home = () => {
           <Heading level="2" size="small">
             Analyse av tiltak
           </Heading>
-          <Button variant="primary" onClick={handleGoToDashboardClick}>
-            Gå til Dashboard
-          </Button>
+          <LinkCard>
+            <LinkCard.Title>
+              <LinkCard.Anchor href="/dashboard">Gå til dashboard</LinkCard.Anchor>
+            </LinkCard.Title>
+          </LinkCard>
         </VStack>
       </Page.Block>
     </Page>
