@@ -1,5 +1,6 @@
 'use client';
 
+import { BarChartIcon } from '@navikt/aksel-icons';
 import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
 
 const Home = () => {
@@ -14,6 +15,9 @@ const Home = () => {
             Analyse av tiltak
           </Heading>
           <LinkCard>
+            <LinkCard.Icon>
+              <BarChartIcon fontSize="2rem" />
+            </LinkCard.Icon>
             <LinkCard.Title>
               <LinkCard.Anchor href="/dashboard">Gå til dashboard</LinkCard.Anchor>
             </LinkCard.Title>
