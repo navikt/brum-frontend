@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import '@navikt/ds-css';
 import { Page } from '@navikt/ds-react';
-import NavBar from '@/common/components/NavBar';
+import NavBar from '@/common/components/navbar';
+import '@navikt/ds-css/darkside';
 
 export const metadata: Metadata = {
   title: 'Brum',
