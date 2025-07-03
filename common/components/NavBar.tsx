@@ -1,20 +1,21 @@
-'use client'
-import { InternalHeader, InternalHeaderButton, InternalHeaderTitle, InternalHeaderUser, InternalHeaderUserButton } from "@navikt/ds-react/InternalHeader";
-import { useUser } from "../hooks/getUser";
-import { UserMenu } from "./UserMenu";
-import { PersonIcon } from "@navikt/aksel-icons";
-
+'use client';
+import {
+  InternalHeader,
+  InternalHeaderUser,
+  InternalHeaderUserButton,
+} from '@navikt/ds-react/InternalHeader';
+import { useUser } from '../hooks/getUser';
+import { UserMenu } from './UserMenu';
+import { PersonIcon } from '@navikt/aksel-icons';
 
 export default function NavBar() {
   const user = useUser();
 
   return (
     <InternalHeader className="px-4">
-      <InternalHeaderTitle as="a" href="/">
-        Brum
-      </InternalHeaderTitle>
+      <InternalHeader.Title href="/">Brum</InternalHeader.Title>
 
-      <InternalHeaderUser name={""} />
+      <InternalHeaderUser name={''} />
 
       {user && (
         <InternalHeaderUser name={user.username} description={user.oid}>
