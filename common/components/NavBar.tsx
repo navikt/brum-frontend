@@ -1,9 +1,5 @@
 'use client';
-import {
-  InternalHeader,
-  InternalHeaderUser,
-  InternalHeaderUserButton,
-} from '@navikt/ds-react/InternalHeader';
+import { InternalHeader } from '@navikt/ds-react';
 import { useUser } from '../hooks/getUser';
 import { UserMenu } from './UserMenu';
 import { PersonIcon } from '@navikt/aksel-icons';
@@ -15,15 +11,15 @@ export default function NavBar() {
     <InternalHeader className="px-4">
       <InternalHeader.Title href="/">Brum</InternalHeader.Title>
 
-      <InternalHeaderUser name={''} />
+      <InternalHeader.User name={''} />
 
       {user && (
-        <InternalHeaderUser name={user.username} description={user.oid}>
-          <InternalHeaderUserButton name={user.username} aria-label="Åpne brukermeny">
+        <InternalHeader.User name={user.username} description={user.oid}>
+          <InternalHeader.UserButton name={user.username} aria-label="Åpne brukermeny">
             <PersonIcon aria-hidden />
-          </InternalHeaderUserButton>
+          </InternalHeader.UserButton>
           <UserMenu user={user} />
-        </InternalHeaderUser>
+        </InternalHeader.User>
       )}
     </InternalHeader>
   );
