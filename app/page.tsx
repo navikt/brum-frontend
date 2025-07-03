@@ -2,7 +2,6 @@
 
 import { BarChartIcon } from '@navikt/aksel-icons';
 import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
-import '@navikt/ds-css/darkside';
 import { Theme } from '@navikt/ds-react/Theme';
 
 const Home = () => {

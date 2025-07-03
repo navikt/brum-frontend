@@ -1,9 +1,8 @@
 'use client';
 import Graph from '@/common/components/graph';
-import { BodyShort, Heading, HGrid, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
-import '@navikt/ds-css/darkside';
 import { Theme } from '@navikt/ds-react/Theme';
 
 export default function Dashboard() {
