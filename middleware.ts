@@ -2,11 +2,21 @@ import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
 import { getOboToken } from '@/common/utils/getOboToken';
 import { string } from 'zod';
+import { skip } from 'node:test';
 
 // oauth2 login path
 const NAIS_LOGIN_PATH = '/oauth2/login';
 
 export async function middleware(request: NextRequest) {
+  const SKIP_MIDDLEWARE = process.env.SKIP_MIDDLEWARE;
+  if (!SKIP_MIDDLEWARE) {
+    throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
+  }
+
+  if (SKIP_MIDDLEWARE) {
+    return NextResponse.next();
+  }
+
   console.log(`Middleware: Request received for ${request.nextUrl.pathname}`);
   logger.warn(`Middleware: Request received for ${request.nextUrl.pathname}`);
   const { pathname, origin, href } = request.nextUrl;
@@ -26,29 +36,25 @@ export async function middleware(request: NextRequest) {
     logger.warn(`Middleware: Checking session for protected path '${pathname}'.`);
     console.log(`Middleware: Checking session for protected path '${pathname}'.`);
 
-    // Hent session data from the OAuth2 session endpoint
-    //const sessionUrl = `${request.nextUrl.origin}/oauth2/session`;
-    //logger.warn(`session url ${sessionUrl}`);
-
     const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
     if (!introspectionUrl) {
-      throw new Error("NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables");
+      throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
     }
-    const checkIntrospectionEndpoint = await fetch(introspectionUrl,{
+    const checkIntrospectionEndpoint = await fetch(introspectionUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'identity_provider': "azuread",
-        'token': userToken
-      })
+        identity_provider: 'azuread',
+        token: userToken,
+      }),
     });
 
-    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json()
+    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json();
 
-    logger.warn(checkIntrospectionEndpoint)
-    if(!checkIntrospectionEndpointBody.active){
+    logger.warn(checkIntrospectionEndpoint);
+    if (!checkIntrospectionEndpointBody.active) {
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       // Hvis ikke sesion ikke er aktiv, omdiriger til login
