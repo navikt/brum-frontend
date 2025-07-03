@@ -1,7 +1,7 @@
 'use client';
 
 import { BarChartIcon } from '@navikt/aksel-icons';
-import { Box, Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
+import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
 import '@navikt/ds-css/darkside';
 import { Theme } from '@navikt/ds-react/Theme';
 
