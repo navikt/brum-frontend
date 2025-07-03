@@ -6,7 +6,7 @@ import ChartMenu from './chartmenu';
 import TableX from './tablex';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { HStack, Loader, Skeleton } from '@navikt/ds-react';
+import { Loader } from '@navikt/ds-react';
 
 const Graph = () => {
   const [data, setData] = useState<Object[]>([]);
