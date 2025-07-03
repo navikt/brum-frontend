@@ -22,7 +22,7 @@ export default function NavBar() {
           <UserMenu user={user} />
         </InternalHeader.User>
       )}
-      
+      <ThemeButton/>
     </InternalHeader>
   );
 }
