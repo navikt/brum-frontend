@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import '@navikt/ds-css';
+import { Page } from '@navikt/ds-react';
 import NavBar from '@/common/components/NavBar';
 import '@navikt/ds-css/darkside';
-import "@navikt/ds-css/darkside"
 import { ThemeProvider } from '@/common/UI/themeProvider';
 
 export const metadata: Metadata = {

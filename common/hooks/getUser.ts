@@ -1,4 +1,4 @@
-'user client'
+'user client';
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
 
