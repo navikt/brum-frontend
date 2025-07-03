@@ -2,8 +2,8 @@
 
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { useEffect, useState } from 'react';
-import ChartMenu from './chartmenu';
-import TableX from './tablex';
+import ChartMenu from './ChartMenu';
+import TableX from './TableX';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Loader } from '@navikt/ds-react';
