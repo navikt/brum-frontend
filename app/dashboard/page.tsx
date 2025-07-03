@@ -3,6 +3,8 @@ import Graph from '@/common/components/graph';
 import { BodyShort, Heading, HGrid, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
+import '@navikt/ds-css/darkside';
+import { Theme } from '@navikt/ds-react/Theme';
 
 export default function Dashboard() {
   const [data, setData] = useState('');
@@ -19,19 +21,21 @@ export default function Dashboard() {
   }, [setData]);
   console.log(data);
   return (
-    <Page>
-      <Page.Block width="2xl" as="main">
-        <VStack gap="3" margin="2" align="center">
-          <Heading level="1" size="xlarge">
-            Dashboard
-          </Heading>
+    <Theme>
+      <Page>
+        <Page.Block width="2xl" as="main">
+          <VStack gap="3" margin="2" align="center">
+            <Heading level="1" size="xlarge">
+              Dashboard
+            </Heading>
 
-          <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
-          <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
-        </VStack>
+            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
+            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+          </VStack>
 
-        <Graph></Graph>
-      </Page.Block>
-    </Page>
+          <Graph></Graph>
+        </Page.Block>
+      </Page>
+    </Theme>
   );
 }
