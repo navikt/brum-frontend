@@ -1,20 +1,29 @@
-'use client';
-import '@navikt/ds-css';
-import { InternalHeader } from '@navikt/ds-react';
-import UserInfo from '@/common/components/userInfo';
-import { InternalHeaderTitle } from '@navikt/ds-react/InternalHeader';
+'use client'
+import { InternalHeader, InternalHeaderButton, InternalHeaderTitle, InternalHeaderUser, InternalHeaderUserButton } from "@navikt/ds-react/InternalHeader";
+import { useUser } from "../hooks/getUser";
+import { UserMenu } from "./UserMenu";
+import { PersonIcon } from "@navikt/aksel-icons";
+
 
 export default function NavBar() {
+  const user = useUser();
+
   return (
-    <div>
-      <InternalHeader>
-        <InternalHeaderTitle as="h1">Brum</InternalHeaderTitle>
-        <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-          <div style={{ marginLeft: 'auto' }}>
-            <UserInfo />
-          </div>
-        </div>
-      </InternalHeader>
-    </div>
+    <InternalHeader className="px-4">
+      <InternalHeaderTitle as="a" href="/">
+        Brum
+      </InternalHeaderTitle>
+
+      <InternalHeaderUser name={""} />
+
+      {user && (
+        <InternalHeaderUser name={user.username} description={user.oid}>
+          <InternalHeaderUserButton name={user.username} aria-label="Åpne brukermeny">
+            <PersonIcon aria-hidden />
+          </InternalHeaderUserButton>
+          <UserMenu user={user} />
+        </InternalHeaderUser>
+      )}
+    </InternalHeader>
   );
 }
