@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Page } from '@navikt/ds-react';
-import NavBar from '@/common/components/navbar';
+import NavBar from '@/common/components/NavBar';
 import '@navikt/ds-css/darkside';
 
 export const metadata: Metadata = {
