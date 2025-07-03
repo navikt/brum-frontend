@@ -14,12 +14,12 @@ const Home = () => {
           <Heading level="2" size="small">
             Analyse av tiltak
           </Heading>
-          <LinkCard>
+          <LinkCard data-color="Lightblue">
             <Box
               asChild
               borderRadius="12"
               padding="space-8"
-              style={{ backgroundColor: 'var(--ax-bg-moderateA)' }}
+              style={{ backgroundColor: 'GrayAlpha' }}
             >
               <LinkCard.Icon>
                 <BarChartIcon fontSize="2rem" />
