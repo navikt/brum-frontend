@@ -17,17 +17,10 @@ const Home = () => {
             <Heading level="2" size="small">
               Analyse av tiltak
             </Heading>
-            <LinkCard data-color="Lightblue">
-              <Box
-                asChild
-                borderRadius="12"
-                padding="space-8"
-                style={{ backgroundColor: 'GrayAlpha' }}
-              >
-                <LinkCard.Icon>
-                  <BarChartIcon fontSize="2rem" />
-                </LinkCard.Icon>
-              </Box>
+            <LinkCard>
+              <LinkCard.Icon>
+                <BarChartIcon fontSize="2rem" />
+              </LinkCard.Icon>
               <LinkCard.Title>
                 <LinkCard.Anchor href="/dashboard">Gå til dashboard</LinkCard.Anchor>
               </LinkCard.Title>
