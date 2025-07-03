@@ -21,7 +21,7 @@ export default function Dashboard() {
   return (
     <Page>
       <Page.Block width="2xl" as="main">
-        <VStack gap="2" align="center">
+        <VStack gap="3" margin="2" align="center">
           <Heading level="1" size="xlarge">
             Dashboard
           </Heading>
