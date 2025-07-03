@@ -32,23 +32,23 @@ export async function middleware(request: NextRequest) {
 
     const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
     if (!introspectionUrl) {
-      throw new Error("NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables");
+      throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
     }
-    const checkIntrospectionEndpoint = await fetch(introspectionUrl,{
+    const checkIntrospectionEndpoint = await fetch(introspectionUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'identity_provider': "azuread",
-        'token': userToken
-      })
+        identity_provider: 'azuread',
+        token: userToken,
+      }),
     });
 
-    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json()
+    const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json();
 
-    logger.warn(checkIntrospectionEndpoint)
-    if(!checkIntrospectionEndpointBody.active){
+    logger.warn(checkIntrospectionEndpoint);
+    if (!checkIntrospectionEndpointBody.active) {
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       // Hvis ikke sesion ikke er aktiv, omdiriger til login

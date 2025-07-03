@@ -12,7 +12,7 @@ metadata:
 spec:
   ingresses:
     - https://brum.intern.dev.nav.no
-  image: {{ image }}
+  image: { { image } }
   port: 3000
   prometheus:
     enabled: true
