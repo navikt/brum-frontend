@@ -21,7 +21,6 @@ export default function Dashboard() {
   }, [setData]);
   console.log(data);
   return (
-    <Theme>
       <Page>
         <Page.Block width="2xl" as="main">
           <VStack gap="3" margin="2" align="center">
@@ -36,6 +35,5 @@ export default function Dashboard() {
           <Graph></Graph>
         </Page.Block>
       </Page>
-    </Theme>
   );
 }

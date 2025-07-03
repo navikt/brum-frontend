@@ -1,13 +1,11 @@
 'use client';
-
 import { BarChartIcon } from '@navikt/aksel-icons';
 import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
 import '@navikt/ds-css/darkside';
-import { Theme } from '@navikt/ds-react/Theme';
+
 
 const Home = () => {
   return (
-    <Theme theme="light">
       <Page>
         <Page.Block as="main" width="2xl" gutters>
           <VStack margin="4" gap="4" align="center">
@@ -28,7 +26,6 @@ const Home = () => {
           </VStack>
         </Page.Block>
       </Page>
-    </Theme>
   );
 };
 
