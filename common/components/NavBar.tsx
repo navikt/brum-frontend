@@ -4,7 +4,7 @@ import { useUser } from '../hooks/getUser';
 import { UserMenu } from './UserMenu';
 import { BarChartIcon, PersonIcon } from '@navikt/aksel-icons';
 import { ThemeButton } from './themeButton';
-import { InternalHeader, Spacer } from '@navikt/ds-react';
+import { InternalHeader, Spacer, Theme } from '@navikt/ds-react';
 
 export default function NavBar({ setTheme, theme }: any) {
   const user = useUser();
@@ -28,5 +28,18 @@ export default function NavBar({ setTheme, theme }: any) {
       <Spacer />
       <ThemeButton setTheme={setTheme} theme={theme} />
     </InternalHeader>
+  );
+}
+
+export function DummyBar() {
+  return (
+    <Theme>
+      <InternalHeader>
+        <InternalHeader.Title href="/">
+          <BarChartIcon title="a11y-title" fontSize="1.5rem" />
+          Brum
+        </InternalHeader.Title>
+      </InternalHeader>
+    </Theme>
   );
 }
