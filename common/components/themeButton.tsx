@@ -1,5 +1,4 @@
 'use client';
-
 import { MoonIcon, SunIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 
@@ -7,7 +6,7 @@ function ThemeButton({ setTheme, theme }: any) {
   return (
     <>
       <Button
-        variant="tertiary-neutral"
+        variant="secondary"
         icon={
           <>
             <MoonIcon
