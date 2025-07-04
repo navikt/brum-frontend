@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
-import '@navikt/ds-css';
-import { Page } from '@navikt/ds-react';
-import NavBar from '@/common/components/NavBar';
 import '@navikt/ds-css/darkside';
-import { ThemeProvider } from 'next-themes';
+import ThemeProvider from '@/common/UI/themeProvider';
 
 export const metadata: Metadata = {
   title: 'Brum',
@@ -15,10 +12,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="no">
       <head />
       <body>
-        <ThemeProvider>
-            <NavBar />
-            {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -1,19 +1,19 @@
 'use client';
-import { InternalHeader } from '@navikt/ds-react';
+
 import { useUser } from '../hooks/getUser';
 import { UserMenu } from './UserMenu';
 import { BarChartIcon, PersonIcon } from '@navikt/aksel-icons';
-import { ThemeButton } from "./themeButton";
-import "@navikt/ds-css";
+import { ThemeButton } from './themeButton';
+import { InternalHeader } from '@navikt/ds-react';
 
-export default function NavBar() {
+export default function NavBar({ setTheme, theme }: any) {
   const user = useUser();
 
   return (
-       <InternalHeader className="px-4" data-color="Blue-100">
+    <InternalHeader className="px-4" data-color="Blue-100">
       <InternalHeader.Title href="/">
-      <BarChartIcon title="a11y-title" fontSize="1.5rem" />
-      Brum
+        <BarChartIcon title="a11y-title" fontSize="1.5rem" />
+        Brum
       </InternalHeader.Title>
       <InternalHeader.User name={''} />
 
@@ -25,7 +25,7 @@ export default function NavBar() {
           <UserMenu user={user} />
         </InternalHeader.User>
       )}
-      <ThemeButton/>
+      <ThemeButton setTheme={setTheme} theme={theme} />
     </InternalHeader>
   );
 }

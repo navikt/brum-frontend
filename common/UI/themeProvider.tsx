@@ -1,26 +1,16 @@
-"use client";
+'use client';
 
-import { ThemeProvider as NextThemeProvider, useTheme } from "next-themes";
-import { Theme } from "@navikt/ds-react";
+import { useState } from 'react';
+import { Theme } from '@navikt/ds-react';
+import NavBar from '../components/NavBar';
 
-type SupportedThemes = "light" | "dark";
+export default function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-const colorThemes = ["light", "dark"] satisfies SupportedThemes[];
-
-const LOCAL_STORAGE_KEY = "aksel-theme";
-
-function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
-    <NextThemeProvider
-      attribute="class"
-      storageKey={LOCAL_STORAGE_KEY}
-      enableSystem
-      themes={colorThemes}
-      disableTransitionOnChange
-    >
-      <Theme>{children}</Theme>
-    </NextThemeProvider>
+    <Theme theme={theme}>
+      <NavBar setTheme={setTheme} theme={theme} />
+      {children}
+    </Theme>
   );
 }
-
-export { ThemeProvider, useTheme };
