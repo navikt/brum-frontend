@@ -8,10 +8,12 @@ import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Loader } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
+import { useTheme } from '../UI/ThemeContext';
 
 const Graph = () => {
   const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
+  const { theme } = useTheme();
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
@@ -35,7 +37,8 @@ const Graph = () => {
         <Loader size="xlarge" />
       ) : (
         <>
-          <div className="highcharts-dark">
+          <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
+            {/* The name of the container class controls the theme of the chart */}
             <Chart highcharts={Highcharts} options={chartOptions}>
               <Exporting />
             </Chart>

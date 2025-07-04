@@ -1,8 +1,10 @@
 'use client';
 import { MoonIcon, SunIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
+import { useTheme } from '../UI/ThemeContext';
 
-function ThemeButton({ theme, setTheme }: any) {
+function ThemeButton() {
+  const { theme, setTheme } = useTheme();
   return (
     <>
       <Button
@@ -16,7 +18,7 @@ function ThemeButton({ theme, setTheme }: any) {
           )
         }
         onClick={(e) => {
-          setTheme(e.currentTarget.value);
+          setTheme(e.currentTarget.value as 'light' | 'dark');
           localStorage.setItem('theme', e.currentTarget.value);
         }}
       />

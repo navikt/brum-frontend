@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '@navikt/ds-css/darkside';
-import ThemeProvider from '@/common/UI/themeProvider';
+import ThemeProvider from '@/common/UI/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Brum',

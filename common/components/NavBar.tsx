@@ -3,10 +3,10 @@
 import { useUser } from '../hooks/getUser';
 import { UserMenu } from './UserMenu';
 import { BarChartIcon, PersonIcon } from '@navikt/aksel-icons';
-import { ThemeButton } from './themeButton';
+import { ThemeButton } from './ThemeButton';
 import { InternalHeader, Spacer, Theme } from '@navikt/ds-react';
 
-export default function NavBar({ theme, setTheme }: any) {
+export default function NavBar() {
   const user = useUser();
 
   return (
@@ -26,7 +26,7 @@ export default function NavBar({ theme, setTheme }: any) {
         </InternalHeader.User>
       )}
       <Spacer />
-      <ThemeButton theme={theme} setTheme={setTheme} />
+      <ThemeButton />
     </InternalHeader>
   );
 }
