@@ -29,9 +29,11 @@ const Graph = () => {
         <Loader size="xlarge" />
       ) : (
         <>
-          <Chart options={chartOptions}>
-            <Exporting />
-          </Chart>
+          <div className="highcharts-dark">
+            <Chart options={chartOptions}>
+              <Exporting />
+            </Chart>
+          </div>
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
           <TableX />
         </>
