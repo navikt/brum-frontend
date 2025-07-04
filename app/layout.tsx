@@ -3,7 +3,7 @@ import '@navikt/ds-css';
 import { Page } from '@navikt/ds-react';
 import NavBar from '@/common/components/NavBar';
 import '@navikt/ds-css/darkside';
-import { ThemeProvider } from '@/common/UI/themeProvider';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   title: 'Brum',

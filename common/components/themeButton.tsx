@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
@@ -21,7 +20,7 @@ function ThemeButton() {
         }
       `}</style>
       <Button
-        variant="tertiary-neutral"
+        variant="secondary" 
         icon={
           <>
             <MoonIcon
