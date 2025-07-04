@@ -6,7 +6,7 @@ import { BarChartIcon, PersonIcon } from '@navikt/aksel-icons';
 import { ThemeButton } from './themeButton';
 import { InternalHeader, Spacer, Theme } from '@navikt/ds-react';
 
-export default function NavBar({ setTheme, theme }: any) {
+export default function NavBar({ theme, setTheme }: any) {
   const user = useUser();
 
   return (
@@ -26,7 +26,7 @@ export default function NavBar({ setTheme, theme }: any) {
         </InternalHeader.User>
       )}
       <Spacer />
-      <ThemeButton setTheme={setTheme} theme={theme} />
+      <ThemeButton theme={theme} setTheme={setTheme} />
     </InternalHeader>
   );
 }

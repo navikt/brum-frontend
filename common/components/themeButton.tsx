@@ -2,25 +2,23 @@
 import { MoonIcon, SunIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 
-function ThemeButton({ setTheme, theme }: any) {
+function ThemeButton({ theme, setTheme }: any) {
   return (
     <>
       <Button
         variant="secondary"
+        value={theme === 'light' ? 'dark' : 'light'}
         icon={
           theme === 'light' ? (
-            <MoonIcon
-              style={{ display: 'var(--website-theme-toggle-dark-display)' }}
-              title="Endre til mørkt"
-            />
+            <MoonIcon title="Endre til mørkt" />
           ) : (
-            <SunIcon
-              style={{ display: 'var(--website-theme-toggle-light-display)' }}
-              title="Endre til lyst"
-            />
+            <SunIcon title="Endre til lyst" />
           )
         }
-        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        onClick={(e) => {
+          setTheme(e.currentTarget.value);
+          localStorage.setItem('theme', e.currentTarget.value);
+        }}
       />
     </>
   );
