@@ -24,7 +24,7 @@ const Graph = () => {
   }, [data]);
 
   return (
-    <div className="highcharts-dark">
+    <div>
       {loading ? (
         <Loader size="xlarge" />
       ) : (
