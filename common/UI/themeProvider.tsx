@@ -2,6 +2,7 @@
 
 import { Theme } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<'light' | 'dark'>();
@@ -16,5 +17,10 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
 
   if (!theme) return null; // or a loader
 
-  return <Theme theme={theme}>{children}</Theme>;
+  return (
+    <Theme theme={theme}>
+      <NavBar theme={theme} setTheme={setTheme} />
+      {children}
+    </Theme>
+  );
 }
