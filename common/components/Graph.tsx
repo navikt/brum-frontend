@@ -7,6 +7,7 @@ import TableX from './TableX';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Loader } from '@navikt/ds-react';
+import Highcharts from 'highcharts';
 
 const Graph = () => {
   const [data, setData] = useState<Object[]>([]);
@@ -17,6 +18,14 @@ const Graph = () => {
     chart: { inverted: false },
     plotOptions: { series: { stacking: undefined } },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // @ts-ignore
+      const sunsetTheme = require('highcharts/themes/sunset');
+      sunsetTheme(Highcharts);
+    }
+  }, []);
 
   useFetchTestData(setData);
   useEffect(() => {
@@ -30,7 +39,7 @@ const Graph = () => {
       ) : (
         <>
           <div className="highcharts-dark">
-            <Chart options={chartOptions}>
+            <Chart highcharts={Highcharts} options={chartOptions}>
               <Exporting />
             </Chart>
           </div>
