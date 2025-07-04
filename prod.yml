@@ -1,0 +1,32 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+
+metadata:
+  labels:
+    team: brum
+  name: brum
+  namespace: brum
+spec:
+  ingresses:
+    - https://brum.intern.nav.no
+  image: {{ image }}
+  port: 3000
+  prometheus:
+    enabled: true
+    path: '/api/metrics'
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+    sidecar:
+      enabled: true
+  env:
+    - name: BRUM_API_URL
+      value: http://brum-api
+    - name: BACKEND_AUDIENCE
+      value: api://prod-gcp.brum.brum-api/.default
+
+  accessPolicy:
+    outbound:
+      rules:
+        - application: brum-api
