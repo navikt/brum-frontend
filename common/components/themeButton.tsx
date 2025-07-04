@@ -8,16 +8,17 @@ function ThemeButton({ setTheme, theme }: any) {
       <Button
         variant="secondary"
         icon={
-          <>
+          theme === 'light' ? (
             <MoonIcon
               style={{ display: 'var(--website-theme-toggle-dark-display)' }}
               title="Endre til mørkt"
             />
+          ) : (
             <SunIcon
               style={{ display: 'var(--website-theme-toggle-light-display)' }}
               title="Endre til lyst"
             />
-          </>
+          )
         }
         onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       />
