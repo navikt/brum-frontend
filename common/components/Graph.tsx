@@ -20,11 +20,8 @@ const Graph = () => {
   });
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // @ts-ignore
-      const sunsetTheme = require('highcharts/themes/sunset');
-      sunsetTheme(Highcharts);
-    }
+    // Only run on client
+    import('highcharts/themes/adaptive');
   }, []);
 
   useFetchTestData(setData);
