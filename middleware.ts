@@ -8,14 +8,6 @@ import { skip } from 'node:test';
 const NAIS_LOGIN_PATH = '/oauth2/login';
 
 export async function middleware(request: NextRequest) {
-  const SKIP_MIDDLEWARE = process.env.SKIP_MIDDLEWARE;
-  if (!SKIP_MIDDLEWARE) {
-    throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
-  }
-
-  if (SKIP_MIDDLEWARE) {
-    return NextResponse.next();
-  }
 
   console.log(`Middleware: Request received for ${request.nextUrl.pathname}`);
   logger.warn(`Middleware: Request received for ${request.nextUrl.pathname}`);
