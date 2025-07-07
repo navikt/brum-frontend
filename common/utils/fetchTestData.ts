@@ -20,10 +20,12 @@ export function useFetchTestData(
 export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
   setChartOptions((prev: HighchartsOptionsType) => ({
     ...prev,
-    series: data.map((d: Object) => ({
-      type: 'column',
-      data: Object.values(d),
-    })),
+    series: [
+      {
+        type: 'column',
+        data: data.map((d: Object) => Object.values(d)),
+      },
+    ],
   }));
   data && data.length ? setLoading(false) : setLoading(true);
 }
