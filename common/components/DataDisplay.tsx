@@ -3,14 +3,14 @@
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { useEffect, useState } from 'react';
 import ChartMenu from './ChartMenu';
-import TableX from './TableX';
+import DataTable from './DataTable';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Loader } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useTheme } from '../UI/ThemeContext';
 
-const Graph = () => {
+const DataDisplay = () => {
   const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
   const { theme } = useTheme();
@@ -45,11 +45,11 @@ const Graph = () => {
             </Chart>
           </div>
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
-          <TableX />
+          <DataTable data={data} />
         </>
       )}
     </div>
   );
 };
 
-export default Graph;
+export default DataDisplay;
