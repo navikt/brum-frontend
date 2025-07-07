@@ -25,11 +25,9 @@ export default function Dashboard() {
           <Heading level="1" size="xlarge">
             Dashboard
           </Heading>
-
           <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
           <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
         </VStack>
-
         <DataDisplay />
       </Page.Block>
     </Page>
