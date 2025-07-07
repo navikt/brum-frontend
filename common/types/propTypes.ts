@@ -19,3 +19,12 @@ export interface UpdateSeriesProps {
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface DataOptionsProps {
+  testDataSet: number;
+}
+
+export interface UpdateDataOptionsProps {
+  dataParams: DataOptionsProps;
+  setDataParams: Dispatch<SetStateAction<DataOptionsProps>>;
+}

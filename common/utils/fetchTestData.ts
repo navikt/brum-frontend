@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { HighchartsOptionsType } from '@highcharts/react';
-import { UpdateSeriesProps } from '../types/propTypes';
+import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<Object[]>>,
-  datasetnr: number = 1,
+  dataparams: DataOptionsProps,
 ) {
   useEffect(() => {
-    fetch(`/api/data?param=${datasetnr}`)
+    fetch(`/api/data?param=${dataparams.testDataSet}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();

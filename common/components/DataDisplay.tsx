@@ -9,10 +9,13 @@ import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestDat
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useTheme } from '../UI/ThemeContext';
+import DataMenu from './DataMenu';
+import { DataOptionsProps } from '../types/propTypes';
 
 const DataDisplay = () => {
   const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
+  const [dataParams, setDataParams] = useState<DataOptionsProps>({ testDataSet: 1 });
   const { theme } = useTheme();
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
@@ -27,7 +30,7 @@ const DataDisplay = () => {
     import('highcharts/themes/adaptive');
   }, []);
 
-  useFetchTestData(setData);
+  useFetchTestData(setData, dataParams);
   useEffect(() => {
     updateGraphSeries({ data, setChartOptions, setLoading });
   }, [data]);
@@ -46,6 +49,7 @@ const DataDisplay = () => {
               <Exporting />
             </Chart>
           </div>
+          <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
           <DataTable data={data} />
         </>
