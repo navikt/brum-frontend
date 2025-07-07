@@ -14,7 +14,7 @@ export function useFetchTestData(
       })
       .then(setData)
       .catch(console.error);
-  }, [setData]);
+  }, [setData, dataParams]);
 }
 
 export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {

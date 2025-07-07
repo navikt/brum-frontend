@@ -10,9 +10,10 @@ const DataMenu = (props: UpdateDataOptionsProps) => {
   );
 };
 
-const TestDataSetRadio = ({ setDataParams }: UpdateDataOptionsProps) => (
+const TestDataSetRadio = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => (
   <RadioGroup
     legend="Hvilket testdatasett vil du se?"
+    value={dataParams.testDataSet}
     onChange={(e) => {
       setDataParams((prev: Object) => ({
         ...prev,
