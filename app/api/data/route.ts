@@ -33,7 +33,10 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const ktorResponse = await fetch(`${BRUM_API_URL}/testData`, {
+    const { searchParams } = new URL(req.url);
+    const datasetnr = searchParams.get('datasetnr');
+
+    const ktorResponse = await fetch(`${BRUM_API_URL}/testData?datasetnr=${datasetnr}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
