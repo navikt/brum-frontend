@@ -1,6 +1,6 @@
 interface UserInfo {
-    username: string;
     NAVident: string;
+    email: string;
     name: string;
 }
 

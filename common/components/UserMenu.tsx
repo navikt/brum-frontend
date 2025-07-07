@@ -28,7 +28,7 @@ export function UserMenu({ user }: UserMenuProps) {
       </ActionMenuTrigger>
       <ActionMenuContent>
         <ActionMenuGroup label="Min Bruker">
-          <ActionMenuItem onSelect={console.info}>Email: {user.username}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>Email: {user.email}</ActionMenuItem>
           <ActionMenuItem onSelect={console.info}>NAV-ID: {user.NAVident}</ActionMenuItem>
         </ActionMenuGroup>
         <br/>
