@@ -1,29 +1,36 @@
 'use client';
-import { Radio, RadioGroup } from '@navikt/ds-react';
+import { ComboboxProps, Radio, RadioGroup, UNSAFE_Combobox } from '@navikt/ds-react';
 import { UpdateDataOptionsProps } from '../types/propTypes';
 
 const DataMenu = (props: UpdateDataOptionsProps) => {
   return (
     <div>
-      <TestDataSetRadio {...props} />
+      <DataSetSelect {...props} />
     </div>
   );
 };
 
-const TestDataSetRadio = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => (
-  <RadioGroup
-    legend="Hvilket testdatasett vil du se?"
-    value={dataParams.testDataSet}
-    onChange={(e) => {
-      setDataParams((prev: Object) => ({
-        ...prev,
-        testDataSet: Number(e),
-      }));
-    }}
-  >
-    <Radio value={1}>1</Radio>
-    <Radio value={2}>2</Radio>
-  </RadioGroup>
-);
+const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
+  const options = [
+    { label: 'Testdatasett 1', value: '1' },
+    { label: 'Testdatasett 2', value: '2' },
+  ];
+
+  return (
+    <UNSAFE_Combobox
+      label="Velg testdatasett"
+      options={options}
+      selectedOptions={[options.find((opt) => opt.value === String(dataParams.testDataSet))!]}
+      onToggleSelected={(optionValue) => {
+        setDataParams((prev: Object) => ({
+          ...prev,
+          testDataSet: Number(optionValue),
+        }));
+      }}
+      shouldAutocomplete
+      isMultiSelect={false}
+    />
+  );
+};
 
 export default DataMenu;
