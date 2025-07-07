@@ -33,7 +33,7 @@ const DataDisplay = () => {
   useFetchTestData(setData, dataParams);
   useEffect(() => {
     updateGraphSeries({ data, setChartOptions, setLoading });
-  }, [data]);
+  }, [data, setData]);
 
   return (
     <div>
