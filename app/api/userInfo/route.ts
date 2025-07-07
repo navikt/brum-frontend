@@ -71,8 +71,12 @@ export async function GET(req: NextRequest) {
 
     const data = await ktorResponse.json();
     console.log('User info fetched successfully:', data);
-    const userInfo:any = data 
-    logger.warn('User info:',userInfo)
+      const userInfo: UserInfo = {
+      username: data.preferred_username,
+      NAVident: data.NAVident,
+      name: data.name,
+    };
+    logger.warn('User info:', userInfo);
     
     return NextResponse.json(userInfo, { status: 200 });
   } catch (error) {
