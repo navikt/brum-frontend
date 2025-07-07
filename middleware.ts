@@ -44,8 +44,6 @@ export async function middleware(request: NextRequest) {
     });
 
     const checkIntrospectionEndpointBody = await checkIntrospectionEndpoint.json();
-
-    logger.warn(checkIntrospectionEndpoint);
     if (!checkIntrospectionEndpointBody.active) {
       console.log(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);
       logger.warn(`Middleware: User not authenticated for ${pathname}. Redirecting to login.`);

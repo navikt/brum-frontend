@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
 import { logger } from '@navikt/next-logger';
 import { email } from 'zod/v4';
+import { UserInfo } from '@/common/types/userInfoTypes';
+import { log } from 'console';
 
 export async function GET(req: NextRequest) {
   try {
@@ -29,8 +31,7 @@ export async function GET(req: NextRequest) {
       }),
     });
 
-    const introspectionBody = await introspectionRes.json();
-    logger.warn(introspectionBody);
+    const introspectionBody = await introspectionRes.json();;
 
     if (!introspectionBody.active) {
       console.error('User not logged in.');
@@ -69,11 +70,10 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await ktorResponse.json();
-    const userInfo = {
-      username: data.preferred_username,
-      NAVident: data.NAVident,
-    };
-
+    console.log('User info fetched successfully:', data);
+    const userInfo:any = data 
+    logger.warn('User info:',userInfo)
+    
     return NextResponse.json(userInfo, { status: 200 });
   } catch (error) {
     console.error('Error in userInfo API handler:', error);
