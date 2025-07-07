@@ -19,6 +19,7 @@ const Graph = () => {
     title: { text: '' },
     chart: { inverted: false },
     plotOptions: { series: { stacking: undefined } },
+    exporting: { enabled: true },
   });
 
   useEffect(() => {
