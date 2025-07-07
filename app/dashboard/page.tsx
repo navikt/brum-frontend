@@ -1,5 +1,5 @@
 'use client';
-import Graph from '@/common/components/DataDisplay';
+import DataDisplay from '@/common/components/DataDisplay';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ export default function Dashboard() {
           <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
         </VStack>
 
-        <Graph></Graph>
+        <DataDisplay />
       </Page.Block>
     </Page>
   );
