@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
 import { logger } from '@navikt/next-logger';
 import { email } from 'zod/v4';
+import { UserInfo } from '@/common/types/userInfoTypes';
 
 export async function GET(req: NextRequest) {
   try {
@@ -69,9 +70,10 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await ktorResponse.json();
-    const userInfo = {
-      username: data.preferred_username,
-      NAVident: data.NAVident,
+    const userInfo:UserInfo = {
+      username: data.preferred_username || '',
+      NAVident: data.NAVident || '',
+      name: data.name || '',
     };
 
     return NextResponse.json(userInfo, { status: 200 });

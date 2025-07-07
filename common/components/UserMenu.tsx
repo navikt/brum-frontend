@@ -23,11 +23,11 @@ export function UserMenu({ user }: UserMenuProps) {
           icon={<ChevronDownIcon aria-hidden />}
           iconPosition="right"
         >
-          {user.username[1] + ',' +user.username[2]}
+          {user.name}
         </Button>
       </ActionMenuTrigger>
       <ActionMenuContent>
-        <ActionMenuGroup label="Min info">
+        <ActionMenuGroup label="Min sinfo">
           <ActionMenuItem onSelect={console.info}>Email: {user.username[0]}</ActionMenuItem>
           <ActionMenuItem onSelect={console.info}>NAV-ID: {user.NAVident}</ActionMenuItem>
         </ActionMenuGroup>
