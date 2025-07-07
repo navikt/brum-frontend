@@ -1,5 +1,5 @@
 'use client';
-import { ComboboxProps, Radio, RadioGroup, UNSAFE_Combobox } from '@navikt/ds-react';
+import { UNSAFE_Combobox } from '@navikt/ds-react';
 import { UpdateDataOptionsProps } from '../types/propTypes';
 
 const DataMenu = (props: UpdateDataOptionsProps) => {

@@ -1,17 +1,10 @@
 'use client';
 
+import { BarChartIcon } from '@navikt/aksel-icons';
+import { Button, InternalHeader, Spacer, Theme } from '@navikt/ds-react';
 import { useUser } from '../hooks/getUser';
-import { UserMenu } from './UserMenu';
-import { BarChartIcon, ChevronDownIcon, PersonIcon } from '@navikt/aksel-icons';
 import { ThemeButton } from './ThemeButton';
-import { ActionMenu, Button, InternalHeader, Spacer, Theme } from '@navikt/ds-react';
-import {
-  ActionMenuTrigger,
-  ActionMenuContent,
-  ActionMenuGroup,
-  ActionMenuItem,
-} from '@navikt/ds-react/ActionMenu';
-import { UserInfo } from '../types/userInfoTypes';
+import { UserMenu } from './UserMenu';
 
 export default function NavBar() {
   const user = useUser();
@@ -22,8 +15,8 @@ export default function NavBar() {
         Brum
       </InternalHeader.Title>
 
-      <Spacer /> 
-           {user ? (
+      <Spacer />
+      {user ? (
         <UserMenu user={user} />
       ) : (
         <Button as="a" href="/oauth2/login" variant="secondary-neutral">

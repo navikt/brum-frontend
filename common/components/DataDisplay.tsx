@@ -1,16 +1,16 @@
 'use client';
 
-import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { useEffect, useState } from 'react';
-import ChartMenu from './ChartMenu';
-import DataTable from './DataTable';
-import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
+import { Chart, HighchartsOptionsType } from '@highcharts/react';
+import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
-import { useTheme } from '../UI/ThemeContext';
-import DataMenu from './DataMenu';
+import { useEffect, useState } from 'react';
 import { DataOptionsProps } from '../types/propTypes';
+import { useTheme } from '../UI/ThemeContext';
+import ChartMenu from './ChartMenu';
+import DataMenu from './DataMenu';
+import DataTable from './DataTable';
 
 const DataDisplay = () => {
   const [data, setData] = useState<Object[]>([]);

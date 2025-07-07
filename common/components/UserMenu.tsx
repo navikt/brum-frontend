@@ -1,12 +1,12 @@
 'use client';
-import { Button } from '@navikt/ds-react';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
 import {
   ActionMenu,
-  ActionMenuTrigger,
   ActionMenuContent,
   ActionMenuGroup,
   ActionMenuItem,
+  ActionMenuTrigger,
 } from '@navikt/ds-react/ActionMenu';
 import { UserInfo } from '../types/userInfoTypes';
 
@@ -31,10 +31,10 @@ export function UserMenu({ user }: UserMenuProps) {
           <ActionMenuItem onSelect={console.info}>Email: {user.email}</ActionMenuItem>
           <ActionMenuItem onSelect={console.info}>NAV-ID: {user.NAVident}</ActionMenuItem>
         </ActionMenuGroup>
-        <br/>
-          <ActionMenuItem>
-            <a href="/oauth2/logout">Logg ut</a>
-          </ActionMenuItem>
+        <br />
+        <ActionMenuItem>
+          <a href="/oauth2/logout">Logg ut</a>
+        </ActionMenuItem>
       </ActionMenuContent>
     </ActionMenu>
   );
