@@ -4,10 +4,10 @@ import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<Object[]>>,
-  dataparams: DataOptionsProps,
+  dataParams: DataOptionsProps,
 ) {
   useEffect(() => {
-    fetch(`/api/data?datasetnr=${dataparams.testDataSet}`)
+    fetch(`/api/data?datasetnr=${dataParams.testDataSet}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
