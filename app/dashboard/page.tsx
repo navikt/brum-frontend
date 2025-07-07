@@ -1,5 +1,5 @@
 'use client';
-import Graph from '@/common/components/Graph';
+import Graph from '@/common/components/DataDisplay';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
