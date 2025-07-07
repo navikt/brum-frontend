@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
 import { logger } from '@navikt/next-logger';
+import { email } from 'zod/v4';
 
 export async function GET(req: NextRequest) {
   try {
@@ -68,8 +69,12 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await ktorResponse.json();
-    logger.warn('User info fetched successfully:', data);
-    return NextResponse.json(data, { status: 200 });
+    const userInfo = {
+      username: data.preferred_username,
+      NAVident: data.NAVident,
+    };
+
+    return NextResponse.json(userInfo, { status: 200 });
   } catch (error) {
     console.error('Error in userInfo API handler:', error);
     return NextResponse.json(
