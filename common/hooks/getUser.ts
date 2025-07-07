@@ -1,9 +1,10 @@
 'user client';
 import { useEffect, useState } from 'react';
 import { logger } from '@navikt/next-logger';
+import { UserInfo } from '../types/userInfoTypes';
 
 export function useUser() {
-  const [user, setUser] = useState<{ oid: string; username: string } | null>(null);
+  const [user, setUser] = useState< UserInfo | null>(null);
 
   useEffect(() => {
     fetch('/api/userInfo')
