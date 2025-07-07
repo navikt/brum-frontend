@@ -33,7 +33,7 @@ export function UserMenu({ user }: UserMenuProps) {
         </ActionMenuGroup>
         <br/>
           <ActionMenuItem>
-            <a href="/oauth2/login">Logg ut</a>
+            <a href="/oauth2/logout">Logg ut</a>
           </ActionMenuItem>
       </ActionMenuContent>
     </ActionMenu>
@@ -42,12 +42,11 @@ export function UserMenu({ user }: UserMenuProps) {
 
 
 function getNameOnly(user: string): string {
+  const [namePart] = user.split('@');
 
-  if (!user) return '';
-  const fullName = user.match(/^(\w+)\..*\.(\w+)@/);
+  const [first, last] = namePart.split('.');
+  if (!first || !last) return 'Ukjent bruker';
 
-  if (!fullName) {
-    return '';
-  }
-  return `${fullName[1]} ${fullName[2]}`;
+  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  return `${capitalize(first)} ${capitalize(last)}`;
 }
