@@ -23,24 +23,30 @@ export function UserMenu({ user }: UserMenuProps) {
           icon={<ChevronDownIcon aria-hidden />}
           iconPosition="right"
         >
-          {user.username}
+          {getNameOnly(user.username)}
         </Button>
       </ActionMenuTrigger>
       <ActionMenuContent>
         <ActionMenuGroup label="Min info">
-          <ActionMenuItem onSelect={console.info}>Navn: {user.username}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>Email: {user.username}</ActionMenuItem>
           <ActionMenuItem onSelect={console.info}>NAV-ID: {user.NAVident}</ActionMenuItem>
-          <ActionMenuItem onSelect={console.info}>OID: {user.oid}</ActionMenuItem>
-          <ActionMenuItem onSelect={console.info}>Grupper: {user.groups.join(', ')}</ActionMenuItem>
-          <ActionMenuItem onSelect={console.info}>Rolle: {user.roles?.join(', ')}</ActionMenuItem>
-          <ActionMenuItem onSelect={console.info}>Scop: {user.scp?.join(', ')}</ActionMenuItem>
-          <ActionMenuItem onSelect={console.info}>ID-typ: {user.idtyp}</ActionMenuItem> 
         </ActionMenuGroup>
         <br/>
           <ActionMenuItem>
-            <a href="/loggut">Logg ut</a>
+            <a href="/oauth2/logout">Logg ut</a>
           </ActionMenuItem>
       </ActionMenuContent>
     </ActionMenu>
   );
+}
+
+
+function getNameOnly(user: string): string {
+  const [namePart] = user.split('@');
+
+  const [first, last] = namePart.split('.');
+  if (!first || !last) return 'Ukjent bruker';
+
+  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  return `${capitalize(first)} ${capitalize(last)}`;
 }
