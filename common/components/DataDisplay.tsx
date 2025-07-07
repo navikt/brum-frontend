@@ -6,7 +6,7 @@ import ChartMenu from './ChartMenu';
 import DataTable from './DataTable';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { Loader } from '@navikt/ds-react';
+import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useTheme } from '../UI/ThemeContext';
 
@@ -35,7 +35,9 @@ const DataDisplay = () => {
   return (
     <div>
       {loading ? (
-        <Loader size="xlarge" />
+        <VStack align="center">
+          <Loader size="xlarge" />
+        </VStack>
       ) : (
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
