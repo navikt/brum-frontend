@@ -2,12 +2,15 @@
 
 import { useUser } from '../hooks/getUser';
 import { UserMenu } from './UserMenu';
-import { BarChartIcon, PersonIcon } from '@navikt/aksel-icons';
+import { BarChartIcon, ChevronDownIcon, PersonIcon } from '@navikt/aksel-icons';
 import { ThemeButton } from './ThemeButton';
-import { InternalHeader, Spacer, Theme } from '@navikt/ds-react';
+import { ActionMenu, Button, InternalHeader, Spacer, Theme } from '@navikt/ds-react';
+import { ActionMenuTrigger, ActionMenuContent, ActionMenuGroup, ActionMenuItem } from '@navikt/ds-react/ActionMenu';
+import { UserInfo } from '../types/userInfoTypes';
+
 
 export default function NavBar() {
-  const user = useUser();
+  const user = useUser()
 
   return (
     <InternalHeader className="px-4" data-color="Blue-100">
@@ -15,16 +18,7 @@ export default function NavBar() {
         <BarChartIcon title="a11y-title" fontSize="1.5rem" />
         Brum
       </InternalHeader.Title>
-      <InternalHeader.User name={''} />
-
-      {user && (
-        <InternalHeader.User name={user.username} description={user.oid}>
-          <InternalHeader.UserButton name={user.username} aria-label="Åpne brukermeny">
-            <PersonIcon aria-hidden />
-          </InternalHeader.UserButton>
-          <UserMenu user={user} />
-        </InternalHeader.User>
-      )}
+           {user && <UserMenu user={user} />}
       <Spacer />
       <ThemeButton />
     </InternalHeader>

@@ -68,6 +68,7 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await ktorResponse.json();
+    logger.warn('User info fetched successfully:', data);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error('Error in userInfo API handler:', error);

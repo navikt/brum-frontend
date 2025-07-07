@@ -1,39 +1,45 @@
 'use client';
-import { ActionMenu, Button } from '@navikt/ds-react';
-import Link from 'next/link';
-import { PersonIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { ChevronDownIcon } from '@navikt/aksel-icons';
 import {
+  ActionMenu,
   ActionMenuTrigger,
   ActionMenuContent,
   ActionMenuGroup,
   ActionMenuItem,
-  ActionMenuDivider,
 } from '@navikt/ds-react/ActionMenu';
+import { UserInfo } from '../types/userInfoTypes';
 
-export function UserMenu({ user }: { user: { oid: string; username: string } }) {
+type UserMenuProps = {
+  user: UserInfo;
+};
+
+export function UserMenu({ user }: UserMenuProps) {
   return (
     <ActionMenu>
       <ActionMenuTrigger>
-        <Button>
-          <PersonIcon title={user.oid} />
+        <Button
+          variant="secondary-neutral"
+          icon={<ChevronDownIcon aria-hidden />}
+          iconPosition="right"
+        >
+          {user.username}
         </Button>
       </ActionMenuTrigger>
-
-      <ActionMenuContent align="end" className="w-48">
-        <ActionMenuGroup label={user.oid}>
-          <ActionMenuItem disabled as="div">
-            {user.username}
-          </ActionMenuItem>
+      <ActionMenuContent>
+        <ActionMenuGroup label="Min info">
+          <ActionMenuItem onSelect={console.info}>Navn: {user.username}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>NAV-ID: {user.NAVident}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>OID: {user.oid}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>Grupper: {user.groups.join(', ')}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>Rolle: {user.roles?.join(', ')}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>Scop: {user.scp?.join(', ')}</ActionMenuItem>
+          <ActionMenuItem onSelect={console.info}>ID-typ: {user.idtyp}</ActionMenuItem> 
         </ActionMenuGroup>
-
-        <ActionMenuDivider />
-        <ActionMenuDivider />
-
-        <ActionMenuGroup label="logg ut knapp">
-          <ActionMenuItem as={Link} href="/oauth2/logout">
-            Logg ut
+        <br/>
+          <ActionMenuItem>
+            <a href="/loggut">Logg ut</a>
           </ActionMenuItem>
-        </ActionMenuGroup>
       </ActionMenuContent>
     </ActionMenu>
   );
