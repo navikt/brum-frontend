@@ -8,9 +8,6 @@ interface ScopedSortState extends SortState {
 } */
 
 const DataTable = ({ data }: { data: Record<string, any>[] }) => {
-  if (!data || data.length === 0) {
-    return <div>Ingen data</div>;
-  }
   /*
   const [sort, setSort] = useState<ScopedSortState | undefined>();
 
