@@ -1,10 +1,10 @@
 'use client';
 
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { Chart, getHighcharts, HighchartsOptionsType } from '@highcharts/react';
+import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { Loader, VStack } from '@navikt/ds-react';
-import Highcharts, { chart } from 'highcharts';
+import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
 import { DataOptionsProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
@@ -39,7 +39,7 @@ const DataDisplay = () => {
   return (
     <div>
       {loading ? (
-        <VStack align="center">
+        <VStack width="100%" align="center">
           <Loader size="3xlarge" />
         </VStack>
       ) : (
