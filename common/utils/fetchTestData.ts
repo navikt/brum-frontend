@@ -1,6 +1,7 @@
 import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
+import { SeriesColumnOptions } from 'highcharts';
 
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<Object[]>>,
@@ -18,14 +19,14 @@ export function useFetchTestData(
 }
 
 export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
+  // mapping to a variable so no old series are kept over (can happen if you do it within the spread)
+  var newSeries: SeriesColumnOptions[] = data.map((d: Object) => ({
+    type: 'column',
+    data: Object.values(d),
+  }));
   setChartOptions((prev: HighchartsOptionsType) => ({
     ...prev,
-    series: [
-      {
-        type: 'column',
-        data: data.map((d: Object) => Object.values(d)),
-      },
-    ],
+    series: newSeries,
   }));
   data && data.length ? setLoading(false) : setLoading(true);
 }
