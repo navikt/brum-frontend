@@ -11,7 +11,16 @@ export default function NavBar() {
   return (
     <InternalHeader className="px-4" data-color="Blue-100">
       <InternalHeader.Title href="/">
-        <BarChartIcon title="a11y-title" fontSize="1.5rem" />
+        <img
+          src="/assets/StatBear.svg"
+          alt="Brum logo"
+          style={{
+            height: '2rem',
+            width: 'auto',
+            verticalAlign: 'middle',
+            marginRight: '0.5rem',
+          }}
+        />
         Brum
       </InternalHeader.Title>
 
