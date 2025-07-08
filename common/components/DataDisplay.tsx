@@ -46,7 +46,7 @@ const DataDisplay = () => {
     <div>
       {loading ? (
         <VStack align="center">
-          <Loader size="xlarge" />
+          <Loader size="3xlarge" />
         </VStack>
       ) : (
         <>
