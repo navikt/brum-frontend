@@ -34,17 +34,11 @@ const DataDisplay = () => {
   useFetchTestData(setData, dataParams);
   useEffect(() => {
     updateGraphSeries({ data, setChartOptions, setLoading });
-    if (ref.current?.chart) {
-      ref.current.chart.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
-    }
   }, [data, setData]);
 
   useEffect(() => {
-    console.log('Logging ref.current?.chart: ', ref.current?.chart);
     if (ref.current?.chart) {
-      console.log("Logging the chart's options before update:", ref.current.chart.options);
-      ref.current.series.update(chartOptions.series); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
-      console.log("Logging the chart's options after update:", ref.current.chart.options);
+      ref.current.chart.update(chartOptions, true, true); // (options,redraw,oneToOne). oneToOne=true ensures old series don't stay when # old series > # new series
     }
   }, [chartOptions, setChartOptions]);
 
