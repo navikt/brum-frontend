@@ -33,14 +33,8 @@ const DataDisplay = () => {
 
   useFetchTestData(setData, dataParams);
   useEffect(() => {
-    updateGraphSeries({ data, setChartOptions, setLoading });
+    updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
   }, [data, setData]);
-
-  useEffect(() => {
-    if (ref.current?.chart) {
-      ref.current.chart.update(chartOptions, true, true); // (options,redraw,oneToOne). oneToOne=true ensures old series don't stay when # old series > # new series
-    }
-  }, [chartOptions, setChartOptions]);
 
   return (
     <div>

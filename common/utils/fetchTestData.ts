@@ -18,7 +18,13 @@ export function useFetchTestData(
   }, [setData, dataParams]);
 }
 
-export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
+export function updateGraphSeries({
+  data,
+  chartOptions,
+  setChartOptions,
+  setLoading,
+  ref,
+}: UpdateSeriesProps) {
   if (!data || data.length === 0) {
     return;
   }
@@ -32,5 +38,11 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
     })),
     xAxis: [{ categories: Object.keys(data[0]).slice(1) }],
   }));
+
+  // explictly updating options of the chart, so series update correctly
+  if (ref.current?.chart) {
+    ref.current.chart.update(chartOptions, true, true); // (options,redraw,oneToOne). oneToOne=true ensures old series don't stay in the chart when # old series > # new series
+  }
+
   setLoading(false);
 }
