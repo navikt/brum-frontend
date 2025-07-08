@@ -23,7 +23,7 @@ export interface UpdateSeriesProps {
 }
 
 export interface DataOptionsProps {
-  testDataSet: number;
+  dataSet: string;
 }
 
 export interface UpdateDataOptionsProps {

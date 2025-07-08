@@ -8,7 +8,7 @@ export function useFetchTestData(
   dataParams: DataOptionsProps,
 ) {
   useEffect(() => {
-    fetch(`/api/data?datasetnr=${dataParams.testDataSet}`)
+    fetch(`/api/data?datasetnr=${dataParams.dataSet}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();

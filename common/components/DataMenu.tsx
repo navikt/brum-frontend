@@ -12,8 +12,8 @@ const DataMenu = (props: UpdateDataOptionsProps) => {
 
 const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
   const options = [
-    { label: 'Testdatasett 1', value: '1' },
-    { label: 'Testdatasett 2', value: '2' },
+    { label: 'Testdatasett 1', value: 'Test1' },
+    { label: 'Testdatasett 2', value: 'Test2' },
   ];
 
   return (
@@ -24,7 +24,7 @@ const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) =>
       onToggleSelected={(optionValue) => {
         setDataParams((prev: Object) => ({
           ...prev,
-          testDataSet: Number(optionValue),
+          dataSet: optionValue,
         }));
       }}
       shouldAutocomplete
