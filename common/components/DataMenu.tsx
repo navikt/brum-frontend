@@ -20,7 +20,7 @@ const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) =>
     <UNSAFE_Combobox
       label="Velg testdatasett"
       options={options}
-      selectedOptions={[options.find((opt) => opt.value === String(dataParams.testDataSet))!]}
+      selectedOptions={[options.find((opt) => opt.value === dataParams.dataSet)!]}
       onToggleSelected={(optionValue) => {
         setDataParams((prev: Object) => ({
           ...prev,
