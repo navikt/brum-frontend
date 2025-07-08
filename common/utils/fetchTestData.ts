@@ -13,7 +13,7 @@ export function useFetchTestData(
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
       })
-      .then(setData)
+      .then(dataParams.dataSet === 'No behov' ? console.log : setData)
       .catch(console.error);
   }, [setData, dataParams]);
 }
