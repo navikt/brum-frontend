@@ -43,7 +43,7 @@ const DataDisplay = () => {
     console.log('Logging ref.current?.chart: ', ref.current?.chart);
     if (ref.current?.chart) {
       console.log("Logging the chart's options before update:", ref.current.chart.options);
-      ref.current.chart.series.update(chartOptions.series); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+      ref.current.series.update(chartOptions.series); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
       console.log("Logging the chart's options after update:", ref.current.chart.options);
     }
   }, [chartOptions, setChartOptions]);
