@@ -40,10 +40,12 @@ const DataDisplay = () => {
   }, [data, setData]);
 
   useEffect(() => {
+    console.log('Logging ref.current?.chart: ' + ref.current?.chart);
     if (ref.current?.chart) {
+      console.log('Updating chart');
       ref.current.chart.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
     }
-  }, [setChartOptions]);
+  }, [chartOptions, setChartOptions]);
 
   return (
     <div>
