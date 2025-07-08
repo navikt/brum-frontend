@@ -42,13 +42,9 @@ const DataDisplay = () => {
   useEffect(() => {
     console.log('Logging ref.current?.chart: ', ref.current?.chart);
     if (ref.current?.chart) {
-      console.log('Updating chart');
-      console.log('Logging chartoptions:', chartOptions);
       console.log("Logging the chart's options before update:", ref.current.chart.options);
-      ref.current.chart.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+      ref.current.chart.series.update(chartOptions.series); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
       console.log("Logging the chart's options after update:", ref.current.chart.options);
-      console.log('Redrawing chart');
-      ref.current.chart.redraw();
     }
   }, [chartOptions, setChartOptions]);
 
