@@ -3,6 +3,7 @@
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
+import { Accessibility } from '@highcharts/react/options/Accessibility'; // ???
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
@@ -48,6 +49,7 @@ const DataDisplay = () => {
             {/* The name of the container class controls the theme of the chart */}
             <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
               <Exporting />
+              <Accessibility />
             </Chart>
           </div>
           <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
