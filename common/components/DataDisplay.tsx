@@ -35,9 +35,15 @@ const DataDisplay = () => {
   useEffect(() => {
     updateGraphSeries({ data, setChartOptions, setLoading });
     if (ref.current?.chart) {
-      ref.current.chart.update(chartOptions);
+      ref.current.chart.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
     }
   }, [data, setData]);
+
+  useEffect(() => {
+    if (ref.current?.chart) {
+      ref.current.chart.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+    }
+  }, [setChartOptions]);
 
   return (
     <div>
