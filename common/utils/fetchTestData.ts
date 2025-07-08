@@ -19,6 +19,9 @@ export function useFetchTestData(
 }
 
 export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
+  if (!data || data.length === 0) {
+    return;
+  }
   // mapping to a variable so no old series are kept over (can happen if you do it within the spread and new # series < old # series)
   var newSeries: SeriesColumnOptions[] = data.map((d: Object) => ({
     type: 'column',
@@ -32,5 +35,5 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
     series: newSeries,
     xAxis: [{ categories: categories }],
   }));
-  data && data.length ? setLoading(false) : setLoading(true);
+  setLoading(false);
 }
