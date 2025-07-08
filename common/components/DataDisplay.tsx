@@ -1,11 +1,11 @@
 'use client';
 
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { Chart, HighchartsOptionsType } from '@highcharts/react';
+import { Chart, getHighcharts, HighchartsOptionsType } from '@highcharts/react';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { Loader, VStack } from '@navikt/ds-react';
-import Highcharts from 'highcharts';
-import { useEffect, useState } from 'react';
+import Highcharts, { chart } from 'highcharts';
+import { useEffect, useRef, useState } from 'react';
 import { DataOptionsProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
@@ -17,6 +17,7 @@ const DataDisplay = () => {
   const [loading, setLoading] = useState(true);
   const [dataParams, setDataParams] = useState<DataOptionsProps>({ testDataSet: 1 });
   const { theme } = useTheme();
+  const ref = useRef<any>(null);
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
@@ -33,6 +34,9 @@ const DataDisplay = () => {
   useFetchTestData(setData, dataParams);
   useEffect(() => {
     updateGraphSeries({ data, setChartOptions, setLoading });
+    if (ref.current?.chart) {
+      ref.current.chart.update(chartOptions);
+    }
   }, [data, setData]);
 
   return (
@@ -45,7 +49,7 @@ const DataDisplay = () => {
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
-            <Chart highcharts={Highcharts} options={chartOptions}>
+            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
               <Exporting />
             </Chart>
           </div>

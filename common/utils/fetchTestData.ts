@@ -22,18 +22,15 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
   if (!data || data.length === 0) {
     return;
   }
-  // mapping to a variable so no old series are kept over (can happen if you do it within the spread and new # series < old # series)
-  var newSeries: SeriesColumnOptions[] = data.map((d: Object) => ({
-    type: 'column',
-    data: Object.values(d).slice(1),
-    name: String(Object.values(d)[0]),
-  }));
-  const categories = Object.keys(data[0]).slice(1);
 
   setChartOptions((prev: HighchartsOptionsType) => ({
     ...prev,
-    series: newSeries,
-    xAxis: [{ categories: categories }],
+    series: data.map((d: Object) => ({
+      type: 'column',
+      data: Object.values(d).slice(1),
+      name: String(Object.values(d)[0]),
+    })),
+    xAxis: [{ categories: Object.keys(data[0]).slice(1) }],
   }));
   setLoading(false);
 }
