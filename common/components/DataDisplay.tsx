@@ -2,9 +2,9 @@
 
 import { useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
-import { Accessibility } from '@highcharts/react/options/accessibility';
-import { Data } from '@highcharts/react/options/data';
-import { Exporting } from '@highcharts/react/options/exporting';
+import { Accessibility } from '@highcharts/react/options/Accessibility';
+import { Data } from '@highcharts/react/options/Data';
+import { Exporting } from '@highcharts/react/options/Exporting';
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
