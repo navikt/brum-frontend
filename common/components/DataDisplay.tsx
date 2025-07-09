@@ -50,7 +50,18 @@ const DataDisplay = () => {
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
             <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
-              <Data csv={data} itemDelimiter={';'} />
+              <Data
+                csv={data}
+                itemDelimiter={';'}
+                beforeParse={(d) => {
+                  console.log('Unparsed data to hg', d);
+                  return d;
+                }}
+                complete={(d) => {
+                  console.log('Parsed data to hg', d);
+                  return d;
+                }}
+              />
               <Exporting />
               <Accessibility />
             </Chart>
