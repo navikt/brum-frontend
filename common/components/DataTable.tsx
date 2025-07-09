@@ -7,7 +7,7 @@ interface ScopedSortState extends SortState {
   orderBy: keyof (typeof data)[0];
 } */
 
-const DataTable = ({ data }: { data: Record<string, any>[] }) => {
+const DataTable = ({ data }: { data: string }) => {
   /*
   const [sort, setSort] = useState<ScopedSortState | undefined>();
 
@@ -51,7 +51,8 @@ const DataTable = ({ data }: { data: Record<string, any>[] }) => {
       <p>TABLE TEMP. DISABLED</p>
     </div>
   );
-
+};
+/*
   const columns = Object.keys(data[0]);
 
   return (
@@ -75,5 +76,5 @@ const DataTable = ({ data }: { data: Record<string, any>[] }) => {
     </Table>
   );
 };
-
+*/
 export default DataTable;

@@ -12,9 +12,8 @@ const DataMenu = (props: UpdateDataOptionsProps) => {
 
 const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
   const options = [
-    { label: 'Testdatasett 1', value: 'Test1' },
-    { label: 'Testdatasett 2', value: 'Test2' },
-    { label: 'Real test data w/o tiltaksbehov, OBS: only logs data', value: 'No behov' },
+    { label: 'Mini', value: 'Mini.csv' },
+    { label: 'Full real', value: 'Real' },
   ];
 
   return (
