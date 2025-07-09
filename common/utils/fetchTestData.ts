@@ -27,7 +27,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     const newOptions: HighchartsOptionsType = {
       series: data.map((d: Object) => ({
         type: 'column',
-        data: Object.values(Object.values(d)[0]),
+        data: Object.values(data[Object.values(d)[0]]),
         name: Object.keys(d)[0],
       })),
     };
