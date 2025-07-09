@@ -22,6 +22,8 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     return;
   }
 
+  console.log(data);
+
   const newOptions: HighchartsOptionsType = { data: { csv: data } };
 
   setChartOptions((prev: HighchartsOptionsType) => ({
