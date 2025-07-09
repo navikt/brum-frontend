@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
       throw new Error('BRUM_API_URL is not defined in environment variables.');
     }
 
-    const ktorResponse = await fetch(`${BRUM_API_URL}/userInfo`, {
+    const ktorResponse = await fetch(`${BRUM_API_URL}/bruker-info`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
