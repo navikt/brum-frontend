@@ -8,7 +8,6 @@ import { skip } from 'node:test';
 const NAIS_LOGIN_PATH = '/oauth2/login';
 
 export async function middleware(request: NextRequest) {
-
   console.log(`Middleware: Request received for ${request.nextUrl.pathname}`);
   logger.warn(`Middleware: Request received for ${request.nextUrl.pathname}`);
   const { pathname, origin, href } = request.nextUrl;
@@ -69,6 +68,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|oauth2/login|oauth2/session|api/auth|api/metrics|api/logger|api/userInfo).*)',
+    // Exclude Next.js internals, public assets, and common static file types
+    '/((?!_next/static|_next/image|favicon.ico|assets/|.*\\.svg$|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.webp$|.*\\.ico$|oauth2/login|oauth2/session|api/auth|api/metrics|api/logger|api/userInfo).*)',
   ],
 };

@@ -46,6 +46,12 @@ const DataTable = ({ data }: { data: Record<string, any>[] }) => {
   });
   */
 
+  return (
+    <div>
+      <p>TABLE TEMP. DISABLED</p>
+    </div>
+  );
+
   const columns = Object.keys(data[0]);
 
   return (

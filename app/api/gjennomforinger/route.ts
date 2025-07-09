@@ -1,6 +1,6 @@
+import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
-import { logger } from '@navikt/next-logger';
 
 export async function GET(req: NextRequest) {
   try {

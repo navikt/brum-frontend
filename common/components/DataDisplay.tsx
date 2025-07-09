@@ -1,19 +1,24 @@
 'use client';
 
-import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { useEffect, useState } from 'react';
-import ChartMenu from './ChartMenu';
-import DataTable from './DataTable';
-import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { Loader } from '@navikt/ds-react';
+import { Chart, HighchartsOptionsType } from '@highcharts/react';
+import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
+import { Accessibility } from '@highcharts/react/options/Accessibility'; // ???
+import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
+import { useEffect, useRef, useState } from 'react';
+import { DataOptionsProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
+import ChartMenu from './ChartMenu';
+import DataMenu from './DataMenu';
+import DataTable from './DataTable';
 
 const DataDisplay = () => {
   const [data, setData] = useState<Object[]>([]);
   const [loading, setLoading] = useState(true);
+  const [dataParams, setDataParams] = useState<DataOptionsProps>({ dataSet: 'Test1' });
   const { theme } = useTheme();
+  const ref = useRef<any>(null);
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
@@ -27,23 +32,27 @@ const DataDisplay = () => {
     import('highcharts/themes/adaptive');
   }, []);
 
-  useFetchTestData(setData);
+  useFetchTestData(setData, dataParams);
   useEffect(() => {
-    updateGraphSeries({ data, setChartOptions, setLoading });
-  }, [data]);
+    updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
+  }, [data, setData]);
 
   return (
     <div>
       {loading ? (
-        <Loader size="xlarge" />
+        <VStack width="100%" align="center">
+          <Loader size="3xlarge" />
+        </VStack>
       ) : (
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
-            <Chart highcharts={Highcharts} options={chartOptions}>
+            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
               <Exporting />
+              <Accessibility />
             </Chart>
           </div>
+          <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
           <DataTable data={data} />
         </>

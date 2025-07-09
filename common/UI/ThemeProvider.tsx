@@ -1,7 +1,7 @@
 'use client';
 
 import { Theme } from '@navikt/ds-react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import { ThemeContext, ThemeType } from './ThemeContext';
 

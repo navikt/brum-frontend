@@ -16,6 +16,17 @@ export interface PercentModeProps extends ChartOptionsProps {
 
 export interface UpdateSeriesProps {
   data: Object[];
+  chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
+  ref: any;
+}
+
+export interface DataOptionsProps {
+  dataSet: string;
+}
+
+export interface UpdateDataOptionsProps {
+  dataParams: DataOptionsProps;
+  setDataParams: Dispatch<SetStateAction<DataOptionsProps>>;
 }
