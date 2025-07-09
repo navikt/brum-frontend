@@ -30,6 +30,9 @@ const DataDisplay = () => {
   useEffect(() => {
     // Only run on client
     import('highcharts/themes/adaptive');
+    import('highcharts/modules/data');
+    import('highcharts/modules/exporting');
+    import('highcharts/modules/accessibility');
   }, []);
 
   useFetchTestData(setData, dataParams, setLoading);
