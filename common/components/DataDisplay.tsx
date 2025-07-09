@@ -16,7 +16,7 @@ import DataTable from './DataTable';
 const DataDisplay = () => {
   const [data, setData] = useState<string>('');
   const [loading, setLoading] = useState(true);
-  const [dataParams, setDataParams] = useState<DataOptionsProps>({ dataSet: 'Test1' });
+  const [dataParams, setDataParams] = useState<DataOptionsProps>({ dataSet: 'Mini.csv' });
   const { theme } = useTheme();
   const ref = useRef<any>(null);
 
