@@ -50,7 +50,7 @@ const DataDisplay = () => {
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
             <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
-              <Data csv={data} />
+              <Data csv={data} itemDelimiter={';'} />
               <Exporting />
               <Accessibility />
             </Chart>
