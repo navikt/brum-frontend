@@ -39,7 +39,6 @@ export async function GET(req: NextRequest) {
     const ktorResponse = await fetch(`${BRUM_API_URL}/testData?dataset=${datasetnr}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'text/csv',
         Authorization: `Bearer ${oboAccessToken}`,
       },
     });
@@ -54,7 +53,13 @@ export async function GET(req: NextRequest) {
     }
 
     const dataFromKtor = await ktorResponse.text();
-    return NextResponse.json(dataFromKtor, { status: 200 });
+    const ktorContentType = ktorResponse.headers.get('Content-Type') || 'text/plain';
+    return new NextResponse(dataFromKtor, {
+      status: 200,
+      headers: {
+        'Content-Type': ktorContentType,
+      },
+    });
   } catch (error) {
     console.error('An error occurred while processing the request in Next.js API route:', error);
     return NextResponse.json(
