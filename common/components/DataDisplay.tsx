@@ -4,6 +4,7 @@ import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestDat
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
 import { Accessibility } from '@highcharts/react/options/Accessibility'; // ???
+import { Data } from '@highcharts/react/options/Data'; // tillater eksportering av grafen
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
@@ -33,10 +34,11 @@ const DataDisplay = () => {
   }, []);
 
   useFetchTestData(setData, dataParams);
+  /*
   useEffect(() => {
     updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
   }, [data, setData]);
-
+*/
   return (
     <div>
       {loading ? (
@@ -48,6 +50,7 @@ const DataDisplay = () => {
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
             <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
+              <Data csv={data} />
               <Exporting />
               <Accessibility />
             </Chart>
