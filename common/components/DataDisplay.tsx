@@ -1,5 +1,6 @@
 'use client';
 
+import 'highcharts/modules/data';
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
