@@ -2,6 +2,9 @@
 
 import { useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
+import { Accessibility } from '@highcharts/react/options/accessibility';
+import { Data } from '@highcharts/react/options/data';
+import { Exporting } from '@highcharts/react/options/exporting';
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
@@ -30,9 +33,6 @@ const DataDisplay = () => {
   useEffect(() => {
     // Only run on client
     import('highcharts/themes/adaptive');
-    import('highcharts/modules/data');
-    import('highcharts/modules/exporting');
-    import('highcharts/modules/accessibility');
   }, []);
 
   useFetchTestData(setData, dataParams, setLoading);
@@ -51,7 +51,11 @@ const DataDisplay = () => {
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
-            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}></Chart>
+            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
+              <Data />
+              <Exporting />
+              <Accessibility />
+            </Chart>
           </div>
           <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
