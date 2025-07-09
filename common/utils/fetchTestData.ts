@@ -5,7 +5,7 @@ import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<string>>,
   dataParams: DataOptionsProps,
-  setLoading: Dispatch<SetStateAction<BeforeUnloadEventoolean>>,
+  setLoading: Dispatch<SetStateAction<boolean>>,
 ) {
   useEffect(() => {
     fetch(`/api/data?dataset=${dataParams.dataSet}`)

@@ -33,7 +33,7 @@ const DataDisplay = () => {
     import('highcharts/themes/adaptive');
   }, []);
 
-  useFetchTestData(setData, dataParams);
+  useFetchTestData(setData, dataParams, setLoading);
   /*
   useEffect(() => {
     updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
