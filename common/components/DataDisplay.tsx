@@ -1,11 +1,7 @@
 'use client';
 
-import 'highcharts/modules/data';
-import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
+import { useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
-import { Exporting } from '@highcharts/react/options/Exporting'; // tillater eksportering av grafen
-import { Accessibility } from '@highcharts/react/options/Accessibility'; // ???
-import { Data } from '@highcharts/react/options/Data'; // tillater eksportering av grafen
 import { Loader, VStack } from '@navikt/ds-react';
 import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
@@ -27,6 +23,8 @@ const DataDisplay = () => {
     chart: { inverted: false },
     plotOptions: { series: { stacking: undefined } },
     exporting: { enabled: true },
+    accessibility: { enabled: true },
+    data: { csv: data, itemDelimiter: ';' },
   });
 
   useEffect(() => {
@@ -50,22 +48,7 @@ const DataDisplay = () => {
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
-            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
-              <Data
-                csv={data}
-                itemDelimiter={';'}
-                beforeParse={(d) => {
-                  console.log('Unparsed data to hg', d);
-                  return d;
-                }}
-                complete={(d) => {
-                  console.log('Parsed data to hg', d);
-                  return d;
-                }}
-              />
-              <Exporting />
-              <Accessibility />
-            </Chart>
+            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}></Chart>
           </div>
           <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
