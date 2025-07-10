@@ -4,8 +4,7 @@ import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<string>>,
-  dataParams: DataOptionsProps,
-  setLoading: Dispatch<SetStateAction<boolean>>,
+  dataParams: DataOptionsProps
 ) {
   useEffect(() => {
     fetch(`/api/data?dataset=${dataParams.dataSet}`)
@@ -18,7 +17,6 @@ export function useFetchTestData(
         console.log('data in datafetch', data);
       })
       .catch(console.error)
-      .finally(() => setLoading(false));
   }, [setData, dataParams]);
 }
 
@@ -27,23 +25,19 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     return;
   }
 
-  console.log(data);
-
-  const newOptions: HighchartsOptionsType = { data: { csv: data } };
-
-  setChartOptions((prev: HighchartsOptionsType) => ({
-    ...prev,
-    ...newOptions,
-  }));
-
-  // explicitly updating the chart, because otherwise old series are left over when # old series > # new series
-  if (ref.current?.chart) {
-    ref.current.chart.update(
-      { ...ref.current.chart.options, ...newOptions },
-      true,
-      true, // oneToOne: ensures old series are removed from the graph
-    );
-  }
+  setChartOptions({
+        data: {
+      csv: data,
+      itemDelimiter: ';',
+      beforeParse: (d) => {
+        console.log('unparsed data', d);
+        return d;
+      },
+      complete: (d) => {
+        console.log('parsed data', d);
+        return d;
+      },
+    },)
 
   setLoading(false);
 }

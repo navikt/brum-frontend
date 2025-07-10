@@ -1,6 +1,6 @@
 'use client';
 
-import { useFetchTestData } from '@/common/utils/fetchTestData';
+import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
 import { Chart, HighchartsOptionsType } from '@highcharts/react';
 import { Accessibility } from '@highcharts/react/options/Accessibility';
 import { Data } from '@highcharts/react/options/Data';
@@ -27,18 +27,6 @@ const DataDisplay = () => {
     plotOptions: { series: { stacking: undefined } },
     exporting: { enabled: true },
     accessibility: { enabled: true },
-    data: {
-      csv: data,
-      itemDelimiter: ';',
-      beforeParse: (d) => {
-        console.log('unparsed data', d);
-        return d;
-      },
-      complete: (d) => {
-        console.log('parsed data', d);
-        return d;
-      },
-    },
   });
 
   useEffect(() => {
@@ -46,12 +34,12 @@ const DataDisplay = () => {
     import('highcharts/themes/adaptive');
   }, []);
 
-  useFetchTestData(setData, dataParams, setLoading);
-  /*
+  useFetchTestData(setData, dataParams);
+
   useEffect(() => {
     updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
   }, [data, setData]);
-*/
+
   return (
     <div>
       {loading ? (
