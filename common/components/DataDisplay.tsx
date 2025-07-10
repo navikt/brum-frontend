@@ -27,7 +27,18 @@ const DataDisplay = () => {
     plotOptions: { series: { stacking: undefined } },
     exporting: { enabled: true },
     accessibility: { enabled: true },
-    data: { csv: data, itemDelimiter: ';' },
+    data: {
+      csv: data,
+      itemDelimiter: ';',
+      beforeParse: (d) => {
+        console.log('unparsed data', d);
+        return d;
+      },
+      complete: (d) => {
+        console.log('parsed data', d);
+        return d;
+      },
+    },
   });
 
   useEffect(() => {

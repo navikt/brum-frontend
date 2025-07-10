@@ -13,7 +13,10 @@ export function useFetchTestData(
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.text();
       })
-      .then(setData)
+      .then((data) => {
+        setData(data);
+        console.log('data in datafetch', data);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [setData, dataParams]);
