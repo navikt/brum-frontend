@@ -3,7 +3,7 @@ import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
 export function useFetchTestData(
   setData: Dispatch<SetStateAction<string>>,
-  dataParams: DataOptionsProps
+  dataParams: DataOptionsProps,
 ) {
   useEffect(() => {
     fetch(`/api/data?dataset=${dataParams.dataSet}`)
@@ -15,7 +15,7 @@ export function useFetchTestData(
         setData(data);
         console.log('data in datafetch', data);
       })
-      .catch(console.error)
+      .catch(console.error);
   }, [setData, dataParams]);
 }
 
@@ -25,7 +25,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
   }
 
   setChartOptions({
-        data: {
+    data: {
       csv: data,
       itemDelimiter: ';',
       beforeParse: (d) => {
@@ -36,7 +36,8 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
         console.log('parsed data', d);
         return d;
       },
-    },)
+    },
+  });
 
   setLoading(false);
 }
