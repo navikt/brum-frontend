@@ -1,6 +1,7 @@
 'use client';
 
-import { Table } from '@navikt/ds-react';
+import { FunnelFillIcon, FunnelIcon, TableFillIcon, TableIcon } from '@navikt/aksel-icons';
+import { Table, Tabs } from '@navikt/ds-react';
 
 /*
 interface ScopedSortState extends SortState {
@@ -47,9 +48,14 @@ const BrumTable = ({ data }: { data: string }) => {
   */
 
   return (
-    <div>
-      <p>TABLE TEMP. DISABLED</p>
-    </div>
+    <Tabs defaultValue="filter">
+      <Tabs.List>
+        <Tabs.Tab value="filter" label="Filtrert data" icon={<FunnelIcon aria-hidden />} />
+        <Tabs.Tab value="full" label="All data" icon={<TableIcon aria-hidden />} />
+      </Tabs.List>
+      <Tabs.Panel value="filter">Filtrert data</Tabs.Panel>
+      <Tabs.Panel value="full">Allll dataen</Tabs.Panel>
+    </Tabs>
   );
 };
 /*
