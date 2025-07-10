@@ -1,6 +1,7 @@
 'use client';
 import { ChartOptionsProps, PercentModeProps, StackingRadioProps } from '@/common/types/propTypes';
-import { ActionMenu, Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
+import { ChevronDownIcon, PencilIcon } from '@navikt/aksel-icons';
+import { ActionMenu, Button, Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 
 const ChartMenu = (props: ChartOptionsProps) => {
@@ -8,6 +9,9 @@ const ChartMenu = (props: ChartOptionsProps) => {
 
   return (
     <ActionMenu>
+      <ActionMenu.Trigger>
+        <Button icon={<ChevronDownIcon aria-hidden />}>Modifiser graf</Button>
+      </ActionMenu.Trigger>
       <TitleField {...props} />
       <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
       <InversionRadio {...props} />
