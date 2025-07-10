@@ -28,11 +28,11 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
       switchRowsAndColumns: true, //rows are series
       itemDelimiter: ';',
       beforeParse: (d) => {
-        console.log('unparsed data', d);
+        console.log('HIGHCHARTS - unparsed data\n', d);
         return d;
       },
       complete: (d) => {
-        console.log('parsed data', d);
+        console.log('HIGHCHARTS - parsed data\n', d);
         return d;
       },
     },
