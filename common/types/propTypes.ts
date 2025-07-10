@@ -30,3 +30,7 @@ export interface UpdateDataOptionsProps {
   dataParams: DataOptionsProps;
   setDataParams: Dispatch<SetStateAction<DataOptionsProps>>;
 }
+
+export interface ChartProps {
+  data: string;
+}
