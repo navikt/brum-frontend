@@ -1,3 +1,4 @@
+import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
@@ -24,7 +25,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     return;
   }
 
-  setChartOptions({
+  const newOptions: HighchartsOptionsType = {
     data: {
       csv: data,
       itemDelimiter: ';',
@@ -37,7 +38,25 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
         return d;
       },
     },
-  });
+  };
+
+  setChartOptions((prev: HighchartsOptionsType) => ({
+    ...prev,
+    ...newOptions,
+  }));
+
+  /*
+
+  // explicitly updating the chart, because otherwise old series are left over when # old series > # new series
+  if (ref.current?.chart) {
+    ref.current.chart.update(
+      { ...ref.current.chart.options, ...newOptions },
+      true,
+      true, // oneToOne: ensures old series are removed from the graph
+    );
+  }
+
+  */
 
   setLoading(false);
 }
