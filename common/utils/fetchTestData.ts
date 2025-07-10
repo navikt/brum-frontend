@@ -1,4 +1,3 @@
-import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
 
