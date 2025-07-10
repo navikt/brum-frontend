@@ -1,12 +1,13 @@
 'use client';
 
+import { Chart, HighchartsOptionsType, setHighcharts } from '@highcharts/react';
+import Highcharts from 'highcharts/highcharts.src';
+import('highcharts/modules/exporting');
+import('highcharts/modules/accessibility');
+import('highcharts/modules/data');
+setHighcharts(Highcharts);
 import { updateGraphSeries, useFetchTestData } from '@/common/utils/fetchTestData';
-import { Chart, HighchartsOptionsType } from '@highcharts/react';
-import { Accessibility } from '@highcharts/react/options/Accessibility';
-import { Data } from '@highcharts/react/options/Data';
-import { Exporting } from '@highcharts/react/options/Exporting';
 import { Loader, VStack } from '@navikt/ds-react';
-import Highcharts from 'highcharts';
 import { useEffect, useRef, useState } from 'react';
 import { DataOptionsProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
@@ -50,11 +51,7 @@ const DataDisplay = () => {
         <>
           <div className={theme === 'light' ? 'highcharts-light' : 'highcharts-dark'}>
             {/* The name of the container class controls the theme of the chart */}
-            <Chart highcharts={Highcharts} ref={ref} options={chartOptions}>
-              <Data />
-              <Exporting />
-              <Accessibility />
-            </Chart>
+            <Chart highcharts={Highcharts} ref={ref} options={chartOptions} />
           </div>
           <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
