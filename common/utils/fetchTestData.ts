@@ -28,6 +28,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
   const newOptions: HighchartsOptionsType = {
     data: {
       csv: data,
+      switchRowsAndColumns: true, //rows are series
       itemDelimiter: ';',
       beforeParse: (d) => {
         console.log('unparsed data', d);
