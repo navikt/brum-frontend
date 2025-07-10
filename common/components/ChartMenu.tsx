@@ -12,10 +12,12 @@ const ChartMenu = (props: ChartOptionsProps) => {
       <ActionMenu.Trigger>
         <Button icon={<ChevronDownIcon aria-hidden />}>Modifiser graf</Button>
       </ActionMenu.Trigger>
-      <TitleField {...props} />
-      <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
-      <InversionRadio {...props} />
-      <StackingRadio {...props} percentMode={percentMode} />
+      <ActionMenu.Content>
+        <TitleField {...props} />
+        <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
+        <InversionRadio {...props} />
+        <StackingRadio {...props} percentMode={percentMode} />
+      </ActionMenu.Content>
     </ActionMenu>
   );
 };
