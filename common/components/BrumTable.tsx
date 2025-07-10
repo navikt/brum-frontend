@@ -7,7 +7,7 @@ interface ScopedSortState extends SortState {
   orderBy: keyof (typeof data)[0];
 } */
 
-const DataTable = ({ data }: { data: string }) => {
+const BrumTable = ({ data }: { data: string }) => {
   /*
   const [sort, setSort] = useState<ScopedSortState | undefined>();
 
@@ -77,4 +77,4 @@ const DataTable = ({ data }: { data: string }) => {
   );
 };
 */
-export default DataTable;
+export default BrumTable;

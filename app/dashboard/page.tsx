@@ -1,23 +1,19 @@
 'use client';
-import DataDisplay from '@/common/components/DataDisplay';
+import BrumChart from '@/common/components/BrumChart';
+import BrumTable from '@/common/components/BrumTable';
+import DataMenu from '@/common/components/DataMenu';
+import { DataOptionsProps } from '@/common/types/propTypes';
+import { useFetchTestData } from '@/common/utils/fetchTestData';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Dashboard() {
-  const [data, setData] = useState('');
-  useEffect(() => {
-    fetch('/api/gjennomforinger')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch data');
-        return res.text();
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch(console.error);
-  }, [setData]);
-  console.log(data);
+  const [data, setData] = useState<string>('');
+  const [dataParams, setDataParams] = useState<DataOptionsProps>({ dataSet: 'Mini.csv' });
+
+  useFetchTestData(setData, dataParams);
+
   return (
     <Page>
       <Page.Block width="2xl" as="main">
@@ -28,7 +24,9 @@ export default function Dashboard() {
           <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
           <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
         </VStack>
-        <DataDisplay />
+        <BrumChart data={data} />
+        <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
+        <BrumTable data={data} />
       </Page.Block>
     </Page>
   );

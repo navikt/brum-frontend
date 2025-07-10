@@ -14,7 +14,7 @@ import { ChartProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
 
-const DataChart = ({ data }: ChartProps) => {
+const BrumChart = ({ data }: ChartProps) => {
   const { theme } = useTheme();
   const ref = useRef<any>(null);
   const [loading, setLoading] = useState(true);
@@ -55,4 +55,4 @@ const DataChart = ({ data }: ChartProps) => {
   );
 };
 
-export default DataChart;
+export default BrumChart;
