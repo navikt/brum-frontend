@@ -10,9 +10,9 @@ setHighcharts(Highcharts);
 import { updateGraphSeries } from '@/common/utils/fetchTestData';
 import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
+import { ChartProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
-import { ChartProps } from '../types/propTypes';
 
 const DataChart = ({ data }: ChartProps) => {
   const { theme } = useTheme();
