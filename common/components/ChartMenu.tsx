@@ -1,18 +1,18 @@
 'use client';
 import { ChartOptionsProps, PercentModeProps, StackingRadioProps } from '@/common/types/propTypes';
-import { Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
+import { ActionMenu, Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { useState } from 'react';
 
 const ChartMenu = (props: ChartOptionsProps) => {
   const [percentMode, setPercentMode] = useState(false);
 
   return (
-    <div>
+    <ActionMenu>
       <TitleField {...props} />
       <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
       <InversionRadio {...props} />
       <StackingRadio {...props} percentMode={percentMode} />
-    </div>
+    </ActionMenu>
   );
 };
 
