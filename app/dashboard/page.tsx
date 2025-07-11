@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   useFetchTestData(setData, dataParams);
 
-  const dataFraUkeAntall = fetchUkeAntall('2021', '1');
+  fetchUkeAntall('2021', '1');
 
   return (
     <Page>
@@ -33,7 +33,6 @@ export default function Dashboard() {
         <BrumChart data={data} />
         <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
         <BrumTable data={data!} />
-        <p>Data fra ukeantall: {dataFraUkeAntall}</p>
       </Page.Block>
     </Page>
   );

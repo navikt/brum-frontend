@@ -1,21 +1,15 @@
+import { useEffect } from 'react';
 
-
-
-
-export default async function fetchUkeAntall(arr: string, uke:string): Promise<number> {
-
-  const response = await fetch(`/api/ukeAntalll?arr=${arr}uke=${uke}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch uke antall for week ${uke}`);
-  }
-
-  console.log(`Response status: ${response.status}`);
-  const data = await response.json();
-  return data.antall;
+export default function fetchUkeAntall(arr: string, uke: string) {
+  useEffect(() => {
+    fetch(`/api/ukeAntalll?arr=${arr}uke=${uke}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch data');
+        return res.json();
+      })
+      .then((data) => {
+        console.log('UKETALL', data.antall);
+      })
+      .catch(console.error);
+  }, []);
 }
