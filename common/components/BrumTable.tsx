@@ -1,6 +1,6 @@
 'use client';
 
-import { FunnelFillIcon, FunnelIcon, TableFillIcon, TableIcon } from '@navikt/aksel-icons';
+import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Table, Tabs } from '@navikt/ds-react';
 
 /*
