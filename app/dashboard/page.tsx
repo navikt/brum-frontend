@@ -27,7 +27,7 @@ export default function Dashboard() {
         </VStack>
         <BrumChart data={data} />
         <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
-        <BrumTable data={data} />
+        <BrumTable data={data!} />
       </Page.Block>
     </Page>
   );
