@@ -12,7 +12,7 @@ const DataMenu = (props: UpdateDataOptionsProps) => {
 
 const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
   const options = [
-    { label: 'Mini', value: 'Mini.csv' },
+    { label: 'Mini', value: 'Mini' },
     { label: 'Full real', value: 'Real' },
   ];
 
