@@ -3,7 +3,7 @@
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 /*
 interface ScopedSortState extends SortState {
@@ -11,46 +11,6 @@ interface ScopedSortState extends SortState {
 } */
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
-  /*
-  const [sort, setSort] = useState<ScopedSortState | undefined>();
-
-  const handleSort = (sortKey: ScopedSortState['orderBy']) => {
-    setSort(
-      sort && sortKey === sort.orderBy && sort.direction === 'descending'
-        ? undefined
-        : {
-            orderBy: sortKey,
-            direction:
-              sort && sortKey === sort.orderBy && sort.direction === 'ascending'
-                ? 'descending'
-                : 'ascending',
-          },
-    );
-  };
-  
-
-  function comparator<T>(a: T, b: T, orderBy: keyof T): number {
-    if (b[orderBy] == null || b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
-  const sortedData = data.slice().sort((a, b) => {
-    if (sort) {
-      return sort.direction === 'ascending'
-        ? comparator(b, a, sort.orderBy)
-        : comparator(a, b, sort.orderBy);
-    }
-    return 1;
-  });
-  */
-
-  const filteredData = useState<BrumData | null>(null);
-
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -65,7 +25,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
   return (
     <section aria-label="Datatabell">
       <ToggleGroup defaultValue="full" onChange={console.info}>
-        {filteredData && (
+        {true && (
           <ToggleGroup.Item
             value="filter"
             label="Filtrert data"
