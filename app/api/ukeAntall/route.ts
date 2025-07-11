@@ -49,8 +49,19 @@ export async function GET(req: NextRequest) {
     if (!BRUM_API_URL) {
       throw new Error('BRUM_API_URL is not defined in environment variables.');
     }
+    const searchParams = new URL(req.url).searchParams;
+    const aar = searchParams.get('aar');
+    const uke = searchParams.get('uke');
     
-    const ktorResponse = await fetch(`${BRUM_API_URL}/bruker-info`, {
+    if(!aar || !uke) {
+        console.error('Missing required query parameters: aar or uke');
+        return NextResponse.json(
+          { message: 'Bad Request: Missing required query parameters.' },
+          { status: 400 },
+        );
+    }
+
+    const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?ar${aar}&uke=${uke}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
