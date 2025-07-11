@@ -2,13 +2,14 @@
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Table, Tabs } from '@navikt/ds-react';
+import { BrumData } from '../types/brumData';
 
 /*
 interface ScopedSortState extends SortState {
   orderBy: keyof (typeof data)[0];
 } */
 
-const BrumTable = ({ data }: { data: string }) => {
+const BrumTable = ({ data }: { data: BrumData | null }) => {
   /*
   const [sort, setSort] = useState<ScopedSortState | undefined>();
 

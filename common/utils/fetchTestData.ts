@@ -1,16 +1,17 @@
 import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
+import { BrumData } from '../types/brumData';
 
 export function useFetchTestData(
-  setData: Dispatch<SetStateAction<string>>,
+  setData: Dispatch<SetStateAction<BrumData | null>>,
   dataParams: DataOptionsProps,
 ) {
   useEffect(() => {
     fetch(`/api/data?dataset=${dataParams.dataSet}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
-        return res.text();
+        return res.json();
       })
       .then(setData)
       .catch(console.error);
@@ -18,13 +19,13 @@ export function useFetchTestData(
 }
 
 export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: UpdateSeriesProps) {
-  if (!data || data.length === 0) {
+  if (!data || data.rows.length === 0) {
     return;
   }
 
   const newOptions: HighchartsOptionsType = {
     data: {
-      csv: data,
+      rows: data.rows,
       switchRowsAndColumns: true, //rows are series
       itemDelimiter: ';',
       beforeParse: (d) => {

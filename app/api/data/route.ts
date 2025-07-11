@@ -52,14 +52,8 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const dataFromKtor = await ktorResponse.text();
-    const ktorContentType = ktorResponse.headers.get('Content-Type') || 'text/plain';
-    return new NextResponse(dataFromKtor, {
-      status: 200,
-      headers: {
-        'Content-Type': ktorContentType,
-      },
-    });
+    const dataFromKtor = await ktorResponse.json();
+    return NextResponse.json(dataFromKtor, { status: 200 });
   } catch (error) {
     console.error('An error occurred while processing the request in Next.js API route:', error);
     return NextResponse.json(

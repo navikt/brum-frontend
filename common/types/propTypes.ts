@@ -1,5 +1,6 @@
 import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, SetStateAction } from 'react';
+import { BrumData } from './brumData';
 
 export interface ChartOptionsProps {
   chartOptions: HighchartsOptionsType;
@@ -15,7 +16,7 @@ export interface PercentModeProps extends ChartOptionsProps {
 }
 
 export interface UpdateSeriesProps {
-  data: string;
+  data: Object;
   chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -32,5 +33,5 @@ export interface UpdateDataOptionsProps {
 }
 
 export interface ChartProps {
-  data: string;
+  data: BrumData | null;
 }
