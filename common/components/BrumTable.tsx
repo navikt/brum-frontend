@@ -78,7 +78,9 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
           {dataRows.map((row, i) => (
             <Table.Row key={i}>
               {row.map((c, j) => (
-                <Table.DataCell key={j}>{c}</Table.DataCell>
+                <Table.DataCell key={j} align={data.types[j] === 'number' ? 'right' : 'left'}>
+                  {c}
+                </Table.DataCell>
               ))}
             </Table.Row>
           ))}
