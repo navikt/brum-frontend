@@ -5,7 +5,7 @@ import DataMenu from '@/common/components/DataMenu';
 import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import { useFetchTestData } from '@/common/utils/fetchTestData';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, GuidePanel, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
 
@@ -22,8 +22,10 @@ export default function Dashboard() {
           <Heading level="1" size="xlarge">
             Dashboard
           </Heading>
-          <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
-          <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+          <GuidePanel poster>
+            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
+            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+          </GuidePanel>
         </VStack>
         <BrumChart data={data} />
         <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
