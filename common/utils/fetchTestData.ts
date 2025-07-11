@@ -27,7 +27,6 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     data: {
       rows: data.rows,
       switchRowsAndColumns: true, //rows are series
-      itemDelimiter: ';',
       beforeParse: (d) => {
         console.log('HIGHCHARTS - unparsed data\n', d);
         return d;
