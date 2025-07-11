@@ -32,8 +32,13 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       <Table zebraStripes>
         <Table.Header>
           <Table.Row>
-            {headers.map((ch, index) => (
-              <Table.ColumnHeader key={index}>{ch}</Table.ColumnHeader>
+            {headers.map((ch, i) => (
+              <Table.ColumnHeader
+                align={data.column_types[i] === 'string' ? 'left' : 'right'}
+                key={i}
+              >
+                {ch}
+              </Table.ColumnHeader>
             ))}
           </Table.Row>
         </Table.Header>
