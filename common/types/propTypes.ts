@@ -16,7 +16,7 @@ export interface PercentModeProps extends ChartOptionsProps {
 }
 
 export interface UpdateSeriesProps {
-  data: Object;
+  data: BrumData | null;
   chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
