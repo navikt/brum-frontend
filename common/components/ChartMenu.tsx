@@ -15,8 +15,8 @@ const ChartMenu = (props: ChartOptionsProps) => {
       <ActionMenu.Content>
         <TitleField {...props} />
         <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
-        <InversionRadio {...props} />
-        <StackingRadio {...props} percentMode={percentMode} />
+        <InversionSwitch {...props} />
+        <StackingSwitch {...props} percentMode={percentMode} />
       </ActionMenu.Content>
     </ActionMenu>
   );
@@ -32,36 +32,34 @@ const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   />
 );
 
-const InversionRadio = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
-  <RadioGroup
-    legend="Inverted?"
+const InversionSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
+  <Switch
+    checked={chartOptions.chart!.inverted}
     onChange={(e) => {
       setChartOptions((prev) => ({
         ...prev,
-        chart: { type: prev.chart!.type, inverted: e },
+        chart: { type: prev.chart!.type, inverted: e.target.checked },
       }));
     }}
-    value={chartOptions.chart!.inverted}
   >
-    <Radio value={true}>Yes</Radio>
-    <Radio value={false}>No</Radio>
-  </RadioGroup>
+    Inverter graf
+  </Switch>
 );
 
-const StackingRadio = ({ chartOptions, setChartOptions, percentMode }: StackingRadioProps) => (
-  <RadioGroup
-    legend="Stacking?"
+const StackingSwitch = ({ chartOptions, setChartOptions, percentMode }: StackingRadioProps) => (
+  <Switch
+    checked={chartOptions.plotOptions!.series!.stacking !== undefined}
     onChange={(e) => {
       setChartOptions({
         ...chartOptions,
-        plotOptions: { series: { stacking: e === '' ? undefined : e } },
+        plotOptions: {
+          series: { stacking: e.target.checked ? (percentMode ? 'percent' : 'normal') : undefined },
+        },
       });
     }}
-    value={chartOptions.plotOptions!.series!.stacking ?? ''}
   >
-    <Radio value={''}>Nei</Radio>
-    <Radio value={percentMode ? 'percent' : 'normal'}>Ja</Radio>
-  </RadioGroup>
+    Stable serier
+  </Switch>
 );
 
 const PercentModeSwitch = ({
