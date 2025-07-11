@@ -3,6 +3,7 @@
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
+import { useState } from 'react';
 
 /*
 interface ScopedSortState extends SortState {
@@ -48,6 +49,8 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
   });
   */
 
+  const filteredData = useState<BrumData | null>(null);
+
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -61,8 +64,14 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
   const [headers, ...dataRows] = data.rows;
   return (
     <section aria-label="Datatabell">
-      <ToggleGroup defaultValue="filter" onChange={console.info}>
-        <ToggleGroup.Item value="filter" label="Filtrert data" icon={<FunnelIcon aria-hidden />} />
+      <ToggleGroup defaultValue="full" onChange={console.info}>
+        {filteredData && (
+          <ToggleGroup.Item
+            value="filter"
+            label="Filtrert data"
+            icon={<FunnelIcon aria-hidden />}
+          />
+        )}
         <ToggleGroup.Item value="full" label="All data" icon={<TableIcon aria-hidden />} />
       </ToggleGroup>
 
