@@ -1,24 +1,119 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { FilterState } from '../types/filterTypes';
-/*
-export function DataFilter{}
+import { ActionMenu, Button, TextField, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { BrumData } from '../types/brumData';
+
+export function DataFilter({ data }: { data: BrumData }) {
   const [filters, setFilters] = useState<FilterState>({});
-
+}
+/*
   const filteredData = useMemo(() => {
-      if (!data || !data.rows || data.rows.length === 0) return null;
+      if (!filters || !data || !data.rows || data.rows.length === 0) return null;
       
-      const [filterHeaders, ...filterRows] = data.rows;
-  
-      const filtered = dataRows.filter(row =>
-        row.some(cell => 
-          String(cell).toLowerCase().includes(filterText.toLowerCase())
-        )
-      );
-  
+      const [headers, ...rows] = data.rows;
+}}
+*/
 
+// konsept: filters burde være et object, hvor hver kolonneindex peker på filtertyper som peker på sine verdier. så {1 -> contains -> "alder"}
+// filtere skal kunne oppdateres og fjernes via filtermenyen + kunne cleane ut
+// man skal kunne velge filtertyper ettersom om man har strenger eller tall
+// man må kunne se filterne man har lagt til, og legge til flere per kolonne, typ nytt filter!
 
+// så legg til nytt filter knapp-> så velger man kolonne, så type filter, så verdi
+// så kan man legge til nytt, ikke endre, blir lagt som en tag!!!!
 
+export function FilterMenu({
+  data,
+  setFilters,
+}: {
+  data: BrumData;
+  setFilters: Dispatch<SetStateAction<string[]>>;
+}) {
+  // Only keep state for UI flow control - not for input values!
+  const [selectedColumn, setSelectedColumn] = useState<number>(-1);
+  const [selectedFilterType, setSelectedFilterType] = useState<string>('');
 
-export function FilterMenu{}*/
+  const columns = data.column_types.map((t, i) => ({
+    header: data.rows[0][i],
+    index: i,
+    type: t as 'string' | 'number',
+  }));
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const kolonne = formData.get('Kolonne');
+    const filter = formData.get('Filter');
+    const filterValue = formData.get('filterValue');
+
+    setFilters((prev) => [...prev, `${kolonne} ${filter} ${filterValue}`]);
+    // Reset form and UI state
+    event.currentTarget.reset();
+    setSelectedColumn(-1);
+    setSelectedFilterType('');
+  };
+
+  return (
+    <ActionMenu>
+      <ActionMenu.Trigger>
+        <Button>Filtre</Button>
+      </ActionMenu.Trigger>
+      <ActionMenu.Content>
+        <form onSubmit={handleSubmit}>
+          <VStack gap="3">
+            <UNSAFE_Combobox
+              label="Kolonne"
+              name="Kolonne"
+              options={columns.map((c) => ({
+                label: c.header.toString(),
+                value: c.index.toString(),
+              }))}
+              onToggleSelected={(i) => {
+                setSelectedColumn(+i);
+                setSelectedFilterType(''); // Reset filter type
+              }}
+            />
+
+            {selectedColumn >= 0 && (
+              <UNSAFE_Combobox
+                label="Filtrer for"
+                name="Filter"
+                options={
+                  columns[selectedColumn].type === 'number'
+                    ? [
+                        { label: 'Større enn', value: '>' },
+                        { label: 'Mindre enn', value: '<' },
+                      ]
+                    : [
+                        { label: 'Inneholder', value: 'inneholder' },
+                        { label: 'Er lik', value: '=' },
+                      ]
+                }
+                onToggleSelected={setSelectedFilterType}
+              />
+            )}
+
+            {selectedFilterType && (
+              <TextField
+                name="filterValue" // FormData picks this up - no state needed!
+                label="Verdi"
+                inputMode={columns[selectedColumn].type === 'number' ? 'numeric' : 'text'}
+                placeholder="Skriv inn verdi..."
+                required
+              />
+            )}
+
+            {selectedFilterType && (
+              <Button type="submit" size="small">
+                Legg til filter
+              </Button>
+            )}
+          </VStack>
+        </form>
+      </ActionMenu.Content>
+    </ActionMenu>
+  );
+}

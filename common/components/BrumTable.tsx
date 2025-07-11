@@ -1,10 +1,13 @@
 'use client';
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Skeleton, Table, Tag, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
+import { useState } from 'react';
+import { FilterMenu } from './DataFilter';
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
+  const [filters, setFilters] = useState<string[]>([]);
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -28,6 +31,12 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
         )}
         <ToggleGroup.Item value="full" label="All data" icon={<TableIcon aria-hidden />} />
       </ToggleGroup>
+
+      <FilterMenu data={data} setFilters={setFilters} />
+
+      {filters.map((e) => (
+        <Tag variant="info">{e}</Tag>
+      ))}
 
       <Table zebraStripes>
         <Table.Header>

@@ -1,4 +1,4 @@
 export interface BrumData {
-  column_types: string[];
+  column_types: ('string' | 'number')[];
   rows: (string | number)[][];
 }
