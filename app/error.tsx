@@ -40,17 +40,12 @@ function Error() {
                   </List>
                   <BodyShort>
                     Hvis problemet vedvarer, kan du{' '}
-                    {/* https://nav.no/kontaktoss for eksterne flater */}
                     <Link href="#" target="_blank">
                       kontakte oss (åpnes i ny fane)
                     </Link>
                     .
                   </BodyShort>
                 </div>
-
-                <BodyShort size="small" textColor="subtle">
-                  Feil-id: 12345678-9123-4567-8912-345678912345
-                </BodyShort>
 
                 <Button>Gå til Min side</Button>
               </VStack>
@@ -64,13 +59,11 @@ function Error() {
                   try again in a few minutes.{' '}
                 </BodyShort>
                 <BodyShort>
-                  {/* https://www.nav.no/kontaktoss/en for eksterne flater */}
                   <Link target="_blank" href="#">
                     Contact us (opens in new tab)
                   </Link>{' '}
                   if the problem persists.
                 </BodyShort>
-                ß
               </div>
             </VStack>
           </HGrid>
