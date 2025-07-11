@@ -3,12 +3,6 @@
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
-import { useMemo, useState } from 'react';
-
-/*
-interface ScopedSortState extends SortState {
-  orderBy: keyof (typeof data)[0];
-} */
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
   if (!data || !data.rows || data.rows.length === 0) {
@@ -38,8 +32,8 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       <Table zebraStripes>
         <Table.Header>
           <Table.Row>
-            {headers.map((col, index) => (
-              <Table.ColumnHeader key={index}>{col}</Table.ColumnHeader>
+            {headers.map((ch, index) => (
+              <Table.ColumnHeader key={index}>{ch}</Table.ColumnHeader>
             ))}
           </Table.Row>
         </Table.Header>
@@ -47,7 +41,10 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
           {dataRows.map((row, i) => (
             <Table.Row key={i}>
               {row.map((c, j) => (
-                <Table.DataCell key={j} align={data.types[j] === 'string' ? 'left' : 'right'}>
+                <Table.DataCell
+                  key={j}
+                  align={data.column_types[j] === 'string' ? 'left' : 'right'}
+                >
                   {c}
                 </Table.DataCell>
               ))}
