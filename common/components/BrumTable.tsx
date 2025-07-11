@@ -1,7 +1,7 @@
 'use client';
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Table, Tabs } from '@navikt/ds-react';
+import { Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
 
 /*
@@ -48,17 +48,48 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
   });
   */
 
+  if (!data || !data.rows || data.rows.length === 0) {
+    return (
+      <section aria-label="Laster datatabell">
+        <VStack width="100%" align="center">
+          <Skeleton />
+        </VStack>
+      </section>
+    );
+  }
+
+  const [headers, ...dataRows] = data.rows;
   return (
-    <Tabs defaultValue="filter">
-      <Tabs.List>
-        <Tabs.Tab value="filter" label="Filtrert data" icon={<FunnelIcon aria-hidden />} />
-        <Tabs.Tab value="full" label="All data" icon={<TableIcon aria-hidden />} />
-      </Tabs.List>
-      <Tabs.Panel value="filter">Filtrert data</Tabs.Panel>
-      <Tabs.Panel value="full">Allll dataen</Tabs.Panel>
-    </Tabs>
+    <section aria-label="Datatabell">
+      <ToggleGroup defaultValue="filter" onChange={console.info}>
+        <ToggleGroup.Item value="filter" label="Filtrert data" icon={<FunnelIcon aria-hidden />} />
+        <ToggleGroup.Item value="full" label="All data" icon={<TableIcon aria-hidden />} />
+      </ToggleGroup>
+
+      <Table zebraStripes>
+        <Table.Header>
+          <Table.Row>
+            {headers.map((col, index) => (
+              <Table.ColumnHeader key={index}>{col}</Table.ColumnHeader>
+            ))}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {dataRows.map((row, i) => (
+            <Table.Row key={i}>
+              {row.map((c, j) => (
+                <Table.DataCell key={j} align={data.types[j] === 'string' ? 'left' : 'right'}>
+                  {c}
+                </Table.DataCell>
+              ))}
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </section>
   );
 };
+
 /*
   const columns = Object.keys(data[0]);
 
