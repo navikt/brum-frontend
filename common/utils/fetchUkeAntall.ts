@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-export default function fetchUkeAntall(arr: string, uke: string) {
+export default function fetchUkeAntall(aar: string, uke: string) {
   useEffect(() => {
-    fetch(`/api/ukeAntalll?arr=${arr}uke=${uke}`)
+    fetch(`/api/ukeAntalll?aar=${aar}uke=${uke}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();

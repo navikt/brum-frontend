@@ -34,10 +34,10 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const ar = searchParams.get('ar');
+    const aar = searchParams.get('aar');
     const uke = searchParams.get('uke');
 
-    const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?ar=${ar}&uke=${uke}`, {
+    const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?aar=${aar}&uke=${uke}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${oboAccessToken}`,
