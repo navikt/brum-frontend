@@ -45,11 +45,11 @@ export function FilterMenu({
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const kolonne = formData.get('Kolonne');
-    const filter = formData.get('Filter');
+    const columnHeader = columns[selectedColumn].header.toString();
+    const filterTypeLabel = selectedFilterType;
     const filterValue = formData.get('filterValue');
 
-    setFilters((prev) => [...prev, `${kolonne} ${filter} ${filterValue}`]);
+    setFilters((prev) => [...prev, `${columnHeader} ${filterTypeLabel} ${filterValue}`]);
     // Reset form and UI state
     event.currentTarget.reset();
     setSelectedColumn(-1);
