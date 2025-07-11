@@ -89,3 +89,5 @@ function GlobalError() {
     </Page>
   );
 }
+
+export default GlobalError;
