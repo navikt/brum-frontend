@@ -31,7 +31,6 @@ export function FilterMenu({
   data: BrumData;
   setFilters: Dispatch<SetStateAction<string[]>>;
 }) {
-  // Only keep state for UI flow control - not for input values!
   const [selectedColumn, setSelectedColumn] = useState<number>(-1);
   const [selectedFilterType, setSelectedFilterType] = useState<string>('');
 
@@ -50,7 +49,6 @@ export function FilterMenu({
     const filterValue = formData.get('filterValue');
 
     setFilters((prev) => [...prev, `${columnHeader} ${filterTypeLabel} ${filterValue}`]);
-    // Reset form and UI state
     event.currentTarget.reset();
     setSelectedColumn(-1);
     setSelectedFilterType('');
@@ -66,21 +64,19 @@ export function FilterMenu({
           <VStack gap="3">
             <UNSAFE_Combobox
               label="Kolonne"
-              name="Kolonne"
               options={columns.map((c) => ({
                 label: c.header.toString(),
                 value: c.index.toString(),
               }))}
               onToggleSelected={(i) => {
                 setSelectedColumn(+i);
-                setSelectedFilterType(''); // Reset filter type
+                setSelectedFilterType('');
               }}
             />
 
             {selectedColumn >= 0 && (
               <UNSAFE_Combobox
                 label="Filtrer for"
-                name="Filter"
                 options={
                   columns[selectedColumn].type === 'number'
                     ? [
@@ -98,7 +94,7 @@ export function FilterMenu({
 
             {selectedFilterType && (
               <TextField
-                name="filterValue" // FormData picks this up - no state needed!
+                name="filterValue"
                 label="Verdi"
                 inputMode={columns[selectedColumn].type === 'number' ? 'numeric' : 'text'}
                 placeholder="Skriv inn verdi..."
