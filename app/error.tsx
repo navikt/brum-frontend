@@ -1,18 +1,7 @@
 'use client';
-import React, { useEffect } from "react";
-import {
-  BodyShort,
-  Box,
-  Button,
-  HGrid,
-  Heading,
-  Link,
-  List,
-  Page,
-  VStack,
-} from "@navikt/ds-react";
+import { BodyShort, Box, Button, HGrid, Heading, Link, List, Page, VStack } from '@navikt/ds-react';
 
-function GlobalError() {
+function Error() {
   return (
     <Page>
       <Page.Block as="main" width="xl" gutters>
@@ -29,13 +18,13 @@ function GlobalError() {
                   </Heading>
                   {/* Tekster bør tilpasses den aktuelle 500-feilen. Teksten under er for en generisk 500-feil. */}
                   <BodyShort spacing>
-                    En teknisk feil på våre servere gjør at siden er
-                    utilgjengelig. Dette skyldes ikke noe du gjorde.
+                    En teknisk feil på våre servere gjør at siden er utilgjengelig. Dette skyldes
+                    ikke noe du gjorde.
                   </BodyShort>
                   <BodyShort>Du kan prøve å</BodyShort>
                   <List>
                     <List.Item>
-                      vente noen minutter og{" "}
+                      vente noen minutter og{' '}
                       {/* Husk at POST-data går tapt når man reloader med JS. For å unngå dette kan dere
                           fjerne lenken (men beholde teksten) slik at man må bruke nettleserens reload-knapp. */}
                       <Link href="#" onClick={() => location.reload()}>
@@ -50,7 +39,7 @@ function GlobalError() {
                     </List.Item>
                   </List>
                   <BodyShort>
-                    Hvis problemet vedvarer, kan du{" "}
+                    Hvis problemet vedvarer, kan du{' '}
                     {/* https://nav.no/kontaktoss for eksterne flater */}
                     <Link href="#" target="_blank">
                       kontakte oss (åpnes i ny fane)
@@ -71,16 +60,17 @@ function GlobalError() {
                   Something went wrong
                 </Heading>
                 <BodyShort spacing>
-                  This was caused by a technical fault on our servers. Please
-                  refresh this page or try again in a few minutes.{" "}
+                  This was caused by a technical fault on our servers. Please refresh this page or
+                  try again in a few minutes.{' '}
                 </BodyShort>
                 <BodyShort>
                   {/* https://www.nav.no/kontaktoss/en for eksterne flater */}
                   <Link target="_blank" href="#">
                     Contact us (opens in new tab)
-                  </Link>{" "}
+                  </Link>{' '}
                   if the problem persists.
                 </BodyShort>
+                ß
               </div>
             </VStack>
           </HGrid>
@@ -90,4 +80,4 @@ function GlobalError() {
   );
 }
 
-export default GlobalError;
+export default Error;
