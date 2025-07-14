@@ -2,9 +2,10 @@
 
 
 
-export default async function fetchUkeAntall(arr: string, uke:string): Promise<number> {
+export default async function fetchUkeAntall(arr: number, uke:number): Promise<number> {
 
-  const response = await fetch(`/api/ukeAntalll?arr=${arr}uke=${uke}`, {
+  const response = await fetch(`/api/ukeAntalll?arr=${arr}&uke=${uke}`
+, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
