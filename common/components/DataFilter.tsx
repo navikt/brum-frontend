@@ -133,14 +133,16 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
                   placeholder="Skriv inn verdi..."
                   required
                 />
-                (selectedFilterType == FilterKind.NUM_BETWEEN) &&{' '}
-                <TextField
-                  name="extraVal"
-                  label="Verdi"
-                  inputMode={'numeric'}
-                  placeholder="Skriv inn verdi..."
-                  required
-                />
+                {selectedFilterType == FilterKind.NUM_BETWEEN && (
+                  <TextField
+                    name="extraVal"
+                    label="Verdi"
+                    inputMode={'numeric'}
+                    placeholder="Skriv inn verdi..."
+                    required
+                  />
+                )}
+
                 <Button type="submit" size="small">
                   Legg til filter
                 </Button>
