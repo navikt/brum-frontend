@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFetchDataProps } from '../types/propTypes';
 
-export default function useFetchUkeAntall({setData, dataParams}: useFetchDataProps) {
+export default function useFetchUkeAntall({ setData, dataParams }: useFetchDataProps) {
   useEffect(() => {
     fetch(`/api/ukeAntall?aar=${dataParams.aar}&uke=${dataParams.uke}`)
       .then((res) => {

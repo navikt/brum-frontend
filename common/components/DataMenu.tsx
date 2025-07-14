@@ -1,5 +1,4 @@
 'use client';
-import { UNSAFE_Combobox } from '@navikt/ds-react';
 import { UpdateDataOptionsProps } from '../types/propTypes';
 
 const DataMenu = (props: UpdateDataOptionsProps) => {
@@ -16,7 +15,7 @@ const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) =>
     { label: 'Full real', value: 'Real' },
   ];
 
-  return <div>data menu missing</div> /* 
+  return <div>data menu missing</div>; /* 
     <UNSAFE_Combobox
       label="Velg testdatasett"
       options={options}

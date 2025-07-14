@@ -1,18 +1,15 @@
 import { HighchartsOptionsType } from '@highcharts/react';
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { DataOptionsProps, UpdateSeriesProps } from '../types/propTypes';
-import { BrumData } from '../types/brumData';
+import { UpdateSeriesProps } from '../types/propTypes';
 
-export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: UpdateSeriesProps) {
+export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
   if (!data) {
     return;
   }
 
   const newOptions: HighchartsOptionsType = {
     data: {
-      rows: data.data.map((avdelingData) => 
-        avdelingData.verdier),
-      
+      rows: data.data.map((avdelingData) => avdelingData.verdier),
+
       switchRowsAndColumns: true, //rows are series
       beforeParse: (d) => {
         console.log('HIGHCHARTS - unparsed data\n', d);
@@ -25,8 +22,9 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     },
   };
 
-    setChartOptions((prev: HighchartsOptionsType) => ({
-      ...prev,
-      ...newOptions,
-    }));
-setLoading(false)}
+  setChartOptions((prev: HighchartsOptionsType) => ({
+    ...prev,
+    ...newOptions,
+  }));
+  setLoading(false);
+}
