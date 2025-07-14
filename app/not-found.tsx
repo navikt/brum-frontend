@@ -1,21 +1,23 @@
-import { Alert, BodyShort, Box, Heading, Link, List, VStack } from '@navikt/ds-react';
-import { ListItem } from '@navikt/ds-react/List';
-import { PageBlock } from '@navikt/ds-react/Page';
+import React from "react";
+import {
+  Alert,
+  BodyShort,
+  Box,
+  Heading,
+  Link,
+  List,
+  VStack,
+} from "@navikt/ds-react";
+import { Page, PageBlock } from "@navikt/ds-react/Page";
+import { ListItem } from "@navikt/ds-react/List";
 
 const NotFound = () => {
   return (
-    <PageBlock width="xl" gutters>
-      <Box paddingBlock="20 16" data-aksel-template="404-golden-path">
-        <VStack gap="space-40">
-          <Alert variant="warning">
-            <BodyShort>
-              Dette er en veldig enkel mal som er hardkoded i Golden Path artikkelen, og kan
-              muligens være utdatert. For å se den mest oppdaterte versjonen av malene til aksel kan
-              du besøke{' '}
-              <Link href="https://aksel.nav.no/monster-maler/stotte/404-side">
-                siden til Aksel malen for 404 sider.
-              </Link>
-            </BodyShort>
+    <Page>
+      <PageBlock as="main" width="xl" gutters>
+        <Box paddingBlock="20 8">
+          <Alert variant="error" size="medium">
+            404 - Siden ble ikke funnet
           </Alert>
           <div>
             <Heading level="1" size="large" spacing>
@@ -25,15 +27,14 @@ const NotFound = () => {
               Denne siden kan være slettet eller flyttet, eller det er en feil i lenken.
             </BodyShort>
             <List>
-              <ListItem>Bruk gjerne søket eller menyen</ListItem>
               <ListItem>
                 <Link href="#">Gå til forsiden</Link>
               </ListItem>
             </List>
           </div>
-        </VStack>
-      </Box>
-    </PageBlock>
+        </Box>
+      </PageBlock>
+    </Page>
   );
 };
 

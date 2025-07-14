@@ -4,19 +4,16 @@ import BrumTable from '@/common/components/BrumTable';
 import DataMenu from '@/common/components/DataMenu';
 import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
-import { useFetchTestData } from '@/common/utils/fetchTestData';
-import fetchUkeAntall from '@/common/utils/fetchUkeAntall';
+import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
 import { Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
 
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
-  const [dataParams, setDataParams] = useState<DataOptionsProps>({ dataSet: 'Mini' });
+  const [dataParams, setDataParams] = useState<DataOptionsProps>({ aar: '2025', uke: '27' });
 
-  useFetchTestData(setData, dataParams);
-
-  fetchUkeAntall('2025', '27');
+  useFetchUkeAntall({ setData, dataParams });
 
   return (
     <Page>

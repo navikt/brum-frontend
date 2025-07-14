@@ -76,32 +76,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
         </Table.Body>
       </Table>
     </section>
-  );
-};
+  );*/
+}; 
 
-/*
-  const columns = Object.keys(data[0]);
-
-  return (
-    <Table zebraStripes>
-      <Table.Header>
-        <Table.Row>
-          {columns.map((col) => (
-            <Table.ColumnHeader key={col}>{col}</Table.ColumnHeader>
-          ))}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map((row, i) => (
-          <Table.Row key={i}>
-            {columns.map((col) => (
-              <Table.DataCell key={col}>{row[col]}</Table.DataCell>
-            ))}
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
-  );
-};
-*/
 export default BrumTable;

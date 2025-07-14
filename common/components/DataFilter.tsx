@@ -158,5 +158,5 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
         </form>
       </ActionMenu.Content>
     </ActionMenu>
-  );
+  ); */
 }
