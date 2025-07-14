@@ -8,8 +8,3 @@ export interface BrumData {
     verdier: number[];
   }[];
 }
-export interface BrumTestData {
-  column_types: ('string' | 'number')[];
-
-  rows: (string | number)[][];
-}
