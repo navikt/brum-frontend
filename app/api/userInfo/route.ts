@@ -4,6 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
 
 export async function GET(req: NextRequest) {
+  // For development purposes, return a mock user info response
+if (process.env.NODE_ENV === 'development') {
+  return NextResponse.json({
+    NAVident: 'Z123456',
+    email: 'test.user@nav.no',
+    name: 'Test User',
+  });
+}
   try {
     const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
 
