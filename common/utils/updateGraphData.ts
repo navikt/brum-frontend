@@ -7,21 +7,14 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
   }
 
   const newOptions: HighchartsOptionsType = {
-    xAxis: {categories: data.headers},
-    data: {
-      rows: data.data.map((avdelingData) => 
-        avdelingData.verdier),
-      firstRowAsNames: false,
-      switchRowsAndColumns: true, //rows are series
-      beforeParse: (d) => {
-        console.log('HIGHCHARTS - unparsed data\n', d);
-        return d;
-      },
-      complete: (d) => {
-        console.log('HIGHCHARTS - parsed data\n', d);
-        return d;
-      },
-    },
+    xAxis: { categories: data.headers },
+    series: data.data.map((avdelingsData) => {
+      return {
+        type: 'column',
+        data: avdelingsData.verdier,
+        name: `${avdelingsData.avdeling} - ${avdelingsData.innsatsgruppe}`,
+      };
+    }),
   };
 
   setChartOptions((prev: HighchartsOptionsType) => ({
