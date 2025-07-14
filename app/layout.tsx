@@ -1,6 +1,7 @@
 import ThemeProvider from '@/common/UI/ThemeProvider';
 import '@navikt/ds-css/darkside';
 import type { Metadata } from 'next';
+import MSWProvider from './MSWProvider';
 
 export const metadata: Metadata = {
   title: 'Brum',
@@ -12,7 +13,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="no">
       <head />
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <MSWProvider />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

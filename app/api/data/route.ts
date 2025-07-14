@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
+import { testData } from '@/common/mocks/mocks';
 
 export async function GET(req: NextRequest) {
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.json(testData);
+  }
+
   try {
     const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
 
