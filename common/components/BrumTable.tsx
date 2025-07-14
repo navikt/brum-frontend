@@ -8,6 +8,8 @@ import { FilterMenu } from './DataFilter';
 import { FilterType } from '../types/filterTypes';
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
+  return <div>table missing</div>;
+  /*
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -77,6 +79,6 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       </Table>
     </section>
   );*/
-}; 
+};
 
 export default BrumTable;

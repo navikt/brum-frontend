@@ -56,6 +56,7 @@ function makeFilter(type: FilterKind, column: string, x?: number, y?: number, te
 // så kan man legge til nytt, ikke endre, blir lagt som en tag!!!!
 
 export function FilterMenu({ data, setFilters }: FilterMenuProps) {
+  return <div>filtering missing</div>; /*
   const [selectedColumn, setSelectedColumn] = useState({ header: '', type: '' });
   const [selectedFilterType, setSelectedFilterType] = useState<FilterKind | null>(null);
 
