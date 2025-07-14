@@ -28,4 +28,5 @@ export function updateGraphSeries({ data, setChartOptions, setLoading, ref }: Up
     setChartOptions((prev: HighchartsOptionsType) => ({
       ...prev,
       ...newOptions,
-    }));}
+    }));
+setLoading(false)}
