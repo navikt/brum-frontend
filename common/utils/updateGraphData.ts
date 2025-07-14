@@ -7,9 +7,11 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
   }
 
   const newOptions: HighchartsOptionsType = {
+    xAxis: {categories: data.headers},
     data: {
-      rows: data.data.map((avdelingData) => avdelingData.verdier),
-
+      rows: data.data.map((avdelingData) => 
+        avdelingData.verdier),
+      firstRowAsNames: false,
       switchRowsAndColumns: true, //rows are series
       beforeParse: (d) => {
         console.log('HIGHCHARTS - unparsed data\n', d);
