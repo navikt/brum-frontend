@@ -1,25 +1,12 @@
-export interface FilterState {
-  [columnIndex: number]: {
-    type: 'string' | 'number' | 'date';
-    // String filters
-    contains?: string;
-    starts_with?: string;
-    // Number filters
-    exactly?: number;
-    over?: number;
-    under?: number;
-    between?: { min: number; max: number };
-  };
+import { Dispatch, SetStateAction } from 'react';
+import { BrumData } from './brumData';
+
+export interface FilterType {
+  label: string;
+  comp_function: ((z: number) => boolean) | ((z: string) => boolean);
 }
 
-export interface FilterActions {
-  addStringFilter: (columnIndex: number, contains: string) => void;
-  addNumberFilter: (
-    columnIndex: number,
-    filterType: 'exactly' | 'over' | 'under',
-    value: number,
-  ) => void;
-  addNumberRangeFilter: (columnIndex: number, min: number, max: number) => void;
-  removeFilter: (columnIndex: number) => void;
-  clearAllFilters: () => void;
+export interface FilterMenuProps {
+  data: BrumData;
+  setFilters: Dispatch<SetStateAction<FilterType[]>>;
 }

@@ -1,13 +1,13 @@
 'use client';
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Chips, Skeleton, Table, Tag, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Chips, Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
 import { useState } from 'react';
 import { FilterMenu } from './DataFilter';
+import { FilterType } from '../types/filterTypes';
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
-  const [filters, setFilters] = useState<string[]>([]);
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -17,6 +17,8 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       </section>
     );
   }
+
+  const [filters, setFilters] = useState<FilterType[]>([]);
 
   const [headers, ...dataRows] = data.rows;
   return (
@@ -34,10 +36,13 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
 
       <FilterMenu data={data} setFilters={setFilters} />
 
-      <Chips>
+      <Chips data-color="Green">
         {filters.map((c) => (
-          <Chips.Removable key={c} onClick={() => setFilters((x) => x.filter((y) => y !== c))}>
-            {c}
+          <Chips.Removable
+            key={c.label}
+            onClick={() => setFilters((x) => x.filter((y) => y !== c))}
+          >
+            {c.label}
           </Chips.Removable>
         ))}
       </Chips>
