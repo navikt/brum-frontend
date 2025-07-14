@@ -8,9 +8,7 @@ import { FilterMenu } from './DataFilter';
 import { FilterType } from '../types/filterTypes';
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
-  return <div>table missing</div>;
-  /*
-  if (!data || !data.rows || data.rows.length === 0) {
+  if (!data) {
     return (
       <section aria-label="Laster datatabell">
         <VStack width="100%" align="center">
@@ -19,10 +17,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       </section>
     );
   }
-
   const [filters, setFilters] = useState<FilterType[]>([]);
-
-  const [headers, ...dataRows] = data.rows;
   return (
     <section aria-label="Datatabell">
       <ToggleGroup defaultValue="full" onChange={console.info}>
@@ -52,24 +47,22 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       <Table zebraStripes>
         <Table.Header>
           <Table.Row>
-            {headers.map((ch, i) => (
-              <Table.ColumnHeader
-                align={data.column_types[i] === 'string' ? 'left' : 'right'}
-                key={i}
-              >
-                {ch}
+            <Table.ColumnHeader key={0}>Avdeling</Table.ColumnHeader>
+            <Table.ColumnHeader key={1}>Innsattsgruppe</Table.ColumnHeader>
+            {data.headers.map((h, i) => (
+              <Table.ColumnHeader align={'right'} key={i + 2}>
+                {h}
               </Table.ColumnHeader>
             ))}
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {dataRows.map((row, i) => (
+          {data.data.map((row, i) => (
             <Table.Row key={i}>
-              {row.map((c, j) => (
-                <Table.DataCell
-                  key={j}
-                  align={data.column_types[j] === 'string' ? 'left' : 'right'}
-                >
+              <Table.DataCell key={0}>{row.avdeling}</Table.DataCell>
+              <Table.DataCell key={1}>{row.innsatsgruppe}</Table.DataCell>
+              {row.verdier.map((c, j) => (
+                <Table.DataCell key={j} align={'right'}>
                   {c}
                 </Table.DataCell>
               ))}
@@ -78,7 +71,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
         </Table.Body>
       </Table>
     </section>
-  );*/
+  );
 };
 
 export default BrumTable;

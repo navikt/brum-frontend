@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ActionMenu, Button, HStack, TextField, UNSAFE_Combobox } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
 import { FilterMenuProps } from '../types/filterTypes';
@@ -47,24 +47,15 @@ function makeFilter(type: FilterKind, column: string, x?: number, y?: number, te
   }
 }
 
-// konsept: filters burde være et object, hvor hver kolonneindex peker på filtertyper som peker på sine verdier. så {1 -> contains -> "alder"}
-// filtere skal kunne oppdateres og fjernes via filtermenyen + kunne cleane ut
-// man skal kunne velge filtertyper ettersom om man har strenger eller tall
-// man må kunne se filterne man har lagt til, og legge til flere per kolonne, typ nytt filter!
-
-// så legg til nytt filter knapp-> så velger man kolonne, så type filter, så verdi
-// så kan man legge til nytt, ikke endre, blir lagt som en tag!!!!
-
 export function FilterMenu({ data, setFilters }: FilterMenuProps) {
-  return <div>filtering missing</div>; /*
   const [selectedColumn, setSelectedColumn] = useState({ header: '', type: '' });
   const [selectedFilterType, setSelectedFilterType] = useState<FilterKind | null>(null);
 
-  const columns = data.column_types.map((t, i) => ({
-    header: data.rows[0][i],
-    index: i,
-    type: t as 'string' | 'number',
-  }));
+  const columns = [
+    ...data.headers.map((header) => ({ header, type: 'number' })),
+    { header: 'avdeling', type: 'string' },
+    { header: 'innsatstype', type: 'string' },
+  ];
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -100,9 +91,9 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
           <HStack gap="3">
             <UNSAFE_Combobox
               label="Kolonne"
-              options={columns.map((c) => ({
+              options={columns.map((c, i) => ({
                 label: c.header.toString(),
-                value: c.index.toString(),
+                value: i.toString(),
               }))}
               onToggleSelected={(i) => {
                 setSelectedColumn({
@@ -159,5 +150,5 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
         </form>
       </ActionMenu.Content>
     </ActionMenu>
-  ); */
+  );
 }
