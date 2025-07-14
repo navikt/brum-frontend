@@ -24,7 +24,8 @@ export interface UpdateSeriesProps {
 }
 
 export interface DataOptionsProps {
-  dataSet: string;
+  aar: string;
+  uke: string;
 }
 
 export interface UpdateDataOptionsProps {
@@ -34,4 +35,8 @@ export interface UpdateDataOptionsProps {
 
 export interface ChartProps {
   data: BrumData | null;
+}
+export interface useFetchDataProps {
+  setData: Dispatch<SetStateAction<BrumData | null>>;
+  dataParams: DataOptionsProps;
 }
