@@ -1,8 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionMenu, Button, HStack, TextField, UNSAFE_Combobox } from '@navikt/ds-react';
-import { BrumData } from '../types/brumData';
+import {
+  Accordion,
+  ActionMenu,
+  Button,
+  HStack,
+  TextField,
+  UNSAFE_Combobox,
+} from '@navikt/ds-react';
 import { FilterMenuProps } from '../types/filterTypes';
 
 enum FilterKind {
@@ -80,77 +86,85 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
     setSelectedColumn({ header: '', type: '' });
     setSelectedFilterType(null);
   };
-
+  /* idé, se: https://aksel.nav.no/komponenter/core/actionmenu?demo=actionmenudemo-filter
+  liste ut kolonner og innsatsbehov som checkboks-valgbare. kanskje basert på det, om filtrering, gjøre stackegreia? optionally.
+  resten må autogeneres som tall valg, men en enkel større enn x mindre enn y, med skalavelger? tja. kanskje ikke. men uansett. grupper og greier :) */
   return (
-    <ActionMenu>
-      <ActionMenu.Trigger>
-        <Button>Filtre</Button>
-      </ActionMenu.Trigger>
-      <ActionMenu.Content>
-        <form onSubmit={handleSubmit}>
-          <HStack gap="3">
-            <UNSAFE_Combobox
-              label="Kolonne"
-              options={columns.map((c, i) => ({
-                label: c.header.toString(),
-                value: i.toString(),
-              }))}
-              onToggleSelected={(i) => {
-                setSelectedColumn({
-                  header: columns[+i].header.toString(),
-                  type: columns[+i].type,
-                });
-              }}
-            />
-
-            {selectedColumn.header && (
+    <Accordion>
+      <Accordion.Item>
+        <Accordion.Header>hidden</Accordion.Header>
+        <Accordion.Content>
+          <ActionMenu></ActionMenu>
+        </Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item>
+        <Accordion.Header>Filtre</Accordion.Header>
+        <Accordion.Content>
+          <HStack gap="3" minWidth="1000px">
+            <form onSubmit={handleSubmit}>
               <UNSAFE_Combobox
-                label="Filtrer for"
-                options={
-                  selectedColumn.type === 'number'
-                    ? [
-                        { label: 'Større enn', value: FilterKind.NUM_GT.toString() },
-                        { label: 'Mindre enn', value: FilterKind.NUM_LT.toString() },
-                        { label: 'Er lik', value: FilterKind.NUM_EQUALS.toString() },
-                        { label: 'Mellom', value: FilterKind.NUM_BETWEEN.toString() },
-                      ]
-                    : [
-                        { label: 'Inneholder', value: FilterKind.STR_CONTAINS.toString() },
-                        { label: 'Er lik', value: FilterKind.STR_EQUALS.toString() },
-                        { label: 'Begynnner med', value: FilterKind.STR_STARTS_WITH.toString() },
-                      ]
-                }
-                onToggleSelected={(e) => setSelectedFilterType(+e as FilterKind)}
+                label="Kolonne"
+                options={columns.map((c, i) => ({
+                  label: c.header.toString(),
+                  value: i.toString(),
+                }))}
+                onToggleSelected={(i) => {
+                  setSelectedColumn({
+                    header: columns[+i].header.toString(),
+                    type: columns[+i].type,
+                  });
+                }}
               />
-            )}
 
-            {selectedFilterType && (
-              <>
-                <TextField
-                  name="filterVal"
-                  label="Verdi"
-                  inputMode={selectedColumn.type === 'number' ? 'numeric' : 'text'}
-                  placeholder="Skriv inn verdi..."
-                  required
+              {selectedColumn.header && (
+                <UNSAFE_Combobox
+                  label="Filtrer for"
+                  options={
+                    selectedColumn.type === 'number'
+                      ? [
+                          { label: 'Større enn', value: FilterKind.NUM_GT.toString() },
+                          { label: 'Mindre enn', value: FilterKind.NUM_LT.toString() },
+                          { label: 'Er lik', value: FilterKind.NUM_EQUALS.toString() },
+                          { label: 'Mellom', value: FilterKind.NUM_BETWEEN.toString() },
+                        ]
+                      : [
+                          { label: 'Inneholder', value: FilterKind.STR_CONTAINS.toString() },
+                          { label: 'Er lik', value: FilterKind.STR_EQUALS.toString() },
+                          { label: 'Begynnner med', value: FilterKind.STR_STARTS_WITH.toString() },
+                        ]
+                  }
+                  onToggleSelected={(e) => setSelectedFilterType(+e as FilterKind)}
                 />
-                {selectedFilterType == FilterKind.NUM_BETWEEN && (
+              )}
+
+              {selectedFilterType && (
+                <>
                   <TextField
-                    name="extraVal"
+                    name="filterVal"
                     label="Verdi"
-                    inputMode={'numeric'}
+                    inputMode={selectedColumn.type === 'number' ? 'numeric' : 'text'}
                     placeholder="Skriv inn verdi..."
                     required
                   />
-                )}
+                  {selectedFilterType == FilterKind.NUM_BETWEEN && (
+                    <TextField
+                      name="extraVal"
+                      label="Verdi"
+                      inputMode={'numeric'}
+                      placeholder="Skriv inn verdi..."
+                      required
+                    />
+                  )}
 
-                <Button type="submit" size="small">
-                  Legg til filter
-                </Button>
-              </>
-            )}
+                  <Button type="submit" size="small">
+                    Legg til filter
+                  </Button>
+                </>
+              )}
+            </form>
           </HStack>
-        </form>
-      </ActionMenu.Content>
-    </ActionMenu>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion>
   );
 }
