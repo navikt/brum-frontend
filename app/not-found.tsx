@@ -1,11 +1,20 @@
-import { Alert, BodyShort, Box, Heading, Link, List, VStack } from '@navikt/ds-react';
-import { ListItem } from '@navikt/ds-react/List';
-import { Page, PageBlock } from '@navikt/ds-react/Page';
+import React from "react";
+import {
+  Alert,
+  BodyShort,
+  Box,
+  Heading,
+  Link,
+  List,
+  VStack,
+} from "@navikt/ds-react";
+import { Page, PageBlock } from "@navikt/ds-react/Page";
+import { ListItem } from "@navikt/ds-react/List";
 
 const NotFound = () => {
   return (
     <Page>
-      <Page.Block as="main" width="xl" gutters>
+      <PageBlock as="main" width="xl" gutters>
         <Box paddingBlock="20 8">
           <Alert variant="error" size="medium">
             404 - Siden ble ikke funnet
@@ -24,7 +33,7 @@ const NotFound = () => {
             </List>
           </div>
         </Box>
-      </Page.Block>
+      </PageBlock>
     </Page>
   );
 };
