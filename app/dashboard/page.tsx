@@ -6,7 +6,7 @@ import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import { useFetchTestData } from '@/common/utils/fetchTestData';
 import fetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { BodyShort, GuidePanel, Heading, VStack } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
 
@@ -25,10 +25,6 @@ export default function Dashboard() {
           <Heading level="1" size="xlarge">
             Dashboard
           </Heading>
-          <GuidePanel poster>
-            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
-            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
-          </GuidePanel>
         </VStack>
         <BrumChart data={data} />
         <DataMenu dataParams={dataParams} setDataParams={setDataParams} />

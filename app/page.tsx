@@ -1,7 +1,7 @@
 'use client';
 import { BarChartIcon } from '@navikt/aksel-icons';
 import '@navikt/ds-css/darkside';
-import { Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
+import { BodyShort, GuidePanel, Heading, LinkCard, Page, VStack } from '@navikt/ds-react';
 
 const Home = () => {
   return (
@@ -14,6 +14,10 @@ const Home = () => {
           <Heading level="2" size="small">
             Analyse av tiltak
           </Heading>
+          <GuidePanel poster>
+            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
+            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+          </GuidePanel>
           <LinkCard>
             <LinkCard.Icon>
               <BarChartIcon fontSize="2rem" />
