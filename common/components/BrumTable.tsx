@@ -7,7 +7,8 @@ import { useState } from 'react';
 import { FilterMenu } from './DataFilter';
 
 const BrumTable = ({ data }: { data: BrumData | null }) => {
-  const [filters, setFilters] = useState<string[]>([]);
+  return <div>table missing</div>
+  /* const [filters, setFilters] = useState<string[]>([]);
   if (!data || !data.rows || data.rows.length === 0) {
     return (
       <section aria-label="Laster datatabell">
@@ -71,32 +72,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
         </Table.Body>
       </Table>
     </section>
-  );
-};
+  );*/
+}; 
 
-/*
-  const columns = Object.keys(data[0]);
-
-  return (
-    <Table zebraStripes>
-      <Table.Header>
-        <Table.Row>
-          {columns.map((col) => (
-            <Table.ColumnHeader key={col}>{col}</Table.ColumnHeader>
-          ))}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map((row, i) => (
-          <Table.Row key={i}>
-            {columns.map((col) => (
-              <Table.DataCell key={col}>{row[col]}</Table.DataCell>
-            ))}
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
-  );
-};
-*/
 export default BrumTable;

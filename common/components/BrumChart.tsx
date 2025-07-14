@@ -7,7 +7,7 @@ import('highcharts/modules/accessibility');
 import('highcharts/modules/data');
 setHighcharts(Highcharts);
 
-import { updateGraphSeries } from '@/common/utils/fetchTestData';
+import { updateGraphSeries } from '@/common/utils/updateGraphData';
 import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
 import { ChartProps } from '../types/propTypes';

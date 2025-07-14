@@ -30,7 +30,7 @@ export function FilterMenu({
 }: {
   data: BrumData;
   setFilters: Dispatch<SetStateAction<string[]>>;
-}) {
+}) {  return <div>filter missing</div>/* 
   const [selectedColumn, setSelectedColumn] = useState<number>(-1);
   const [selectedFilterType, setSelectedFilterType] = useState<string>('');
 
@@ -111,5 +111,5 @@ export function FilterMenu({
         </form>
       </ActionMenu.Content>
     </ActionMenu>
-  );
+  ); */
 }

@@ -16,7 +16,7 @@ const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) =>
     { label: 'Full real', value: 'Real' },
   ];
 
-  return (
+  return <div>data menu missing</div> /* 
     <UNSAFE_Combobox
       label="Velg testdatasett"
       options={options}
@@ -30,7 +30,7 @@ const DataSetSelect = ({ dataParams, setDataParams }: UpdateDataOptionsProps) =>
       shouldAutocomplete
       isMultiSelect={false}
     />
-  );
+  );  */
 };
 
 export default DataMenu;

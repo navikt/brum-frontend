@@ -1,4 +1,11 @@
+
 export interface BrumData {
-  column_types: ('string' | 'number')[];
-  rows: (string | number)[][];
+  aar: number;
+  uke: number;
+  headers: string[];
+  data: {
+    avdeling: string;
+    innsatsgruppe: string;
+    verdier: number[];
+  }[]
 }
