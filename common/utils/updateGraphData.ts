@@ -12,8 +12,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
       return {
         type: 'column',
         data: avdelingsData.verdier,
-        name: `${avdelingsData.innsatsgruppe} (${avdelingsData.avdeling})`,
-        stack: avdelingsData.avdeling,
+        name: avdelingsData.avdeling,
       };
     }),
   };
