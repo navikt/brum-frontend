@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   useFetchTestData(setData, dataParams);
 
-  fetchUkeAntall('2025', '28');
+  fetchUkeAntall('2025', '27');
 
   return (
     <Page>
