@@ -1,5 +1,3 @@
-import { UserInfo } from '@/common/types/userInfoTypes';
-import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../common/utils/getOboToken';
 
@@ -8,89 +6,57 @@ export async function GET(req: NextRequest) {
     const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
 
     if (!userToken) {
-      console.error('No user token provided in the request headers.');
+      console.error(
+        'No user token provided in the request headers (Authorization header missing or empty).',
+      );
       return NextResponse.json(
         { message: 'Unauthorized: User session required.' },
         { status: 401 },
       );
     }
 
-    const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
-    if (!introspectionUrl) {
-      throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
-    }
-
-    const introspectionRes = await fetch(introspectionUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        identity_provider: 'azuread',
-        token: userToken,
-      }),
-    });
-
-    const introspectionBody = await introspectionRes.json();
-
-    if (!introspectionBody.active) {
-      console.error('User not logged in.');
-      return NextResponse.json({ message: 'User not logged in' }, { status: 401 });
-    }
-
     const oboAccessToken = await getOboToken(userToken);
     if (!oboAccessToken) {
-      console.error('Failed to obtain OBO access token from Texas (userinfo).');
+      console.error('Failed to obtain OBO access token from Texas.');
       return NextResponse.json(
         { message: 'Internal Server Error: Unable to obtain OBO token.' },
         { status: 500 },
       );
+    } else {
+      console.log('OBO access token obtained successfully');
     }
 
     const BRUM_API_URL = process.env.BRUM_API_URL;
     if (!BRUM_API_URL) {
-      throw new Error('BRUM_API_URL is not defined in environment variables.');
-    }
-    const searchParams = new URL(req.url).searchParams;
-    const aar = searchParams.get('aar');
-    const uke = searchParams.get('uke');
-    
-    if(!aar || !uke) {
-        console.error('Missing required query parameters: aar or uke');
-        return NextResponse.json(
-          { message: 'Bad Request: Missing required query parameters.' },
-          { status: 400 },
-        );
+      throw new Error(
+        'BRUM_API_URL is not defined in environment variables for Next.js API route.',
+      );
     }
 
-    const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?ar${aar}&uke=${uke}`, {
+    const { searchParams } = new URL(req.url);
+    const aar = searchParams.get('aar');
+    const uke = searchParams.get('uke');
+
+    const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?aar=${aar}&uke=${uke}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${oboAccessToken}`,
       },
     });
 
     if (!ktorResponse.ok) {
-      const errorBody = await ktorResponse.text();
-      console.error(`Ktor API request failed with status ${ktorResponse.status}:`, errorBody);
+      const ktorErrorBody = await ktorResponse.text();
+      console.error(`Ktor API request failed with status ${ktorResponse.status}:`, ktorErrorBody);
       return NextResponse.json(
-        { message: 'Ktor API request failed', error: errorBody },
+        { message: 'Ktor API request failed', error: ktorErrorBody },
         { status: ktorResponse.status },
       );
     }
 
-    const data = await ktorResponse.json();
-    console.log('User info fetched successfully:', data);
-
-    const userInfo: UserInfo = {
-      NAVident: data.NAVident,
-      email: data.email,
-      name: data.name,
-    };
-    logger.warn('User info:', userInfo);
-
-    return NextResponse.json(userInfo, { status: 200 });
+    const dataFromKtor = await ktorResponse.json();
+    return NextResponse.json(dataFromKtor, { status: 200 });
   } catch (error) {
-    console.error('Error in userInfo API handler:', error);
+    console.error('An error occurred while processing the request in Next.js API route:', error);
     return NextResponse.json(
       {
         message: 'Internal Server Error',
