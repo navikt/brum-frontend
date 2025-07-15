@@ -42,7 +42,6 @@ const BrumChart = ({ data }: ChartProps) => {
     xAxis: {
       labels: {
         style: { fontSize: '14px'},
-        rotation: -45
       }
     },
     exporting: { enabled: true },
