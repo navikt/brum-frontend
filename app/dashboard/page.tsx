@@ -15,29 +15,27 @@ export default function Dashboard() {
 
   useFetchUkeAntall({ setData, dataParams });
 
-return (
-  <Page>
-    <Page.Block width="2xl" as="main">
-      <VStack gap="8">
-        <Heading level="1" size="xlarge" align="center">
-          Dashboard
-        </Heading>
+  return (
+    <Page>
+      <Page.Block width="2xl" as="main">
+        <VStack gap="8">
+          <Heading level="1" size="xlarge" align="center">
+            Dashboard
+          </Heading>
 
-      
-        <HStack gap="8" align="start">
+          <HStack gap="8" align="start">
+            <div style={{ flex: 1 }}>
+              <BrumChart data={data} />
+            </div>
+          </HStack>
+
           <div style={{ minWidth: '220px' }}>
             <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           </div>
 
-          <div style={{ flex: 1 }}>
-            <BrumChart data={data} />
-          </div>
-        </HStack>
-
-        <BrumTable data={data!} />
-      </VStack>
-    </Page.Block>
-  </Page>
-);
-
+          <BrumTable data={data!} />
+        </VStack>
+      </Page.Block>
+    </Page>
+  );
 }
