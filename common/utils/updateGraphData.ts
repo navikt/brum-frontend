@@ -13,8 +13,14 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
         type: 'column',
         data: data.verdier,
         name: data.avdeling,
+        drilldown: data.avdeling,
       };
     }),
+    drilldown: {
+      series: data.data.map((d) => {
+        return { type: 'column', id: d.avdeling, data: d.verdier, name: d.innsatsgruppe };
+      }),
+    },
   };
 
   setChartOptions((prev: HighchartsOptionsType) => ({
