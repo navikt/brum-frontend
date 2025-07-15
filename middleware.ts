@@ -8,9 +8,9 @@ import { skip } from 'node:test';
 const NAIS_LOGIN_PATH = '/oauth2/login';
 
 export async function middleware(request: NextRequest) {
-if (process.env.NODE_ENV === 'development') {
-  return NextResponse.next();
-}
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.next();
+  }
   console.log(`Middleware: Request received for ${request.nextUrl.pathname}`);
   logger.warn(`Middleware: Request received for ${request.nextUrl.pathname}`);
   const { pathname, origin, href } = request.nextUrl;

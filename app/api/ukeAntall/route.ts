@@ -1,46 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOboToken } from '../../../common/utils/getOboToken';
 import { testData } from '@/common/mocks/mocks';
+import { getUserToken, getOboAccessToken, requireEnv, handleError } from '../../../common/utils/apiHelpers';
 
+// Henter antall uker for valgt år og uke
 export async function GET(req: NextRequest) {
   if (process.env.NODE_ENV === 'development') {
-      return NextResponse.json(testData);
+    return NextResponse.json(testData);
   }
   try {
-    const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
-
-    if (!userToken) {
-      console.error(
-        'No user token provided in the request headers (Authorization header missing or empty).',
-      );
+    // Hent brukertoken fra header
+    const brukerToken = getUserToken(req);
+    if (!brukerToken) {
       return NextResponse.json(
-        { message: 'Unauthorized: User session required.' },
+        { melding: 'Ikke autorisert: Brukersesjon kreves.' },
         { status: 401 },
       );
     }
 
-    const oboAccessToken = await getOboToken(userToken);
+    // Hent OBO-token
+    const oboAccessToken = await getOboAccessToken(brukerToken);
     if (!oboAccessToken) {
-      console.error('Failed to obtain OBO access token from Texas.');
       return NextResponse.json(
-        { message: 'Internal Server Error: Unable to obtain OBO token.' },
+        { melding: 'Intern serverfeil: Klarte ikke hente OBO-token.' },
         { status: 500 },
       );
-    } else {
-      console.log('OBO access token obtained successfully');
     }
 
-    const BRUM_API_URL = process.env.BRUM_API_URL;
-    if (!BRUM_API_URL) {
-      throw new Error(
-        'BRUM_API_URL is not defined in environment variables for Next.js API route.',
-      );
-    }
+    // Hent miljøvariabel for API-URL
+    const BRUM_API_URL = requireEnv('BRUM_API_URL');
 
+    // Hent parametere fra URL
     const { searchParams } = new URL(req.url);
     const aar = searchParams.get('aar');
     const uke = searchParams.get('uke');
 
+    // Forespørsel mot Ktor API
     const ktorResponse = await fetch(`${BRUM_API_URL}/ukeAntall?aar=${aar}&uke=${uke}`, {
       method: 'GET',
       headers: {
@@ -49,24 +43,16 @@ export async function GET(req: NextRequest) {
     });
 
     if (!ktorResponse.ok) {
-      const ktorErrorBody = await ktorResponse.text();
-      console.error(`Ktor API request failed with status ${ktorResponse.status}:`, ktorErrorBody);
+      const feilBody = await ktorResponse.text();
       return NextResponse.json(
-        { message: 'Ktor API request failed', error: ktorErrorBody },
+        { melding: 'Ktor API-forespørsel feilet', feil: feilBody },
         { status: ktorResponse.status },
       );
     }
 
-    const dataFromKtor = await ktorResponse.json();
-    return NextResponse.json(dataFromKtor, { status: 200 });
+    const data = await ktorResponse.json();
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
-    console.error('An error occurred while processing the request in Next.js API route:', error);
-    return NextResponse.json(
-      {
-        message: 'Internal Server Error',
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 },
-    );
+    return handleError(error);
   }
 }

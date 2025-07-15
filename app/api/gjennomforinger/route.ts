@@ -1,55 +1,47 @@
 import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { getOboToken } from '../../../common/utils/getOboToken';
+import { getUserToken, getOboAccessToken, requireEnv, handleError } from '../../../common/utils/apiHelpers';
 
+// Henter gjennomføringer fra Ktor API
 export async function GET(req: NextRequest) {
   try {
-    const userToken = req.headers.get('authorization')?.replace('Bearer ', '');
-
-    if (!userToken) {
-      console.error('No user token provided in the request headers.');
+    // hent brukertoken fra header
+    const brukerToken = getUserToken(req);
+    if (!brukerToken) {
+      logger.error('Ingen brukertoken i forespørselen.');
       return NextResponse.json(
-        { message: 'Unauthorized: User session required.' },
+        { melding: 'Ikke autorisert: Brukersesjon kreves.' },
         { status: 401 },
       );
     }
-
-    const introspectionUrl = process.env.NAIS_TOKEN_INTROSPECTION_ENDPOINT;
-    if (!introspectionUrl) {
-      throw new Error('NAIS_TOKEN_INTROSPECTION_ENDPOINT is not defined in environment variables');
-    }
-
-    const introspectionRes = await fetch(introspectionUrl, {
+    // Introspekter brukerens token for å bekrefte at det er gyldig
+    const introspeksjonUrl = requireEnv('NAIS_TOKEN_INTROSPECTION_ENDPOINT');
+    const introspeksjonRes = await fetch(introspeksjonUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         identity_provider: 'azuread',
-        token: userToken,
+        token: brukerToken,
       }),
     });
 
-    const introspectionBody = await introspectionRes.json();
-    logger.warn(introspectionBody);
+    const introspeksjonBody = await introspeksjonRes.json();
 
-    if (!introspectionBody.active) {
-      console.error('User not logged in.');
-      return NextResponse.json({ message: 'User not logged in' }, { status: 401 });
+    if (!introspeksjonBody.active) {
+      logger.error('Bruker ikke innlogget.');
+      return NextResponse.json({ melding: 'Bruker ikke innlogget.' }, { status: 401 });
     }
-
-    const oboAccessToken = await getOboToken(userToken);
+    // Hent OBO-token for å kalle Ktor API
+    const oboAccessToken = await getOboAccessToken(brukerToken);
     if (!oboAccessToken) {
-      console.error('Failed to obtain OBO access token from Texas (userinfo).');
+      logger.error('Klarte ikke hente OBO-token.');
       return NextResponse.json(
-        { message: 'Internal Server Error: Unable to obtain OBO token.' },
+        { melding: 'Intern serverfeil: Klarte ikke hente OBO-token.' },
         { status: 500 },
       );
     }
-
-    const BRUM_API_URL = process.env.BRUM_API_URL;
-    if (!BRUM_API_URL) {
-      throw new Error('BRUM_API_URL is not defined in environment variables.');
-    }
-
+    // Kaller Ktor API for å hente gjennomføringer med OBO-token
+    const BRUM_API_URL = requireEnv('BRUM_API_URL');
     const ktorResponse = await fetch(`${BRUM_API_URL}/gjennomforing`, {
       method: 'GET',
       headers: {
@@ -58,31 +50,22 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    console.log('ktor response:' + ktorResponse);
-
     if (!ktorResponse.ok) {
-      const errorBody = await ktorResponse.text();
-      console.error(`Ktor API request failed with status ${ktorResponse.status}:`, errorBody);
-      return new NextResponse(errorBody, {
+      const feilBody = await ktorResponse.text();
+      logger.error(`Ktor API-forespørsel feilet med status ${ktorResponse.status}:`, feilBody);
+      return new NextResponse(feilBody, {
         status: ktorResponse.status,
         headers: { 'Content-Type': 'text/plain' },
       });
     }
 
     const data = await ktorResponse.text();
-    logger.info('Ktor API response:', data);
     return new NextResponse(data, {
       status: 200,
       headers: { 'Content-Type': 'text/plain' },
     });
   } catch (error) {
-    console.error('Error in gjennomforinger API handler:', error);
-    return NextResponse.json(
-      {
-        message: 'Internal Server Error',
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 },
-    );
+    logger.error('Feil i gjennomføringer API-handler:', error);
+    return handleError(error);
   }
 }
