@@ -25,10 +25,21 @@ const BrumChart = ({ data }: ChartProps) => {
     plotOptions: {
        series: { stacking: undefined },
        column: {
-        pointPadding: 0,
+        pointPadding: 0.05,
+        groupPadding: 0.05,
         centerInCategory: true
        }
       },
+    yAxis: { 
+      maxPadding: 0.05,
+      title: {text: 'Antall deltakere'},
+      labels: { format:  '{value:,0f}'}
+     },
+    xAxis: {
+      labels: {
+        style: { fontSize: '16px'}
+      }
+    },
     exporting: { enabled: true },
     accessibility: { enabled: true },
   });
