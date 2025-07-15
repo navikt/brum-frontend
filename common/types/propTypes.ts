@@ -16,8 +16,8 @@ export interface UpdateSeriesProps {
 }
 
 export interface DataOptionsProps {
-  aar: string;
-  uke: string;
+  aar: number;
+  uke: number;
 }
 
 export interface UpdateDataOptionsProps {

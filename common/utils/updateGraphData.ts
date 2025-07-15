@@ -14,6 +14,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
         data: data.verdier,
         name: data.avdeling,
         drilldown: data.avdeling,
+        centerInCategory: true,
       };
     }),
     drilldown: {

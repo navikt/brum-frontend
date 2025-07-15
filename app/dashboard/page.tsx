@@ -2,31 +2,21 @@
 import BrumChart from '@/common/components/BrumChart';
 import BrumTable from '@/common/components/BrumTable';
 import Datameny from '@/common/components/Datameny';
-import DataMenu from '@/common/components/Datameny';
 import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { GuidePanel, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
+import { GuidePanel, Heading, HStack, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
-
-const currentYear = new Date().getFullYear();
-const currentWeekNumber = Math.ceil(
-  (new Date().getTime() - new Date(new Date().getFullYear(), 0, 1).getTime()) / 604800000,
-);
 
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
   const [dataParams, setDataParams] = useState<DataOptionsProps>({
-    aar: String(currentYear),
-    uke: String(currentWeekNumber),
-  });
+    aar: 2025,
+    uke: 27,
+  }); // hardcoded as this is the end of our mock data
 
   useFetchUkeAntall({ setData, dataParams });
-
-  const handleDataMenuChange = (aar: number, uke: number) => {
-    setDataParams({ aar: String(aar), uke: String(uke) });
-  };
 
   return (
     <Page>
@@ -42,7 +32,7 @@ export default function Dashboard() {
 
           <HStack gap="8" align="start">
             <div style={{ minWidth: '220px' }}>
-              <Datameny />
+              <Datameny dataParams={dataParams} setDataParams={setDataParams} />
             </div>
             <div style={{ flex: 1 }}>
               <BrumChart data={data} />

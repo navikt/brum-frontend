@@ -1,77 +1,60 @@
 'use client';
 
-import { VStack, Select, Button } from '@navikt/ds-react';
-import { getISOWeek } from 'date-fns';
-import { useState } from 'react';
-import { getWeeksForYear } from '../utils/dateUtils';
+import { VStack, Button, TextField } from '@navikt/ds-react';
+import { UpdateDataOptionsProps } from '../types/propTypes';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-const Datameny = () => {
-  const [dataParams, setDataParams] = useState<{ aar: number | null; uke: number | null }>({
-    aar: new Date().getFullYear(),
-    uke: getISOWeek(new Date()),
+const Datameny = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ aar: number; uke: number }>({
+    reValidateMode: 'onBlur',
+    shouldFocusError: false,
   });
 
-  return (
-    <div>
-      <DataSetSelect
-        valgtÅr={dataParams.aar}
-        valgtUke={dataParams.uke}
-        setValgtÅr={(year) => setDataParams((prev) => ({ ...prev, aar: year }))}
-        setValgtUke={(week) => setDataParams((prev) => ({ ...prev, uke: week }))}
-      />
-    </div>
-  );
-};
-
-const MinYear = 2022;
-const currentYear = new Date().getFullYear();
-
-type DataSetSelectProps = {
-  valgtÅr: number | null;
-  valgtUke: number | null;
-  setValgtÅr: (year: number | null) => void;
-  setValgtUke: (week: number | null) => void;
-};
-
-const DataSetSelect = ({ valgtÅr, valgtUke, setValgtÅr, setValgtUke }: DataSetSelectProps) => {
-  const weeksForSelectedYear = getWeeksForYear(valgtÅr ?? currentYear);
-
-  const handleÅrChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValgtÅr(Number(e.target.value));
-    setValgtUke(null);
-  };
-
-  const handleUkeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValgtUke(Number(e.target.value));
+  const onSubmit: SubmitHandler<{ aar: number; uke: number }> = (data) => {
+    setDataParams({ aar: data.aar, uke: data.uke });
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <VStack gap="4">
-        <Select label="Velg år" value={valgtÅr ?? ''} onChange={handleÅrChange}>
-          <option value="" disabled>
-            Velg år
-          </option>
-          {Array.from({ length: currentYear - MinYear + 1 }, (_, i) => MinYear + i).map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </Select>
-        {valgtÅr && (
-          <Select label="Velg uke" value={valgtUke ?? ''} onChange={handleUkeChange}>
-            <option value="" disabled>
-              Velg uke
-            </option>
-            {weeksForSelectedYear.map((uke) => (
-              <option key={uke} value={uke}>
-                Uke {uke}
-              </option>
-            ))}
-          </Select>
-        )}
+        <TextField
+          defaultValue={dataParams.aar}
+          id="velg år"
+          label="Velg år"
+          htmlSize={4}
+          error={errors.aar?.message}
+          {...register('aar', {
+            required: 'Du må velge et gyldig år.',
+            pattern: {
+              value: /^\d{4}$/,
+              message: 'År må være 4 siffer.',
+            },
+            min: { value: 2022, message: 'Vi har foreløpig ikke data fra før 2022' },
+            max: { value: 2025, message: 'Vi kjenner ikke framtida.' },
+          })}
+        />
+        <TextField
+          defaultValue={dataParams.uke}
+          id="velg uke"
+          label="Velg uke"
+          htmlSize={4}
+          error={errors.uke?.message}
+          {...register('uke', {
+            required: 'Du må velge en gyldig uke.',
+            pattern: {
+              value: /^\d\d?$/,
+              message: 'År må være 1-2 siffer.',
+            },
+            min: { value: 1, message: 'Uke må være minst 1' },
+            max: { value: 52, message: 'Uke kan ikke være større enn 52' },
+          })}
+        />
         <Button type="submit" size="small">
-          Legg til filter
+          Velg
         </Button>
       </VStack>
     </form>
