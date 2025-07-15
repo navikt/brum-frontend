@@ -6,14 +6,6 @@ export interface ChartOptionsProps {
   chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
 }
-export interface StackingRadioProps extends ChartOptionsProps {
-  percentMode: boolean;
-}
-
-export interface PercentModeProps extends ChartOptionsProps {
-  percentMode: boolean;
-  setPercentMode: Dispatch<SetStateAction<boolean>>;
-}
 
 export interface UpdateSeriesProps {
   data: BrumData | null;
