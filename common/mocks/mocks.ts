@@ -19,11 +19,8 @@ export const testData: BrumData = {
     { avdeling: 'aksel', innsatsgruppe: 'nav', verdier: [16, 21, 84] },
   ],
   dataAvdeling: [
-    { avdeling: 'nahom', verdier: [5, 18, 93] },
-    { avdeling: 'nahom', verdier: [12, 20, 85] },
-    { avdeling: 'nahom', verdier: [30, 14, 77] },
-    { avdeling: 'nahom', verdier: [22, 19, 91] },
-    { avdeling: 'ingvild', verdier: [18, 17, 88] },
-    { avdeling: 'ingvild', verdier: [15, 16, 94] },
-  ]
+    { avdeling: 'nahom', verdier: [69, 71, 346] },
+    { avdeling: 'ingvild', verdier: [56, 80, 350] },
+    { avdeling: 'aksel', verdier: [84, 74, 347] },
+  ],
 };

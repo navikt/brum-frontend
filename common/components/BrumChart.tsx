@@ -4,6 +4,7 @@ import { Chart, HighchartsOptionsType, setHighcharts } from '@highcharts/react';
 import Highcharts from 'highcharts/highcharts.src';
 import('highcharts/modules/exporting');
 import('highcharts/modules/accessibility');
+import('highcharts/modules/drilldown');
 setHighcharts(Highcharts);
 
 import { updateGraphSeries } from '@/common/utils/updateGraphData';
@@ -21,7 +22,12 @@ const BrumChart = ({ data }: ChartProps) => {
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
     chart: { inverted: false, type: 'column' },
-    plotOptions: { series: { stacking: undefined } },
+    plotOptions: {
+       series: { stacking: undefined },
+       column: {
+        pointPadding: 0,
+       }
+      },
     exporting: { enabled: true },
     accessibility: { enabled: true },
   });
