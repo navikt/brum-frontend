@@ -8,6 +8,7 @@ export function getWeeksForYear(year: number): number[] {
 
   // const maxWeek =
   //   year === currentYear ? getISOWeek(today) : getISOWeeksInYear(new Date(year, 0, 1));
+  //NOTE : Dette er 27 bare fordi det det er 27 uker i daten vi har legget inn i dashboardet
     const maxWeek =
     year === currentYear ? 27 : getISOWeeksInYear(new Date(year, 0, 1));
 
