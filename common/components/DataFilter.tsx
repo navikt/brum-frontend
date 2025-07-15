@@ -1,17 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import {
-  Accordion,
-  ActionMenu,
-  Button,
-  HStack,
-  Modal,
-  TextField,
-  UNSAFE_Combobox,
-} from '@navikt/ds-react';
+import { Button, HStack, Modal, TextField, UNSAFE_Combobox } from '@navikt/ds-react';
 import { FilterMenuProps } from '../types/filterTypes';
-import { ModalBody } from '@navikt/ds-react/Modal';
 
 enum FilterKind {
   NUM_GT,
@@ -23,33 +14,39 @@ enum FilterKind {
   STR_STARTS_WITH,
 }
 
-function makeFilter(type: FilterKind, column: string, x?: number, y?: number, text?: string) {
+function makeFilter(type: FilterKind, column: string, x?: string, y?: number) {
   switch (type) {
     case FilterKind.NUM_GT: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z > x! };
+      return { label: `${column} > ${x}`, comp_function: (z: number) => z > +x! };
     }
     case FilterKind.NUM_LT: {
-      return { label: `${column} < ${x}`, comp_function: (z: number) => z < x! };
+      return { label: `${column} < ${x}`, comp_function: (z: number) => z < +x! };
     }
     case FilterKind.NUM_EQUALS: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z == x! };
+      return { label: `${column} > ${x}`, comp_function: (z: number) => z == +x! };
     }
     case FilterKind.NUM_BETWEEN: {
-      return { label: `${y} > ${column} > ${x}`, comp_function: (z: number) => y! > z && z > x! };
+      return {
+        label: `${y} > ${column} > ${x}`,
+        comp_function: (z: number) => y! > z && z > +x!,
+      };
     }
     case FilterKind.STR_CONTAINS: {
       return {
-        label: `${column} inneholder "${text}"`,
-        comp_function: (z: string) => z.includes(text!),
+        label: `${column} inneholder "${x}"`,
+        comp_function: (z: string) => z.includes(x!),
       };
     }
     case FilterKind.STR_EQUALS: {
-      return { label: `${column} er lik "${text}"`, comp_function: (z: string) => z === text! };
+      return {
+        label: `${column} er lik "${x}"`,
+        comp_function: (z: string) => z === x!,
+      };
     }
     case FilterKind.STR_STARTS_WITH: {
       return {
-        label: `${column} begynner med "${text}"`,
-        comp_function: (z: string) => z.startsWith(text!),
+        label: `${column} begynner med "${x}"`,
+        comp_function: (z: string) => z.startsWith(x!),
       };
     }
   }
@@ -75,13 +72,10 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
       makeFilter(
         selectedFilterType!,
         selectedColumn.header,
-        // For number filters, pass x and y
-        selectedFilterType! <= FilterKind.NUM_BETWEEN ? +formData.get('filterVal')! : undefined,
+        // For number filters, pass x
+        selectedFilterType! <= FilterKind.NUM_BETWEEN ? formData.get('filterVal')! : undefined,
+        // For number filters, pass x
         selectedFilterType! === FilterKind.NUM_BETWEEN ? +formData.get('extraVal')! : undefined,
-        // For string filters, pass text
-        selectedFilterType! > FilterKind.NUM_BETWEEN
-          ? formData.get('filterVal')?.toString()!
-          : undefined,
       ),
     ]);
     event.currentTarget.reset();
