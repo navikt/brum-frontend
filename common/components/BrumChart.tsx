@@ -26,6 +26,7 @@ const BrumChart = ({ data }: ChartProps) => {
        series: { stacking: undefined },
        column: {
         pointPadding: 0,
+        centerInCategory: true
        }
       },
     exporting: { enabled: true },
