@@ -5,7 +5,7 @@ import DataMenu from '@/common/components/DataMenu';
 import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
+import { GuidePanel, Heading, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
 
@@ -17,23 +17,37 @@ export default function Dashboard() {
 
   return (
     <Page>
-      <Page.Block width="2xl" as="main">
-        <VStack gap="8">
-          <Heading level="1" size="xlarge" align="center">
+      <Page.Block width="2xl" as="main" aria-label="Dashboard hovedinnhold">
+        <VStack gap="8" align="center">
+          <Heading level="1" size="xlarge" align="center" aria-label="Dashboard overskrift">
             Dashboard
           </Heading>
-
-          <HStack gap="8" align="start">
-            <div style={{ flex: 1 }}>
+          <GuidePanel aria-label="Bruksanvisning for dashboard">
+            Her ser du statistikk og nøkkeltall for tiltak. Bruk menyen til venstre for å velge
+            datasett og filtrere informasjonen som vises i grafen.
+          </GuidePanel>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '2rem',
+              width: '100%',
+              alignItems: 'flex-start',
+              flexWrap: 'wrap',
+            }}
+            aria-label="Dashboard innhold"
+            role="region"
+          >
+            <div style={{ minWidth: 220, maxWidth: 300, flex: '1 1 220px' }} aria-label="Datameny">
+              <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
+            </div>
+            <div style={{ flex: 3, minWidth: 0 }} aria-label="Statistikk graf">
               <BrumChart data={data} />
             </div>
-          </HStack>
-
-          <div style={{ minWidth: '220px' }}>
-            <DataMenu dataParams={dataParams} setDataParams={setDataParams} />
           </div>
-
-          <BrumTable data={data!} />
+          <div style={{ width: '100%' }} aria-label="Tabell med nøkkeltall">
+            <BrumTable data={data!} />
+          </div>
         </VStack>
       </Page.Block>
     </Page>

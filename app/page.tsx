@@ -7,20 +7,17 @@ const Home = () => {
   return (
     <Page>
       <Page.Block as="main" width="2xl" gutters>
-        <VStack margin="4" gap="4" align="center">
+        <VStack margin="6" gap="6" align="center">
           <Heading level="1" size="xlarge">
             Velkommen til Brum
           </Heading>
-          <Heading level="2" size="small">
-            Analyse av tiltak
-          </Heading>
           <GuidePanel poster>
-            <BodyShort>Velkommen til Brum Dashboard!</BodyShort>
-            <BodyShort>Her kan du se statistikk og annen informasjon.</BodyShort>
+            <BodyShort>Du er nå i Brum Dashboard.</BodyShort>
+            <BodyShort>Her får du innsikt i statistikk og tiltak fra ulike avdelinger.</BodyShort>
           </GuidePanel>
-          <LinkCard>
+          <LinkCard style={{ width: '100%', maxWidth: 500, minHeight: 120, padding: '1.5rem' }}>
             <LinkCard.Icon>
-              <BarChartIcon fontSize="2rem" />
+              <BarChartIcon fontSize="3rem" />
             </LinkCard.Icon>
             <LinkCard.Title>
               <LinkCard.Anchor href="/dashboard">Gå til dashboard</LinkCard.Anchor>

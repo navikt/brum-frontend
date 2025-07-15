@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Accordion,
   ActionMenu,
   Button,
   HStack,
+  Modal,
   TextField,
   UNSAFE_Combobox,
 } from '@navikt/ds-react';
 import { FilterMenuProps } from '../types/filterTypes';
+import { ModalBody } from '@navikt/ds-react/Modal';
 
 enum FilterKind {
   NUM_GT,
@@ -89,17 +91,14 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
   /* idé, se: https://aksel.nav.no/komponenter/core/actionmenu?demo=actionmenudemo-filter
   liste ut kolonner og innsatsbehov som checkboks-valgbare. kanskje basert på det, om filtrering, gjøre stackegreia? optionally.
   resten må autogeneres som tall valg, men en enkel større enn x mindre enn y, med skalavelger? tja. kanskje ikke. men uansett. grupper og greier :) */
+  const ref = useRef<any>(null);
+
   return (
-    <Accordion>
-      <Accordion.Item>
-        <Accordion.Header>hidden</Accordion.Header>
-        <Accordion.Content>
-          <ActionMenu></ActionMenu>
-        </Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item>
-        <Accordion.Header>Filtre</Accordion.Header>
-        <Accordion.Content>
+    <div>
+      <Button onClick={() => ref?.current?.showModal()}>Åpne modal</Button>
+      <Modal aria-label="filtermeny" ref={ref}>
+        <Modal.Header>Filtre</Modal.Header>
+        <Modal.Body>
           <HStack gap="3" minWidth="1000px">
             <form onSubmit={handleSubmit}>
               <UNSAFE_Combobox
@@ -118,6 +117,8 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
 
               {selectedColumn.header && (
                 <UNSAFE_Combobox
+                  size="small"
+                  width="1rm"
                   label="Filtrer for"
                   options={
                     selectedColumn.type === 'number'
@@ -163,8 +164,8 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
               )}
             </form>
           </HStack>
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 }
