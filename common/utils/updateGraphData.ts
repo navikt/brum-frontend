@@ -11,7 +11,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
     series: data.dataAvdeling.map((data) => {
       return {
         type: 'column',
-        data: data.verdier,
+        data: data.verdier.map(v => v === 0 ? null : v),
         name: data.avdeling,
         drilldown: data.avdeling,
       };
