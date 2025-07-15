@@ -6,8 +6,9 @@ export function getWeeksForYear(year: number): number[] {
   const today = new Date();
   const currentYear = today.getFullYear();
 
-  const maxWeek =
-    year === currentYear ? getISOWeek(today) : getISOWeeksInYear(new Date(year, 0, 1));
+  // const maxWeek =
+  //   year === currentYear ? getISOWeek(today) : getISOWeeksInYear(new Date(year, 0, 1));
+  const maxWeek = 27 // data går bare frmo til 27 uker. 
 
   return Array.from({ length: maxWeek }, (_, i) => i + 1);
 }
