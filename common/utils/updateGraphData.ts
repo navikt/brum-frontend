@@ -8,10 +8,10 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
 
   const newOptions: HighchartsOptionsType = {
     xAxis: { categories: data.headers },
-    series: data.data.map((data) => {
+    series: data.dataAvdeling.map((data) => {
       return {
         type: 'column',
-        data: data.dataAvdeling.verdier,
+        data: data.verdier,
         name: data.avdeling,
       };
     }),

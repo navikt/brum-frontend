@@ -6,9 +6,9 @@ export interface BrumData {
     avdeling: string;
     innsatsgruppe: string;
     verdier: number[];
+  }[];
   dataAvdeling: {
     avdeling: string;
-    verdier: number[]
-  }
-  }[];
+    verdier: number[];
+  }[]
 }
