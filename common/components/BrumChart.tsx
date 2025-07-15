@@ -21,7 +21,12 @@ const BrumChart = ({ data }: ChartProps) => {
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
     chart: { inverted: false, type: 'column' },
-    plotOptions: { series: { stacking: undefined } },
+    plotOptions: {
+       series: { stacking: undefined },
+       column: {
+        pointPadding: 0,
+       }
+      },
     exporting: { enabled: true },
     accessibility: { enabled: true },
   });
