@@ -73,7 +73,9 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
         selectedFilterType!,
         selectedColumn.header,
         // For number filters, pass x
-        selectedFilterType! <= FilterKind.NUM_BETWEEN ? formData.get('filterVal')! : undefined,
+        selectedFilterType! <= FilterKind.NUM_BETWEEN
+          ? formData.get('filterVal')!.toString()
+          : undefined,
         // For number filters, pass x
         selectedFilterType! === FilterKind.NUM_BETWEEN ? +formData.get('extraVal')! : undefined,
       ),
