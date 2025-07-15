@@ -1,12 +1,11 @@
 'use client';
-import { ChartOptionsProps, PercentModeProps, StackingRadioProps } from '@/common/types/propTypes';
+import { ChartOptionsProps } from '@/common/types/propTypes';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
 import { ActionMenu, Button, Switch, TextField } from '@navikt/ds-react';
-import { useState } from 'react';
+import { SeriesColumnOptions } from 'highcharts/highcharts.src';
+import { useMemo, useState } from 'react';
 
 const ChartMenu = (props: ChartOptionsProps) => {
-  const [percentMode, setPercentMode] = useState(false);
-
   return (
     <ActionMenu>
       <ActionMenu.Trigger>
@@ -14,13 +13,15 @@ const ChartMenu = (props: ChartOptionsProps) => {
       </ActionMenu.Trigger>
       <ActionMenu.Content>
         <TitleField {...props} />
-        <PercentModeSwitch {...props} percentMode={percentMode} setPercentMode={setPercentMode} />
+        <PercentModeSwitch {...props} />
         <InversionSwitch {...props} />
-        <StackingSwitch {...props} percentMode={percentMode} />
+        <StackingSwitch {...props} />
       </ActionMenu.Content>
     </ActionMenu>
   );
 };
+
+const convertToPercentages = (series: SeriesColumnOptions[]) => {};
 
 const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   <TextField
@@ -46,14 +47,14 @@ const InversionSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) =
   </Switch>
 );
 
-const StackingSwitch = ({ chartOptions, setChartOptions, percentMode }: StackingRadioProps) => (
+const StackingSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   <Switch
     checked={chartOptions.plotOptions!.series!.stacking !== undefined}
     onChange={(e) => {
       setChartOptions({
         ...chartOptions,
         plotOptions: {
-          series: { stacking: e.target.checked ? (percentMode ? 'percent' : 'normal') : undefined },
+          series: { stacking: e.target.checked ? 'normal' : undefined },
         },
       });
     }}
@@ -62,37 +63,58 @@ const StackingSwitch = ({ chartOptions, setChartOptions, percentMode }: Stacking
   </Switch>
 );
 
-const PercentModeSwitch = ({
-  chartOptions,
-  setChartOptions,
-  percentMode,
-  setPercentMode,
-}: PercentModeProps) => (
-  <Switch
-    checked={percentMode}
-    onChange={(e) => {
-      setPercentMode(e.target.checked);
-      setChartOptions({
-        ...chartOptions,
-        yAxis: { labels: { format: e.target.checked ? '{value}%' : '{value}' } },
-        tooltip: {
-          pointFormat: e.target.checked ? '{series.name}: {point.y}%' : '{series.name}: {point.y}',
-        },
-        plotOptions: {
-          series: {
-            stacking:
-              chartOptions.plotOptions!.series!.stacking != undefined
-                ? e.target.checked
-                  ? 'percent'
-                  : 'normal'
-                : undefined,
+const PercentModeSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) => {
+  const [percentMode, setPercentMode] = useState(false);
+  const [absoluteValueSeries, setAbsoluteValueSeries] = useState<SeriesColumnOptions[] | null>(
+    null,
+  );
+
+  const percentSeries: SeriesColumnOptions[] | null = useMemo(() => {
+    if (!absoluteValueSeries) return null;
+    const dataArrays = absoluteValueSeries.map((s) => s.data as number[]);
+
+    const totalsAtEachPosition = dataArrays[0].map((_, position) =>
+      dataArrays.reduce((sum, dataArray) => sum + dataArray[position], 0),
+    );
+
+    const percentageArrays = dataArrays.map((array) =>
+      array.map((value, position) => {
+        const totalAtPosition = totalsAtEachPosition[position];
+        return totalAtPosition === 0 ? 0 : (value / totalAtPosition) * 100;
+      }),
+    );
+
+    return absoluteValueSeries.map((s, index) => ({
+      ...s,
+      data: percentageArrays[index],
+    }));
+  }, [absoluteValueSeries]);
+
+  return (
+    <Switch
+      checked={percentMode}
+      onChange={(e) => {
+        const isChecked = e.target.checked;
+        setPercentMode(isChecked);
+
+        // lagrer opprinnelige serier første gang prosentmodues blir aktivtert
+        if (isChecked && !absoluteValueSeries) {
+          setAbsoluteValueSeries(chartOptions.series as SeriesColumnOptions[]);
+        }
+
+        setChartOptions({
+          ...chartOptions,
+          yAxis: { labels: { format: e.target.checked ? '{value}%' : '{value}' } },
+          tooltip: {
+            pointFormat: '{series.name}' + e.target.checked ? '{point.y:.1f}%' : '{point.y}',
           },
-        },
-      });
-    }}
-  >
-    Prosentmodus
-  </Switch>
-);
+          series: e.target.checked ? percentSeries! : absoluteValueSeries!,
+        });
+      }}
+    >
+      Prosentmodus
+    </Switch>
+  );
+};
 
 export default ChartMenu;

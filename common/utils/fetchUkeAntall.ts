@@ -10,5 +10,5 @@ export default function useFetchUkeAntall({ setData, dataParams }: useFetchDataP
       })
       .then(setData)
       .catch(console.error);
-  }, []);
+  }, [dataParams]);
 }

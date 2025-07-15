@@ -1,14 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  Accordion,
-  ActionMenu,
-  Button,
-  HStack,
-  TextField,
-  UNSAFE_Combobox,
-} from '@navikt/ds-react';
+import { useRef, useState } from 'react';
+import { Button, HStack, Modal, TextField, UNSAFE_Combobox } from '@navikt/ds-react';
 import { FilterMenuProps } from '../types/filterTypes';
 
 enum FilterKind {
@@ -21,33 +14,39 @@ enum FilterKind {
   STR_STARTS_WITH,
 }
 
-function makeFilter(type: FilterKind, column: string, x?: number, y?: number, text?: string) {
+function makeFilter(type: FilterKind, column: string, x?: string, y?: number) {
   switch (type) {
     case FilterKind.NUM_GT: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z > x! };
+      return { label: `${column} > ${x}`, comp_function: (z: number) => z > +x! };
     }
     case FilterKind.NUM_LT: {
-      return { label: `${column} < ${x}`, comp_function: (z: number) => z < x! };
+      return { label: `${column} < ${x}`, comp_function: (z: number) => z < +x! };
     }
     case FilterKind.NUM_EQUALS: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z == x! };
+      return { label: `${column} > ${x}`, comp_function: (z: number) => z == +x! };
     }
     case FilterKind.NUM_BETWEEN: {
-      return { label: `${y} > ${column} > ${x}`, comp_function: (z: number) => y! > z && z > x! };
+      return {
+        label: `${y} > ${column} > ${x}`,
+        comp_function: (z: number) => y! > z && z > +x!,
+      };
     }
     case FilterKind.STR_CONTAINS: {
       return {
-        label: `${column} inneholder "${text}"`,
-        comp_function: (z: string) => z.includes(text!),
+        label: `${column} inneholder "${x}"`,
+        comp_function: (z: string) => z.includes(x!),
       };
     }
     case FilterKind.STR_EQUALS: {
-      return { label: `${column} er lik "${text}"`, comp_function: (z: string) => z === text! };
+      return {
+        label: `${column} er lik "${x}"`,
+        comp_function: (z: string) => z === x!,
+      };
     }
     case FilterKind.STR_STARTS_WITH: {
       return {
-        label: `${column} begynner med "${text}"`,
-        comp_function: (z: string) => z.startsWith(text!),
+        label: `${column} begynner med "${x}"`,
+        comp_function: (z: string) => z.startsWith(x!),
       };
     }
   }
@@ -73,13 +72,12 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
       makeFilter(
         selectedFilterType!,
         selectedColumn.header,
-        // For number filters, pass x and y
-        selectedFilterType! <= FilterKind.NUM_BETWEEN ? +formData.get('filterVal')! : undefined,
-        selectedFilterType! === FilterKind.NUM_BETWEEN ? +formData.get('extraVal')! : undefined,
-        // For string filters, pass text
-        selectedFilterType! > FilterKind.NUM_BETWEEN
-          ? formData.get('filterVal')?.toString()!
+        // For number filters, pass x
+        selectedFilterType! <= FilterKind.NUM_BETWEEN
+          ? formData.get('filterVal')!.toString()
           : undefined,
+        // For number filters, pass x
+        selectedFilterType! === FilterKind.NUM_BETWEEN ? +formData.get('extraVal')! : undefined,
       ),
     ]);
     event.currentTarget.reset();
@@ -89,17 +87,14 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
   /* idé, se: https://aksel.nav.no/komponenter/core/actionmenu?demo=actionmenudemo-filter
   liste ut kolonner og innsatsbehov som checkboks-valgbare. kanskje basert på det, om filtrering, gjøre stackegreia? optionally.
   resten må autogeneres som tall valg, men en enkel større enn x mindre enn y, med skalavelger? tja. kanskje ikke. men uansett. grupper og greier :) */
+  const ref = useRef<any>(null);
+
   return (
-    <Accordion>
-      <Accordion.Item>
-        <Accordion.Header>hidden</Accordion.Header>
-        <Accordion.Content>
-          <ActionMenu></ActionMenu>
-        </Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item>
-        <Accordion.Header>Filtre</Accordion.Header>
-        <Accordion.Content>
+    <div>
+      <Button onClick={() => ref?.current?.showModal()}>Åpne modal</Button>
+      <Modal aria-label="filtermeny" ref={ref}>
+        <Modal.Header>Filtre</Modal.Header>
+        <Modal.Body>
           <HStack gap="3" minWidth="1000px">
             <form onSubmit={handleSubmit}>
               <UNSAFE_Combobox
@@ -118,6 +113,8 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
 
               {selectedColumn.header && (
                 <UNSAFE_Combobox
+                  size="small"
+                  width="1rm"
                   label="Filtrer for"
                   options={
                     selectedColumn.type === 'number'
@@ -163,8 +160,8 @@ export function FilterMenu({ data, setFilters }: FilterMenuProps) {
               )}
             </form>
           </HStack>
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 }
