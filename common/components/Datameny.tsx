@@ -1,6 +1,6 @@
 'use client';
 
-import { VStack, Button, TextField } from '@navikt/ds-react';
+import { VStack, Button, TextField, HStack } from '@navikt/ds-react';
 import { UpdateDataOptionsProps } from '../types/propTypes';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -33,7 +33,7 @@ const Datameny = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <VStack gap="4">
+      <HStack gap="4">
         <TextField
           id="velg år"
           label="Velg år"
@@ -73,7 +73,7 @@ const Datameny = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
         <Button type="submit" size="small">
           Velg
         </Button>
-      </VStack>
+      </HStack>
     </form>
   );
 };

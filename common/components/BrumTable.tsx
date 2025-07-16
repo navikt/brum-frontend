@@ -1,7 +1,7 @@
 'use client';
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Chips, Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Chips, Page, Skeleton, Table, ToggleGroup, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
 import { useState } from 'react';
 import { FilterMenu } from './DataFilter';
@@ -19,7 +19,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
   }
   const [filters, setFilters] = useState<FilterType[]>([]);
   return (
-    <section aria-label="Datatabell">
+    <Page.Block width="md" aria-label="Datatabell">
       <ToggleGroup defaultValue="full" onChange={console.info}>
         {true && (
           <ToggleGroup.Item
@@ -44,7 +44,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
         ))}
       </Chips>
 
-      <Table zebraStripes>
+      <Table size="small" zebraStripes>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader key={0}>Avdeling</Table.ColumnHeader>
@@ -70,7 +70,7 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
           ))}
         </Table.Body>
       </Table>
-    </section>
+    </Page.Block>
   );
 };
 

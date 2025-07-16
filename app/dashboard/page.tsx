@@ -5,7 +5,7 @@ import Datameny from '@/common/components/Datameny';
 import { BrumData } from '@/common/types/brumData';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { GuidePanel, Heading, HStack, VStack } from '@navikt/ds-react';
+import { GuidePanel, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useState } from 'react';
 
@@ -30,16 +30,23 @@ export default function Dashboard() {
             datasett og filtrere informasjonen som vises i grafen.
           </GuidePanel>
 
-          <HStack gap="8" align="start">
-            <div style={{ minWidth: '220px' }}>
+          <HGrid
+            gap="8"
+            align="start"
+            columns={{
+              md: '1fr', // Medium: stacked
+              lg: '2fr 1fr', // Large: side by side
+            }}
+          >
+            <VStack>
               <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <BrumChart data={data} />
-            </div>
-          </HStack>
 
-          <BrumTable data={data!} />
+              <BrumChart data={data} />
+            </VStack>
+            <div>
+              <BrumTable data={data!} />
+            </div>
+          </HGrid>
         </VStack>
       </Page.Block>
     </Page>
