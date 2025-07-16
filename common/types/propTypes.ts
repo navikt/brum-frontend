@@ -8,11 +8,10 @@ export interface ChartOptionsProps {
 }
 
 export interface UpdateSeriesProps {
-  data: BrumData | null;
-  chartOptions: HighchartsOptionsType;
+  chartData: BrumData | null;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  ref: any;
+  filterApplied: boolean;
 }
 
 export interface DataOptionsProps {
@@ -26,7 +25,8 @@ export interface UpdateDataOptionsProps {
 }
 
 export interface ChartProps {
-  data: BrumData | null;
+  chartData: BrumData | null;
+  filterApplied: boolean;
 }
 export interface useFetchDataProps {
   setData: Dispatch<SetStateAction<BrumData | null>>;

@@ -7,16 +7,23 @@ import { DataOptionsProps } from '@/common/types/propTypes';
 import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
 import { GuidePanel, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
+  const [chartData, setChartData] = useState<BrumData | null>(null);
+  const [filterApplied, setFilterApplied] = useState(false);
+
   const [dataParams, setDataParams] = useState<DataOptionsProps>({
     aar: 2025,
     uke: 27,
   }); // hardcoded as this is the end of our mock data
 
   useFetchUkeAntall({ setData, dataParams });
+
+  useEffect(() => {
+    setChartData(data);
+  }, [data]);
 
   return (
     <Page>
@@ -40,11 +47,14 @@ export default function Dashboard() {
           >
             <VStack>
               <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-
-              <BrumChart data={data} />
+              <BrumChart chartData={chartData} filterApplied={filterApplied} />
             </VStack>
             <div>
-              <BrumTable data={data!} />
+              <BrumTable
+                data={data!}
+                setFilterApplied={setFilterApplied}
+                setChartData={setChartData}
+              />
             </div>
           </HGrid>
         </VStack>

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { BrumData } from './brumData';
 
 export interface FilterType {
@@ -14,4 +14,5 @@ export interface FilterMenuProps {
   filter: FilterType;
   setFilter: Dispatch<SetStateAction<FilterType>>;
   tiltak: string[];
+  filterTabRef: RefObject<any>;
 }

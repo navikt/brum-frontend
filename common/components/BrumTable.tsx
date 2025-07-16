@@ -1,13 +1,21 @@
 'use client';
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Page, Skeleton, Table, Tabs, ToggleGroup, VStack } from '@navikt/ds-react';
+import { HStack, Page, Skeleton, Spacer, Switch, Table, Tabs, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { FilterMenu } from './DataFilter';
 import { FilterType } from '../types/filterTypes';
 
-const BrumTable = ({ data }: { data: BrumData | null }) => {
+const BrumTable = ({
+  data,
+  setChartData,
+  setFilterApplied,
+}: {
+  data: BrumData | null;
+  setChartData: (data: BrumData | null) => void;
+  setFilterApplied: (a: boolean) => void;
+}) => {
   if (!data) {
     return (
       <section aria-label="Laster datatabell">
@@ -34,12 +42,38 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
 
   const filteredData = useMemo(() => filtrerData(filter, data), [filter]);
 
+  // for å autofokusere i filtertabben når filtere blir satt
+  const filterTabRef = useRef<any>(null);
+
   return (
     <Page.Block width="md" aria-label="Datatabell">
-      <FilterMenu filter={filter} setFilter={setFilter} tiltak={data.headers} />
+      <HStack>
+        <Switch
+          onChange={(e) => {
+            setFilterApplied(e.target.checked);
+            setChartData(e.target.checked ? filteredData : data);
+          }}
+        >
+          Bruk filtrert data i graf
+        </Switch>
 
-      <Tabs defaultValue="full">
-        <Tabs.Tab value="filter" label="Filtrert data" icon={<FunnelIcon aria-hidden />} />
+        <Spacer />
+
+        <FilterMenu
+          filter={filter}
+          setFilter={setFilter}
+          tiltak={data.headers}
+          filterTabRef={filterTabRef}
+        />
+      </HStack>
+
+      <Tabs defaultValue="full" selectionFollowsFocus>
+        <Tabs.Tab
+          value="filter"
+          ref={filterTabRef}
+          label="Filtrert data"
+          icon={<FunnelIcon aria-hidden />}
+        />
         <Tabs.Tab value="full" label="All data" icon={<TableIcon aria-hidden />} />
 
         <Tabs.Panel value="filter">
@@ -49,17 +83,6 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
           <DataTable data={data} />
         </Tabs.Panel>
       </Tabs>
-
-      {/* <Chips data-color="Green">
-        {filters.fromEntries((c) => (
-          <Chips.Removable
-            key={c.label}
-            onClick={() => setFilters((x) => x.filter((y) => y !== c))}
-          >
-            {c.label}
-          </Chips.Removable>
-        ))}
-      </Chips> */}
     </Page.Block>
   );
 };

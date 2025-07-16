@@ -1,41 +1,52 @@
 import { HighchartsOptionsType } from '@highcharts/react';
 import { UpdateSeriesProps } from '../types/propTypes';
 
-export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateSeriesProps) {
-  if (!data) {
+export function updateGraphSeries({
+  chartData,
+  setChartOptions,
+  setLoading,
+  filterApplied,
+}: UpdateSeriesProps) {
+  if (!chartData) {
     return;
   }
-
-  const newOptions: HighchartsOptionsType = {
-    xAxis: { categories: data.headers },
-    series: data.dataAvdeling.map((data) => {
-      return {
-        type: 'column',
-        data: data.verdier.map((v) => (v === 0 ? null : v)),
-        name: data.avdeling,
-        drilldown: data.avdeling,
-        centerInCategory: true,
+  const newOptions = filterApplied
+    ? {
+        xAxis: { categories: chartData.headers },
+        series: chartData.data.map((avdelingsData) => {
+          return {
+            type: 'column' as const,
+            data: avdelingsData.verdier,
+            name: `${avdelingsData.avdeling} - ${avdelingsData.innsatsgruppe}`,
+          };
+        }),
+      }
+    : {
+        xAxis: { categories: chartData.headers },
+        series: chartData.dataAvdeling.map((d) => {
+          return {
+            type: 'column' as const,
+            data: d.verdier.map((v) => (v === 0 ? null : v)),
+            name: d.avdeling,
+            drilldown: d.avdeling,
+            centerInCategory: true,
+          };
+        }),
+        drilldown: {
+          series: chartData.data.map((d) => {
+            return {
+              type: 'column' as const,
+              id: d.avdeling,
+              data: d.verdier,
+              name: d.innsatsgruppe,
+            };
+          }),
+        },
       };
-    }),
-    drilldown: {
-      series: data.data.map((d) => {
-        return {
-          type: 'column',
-          id: d.avdeling,
-          data: d.verdier,
-          name: d.innsatsgruppe,
-        };
-      }),
-    },
-  };
 
   setChartOptions((prev: HighchartsOptionsType) => ({
     ...prev,
     ...newOptions,
-    xAxis: {
-      ...(prev.xAxis || {}),
-      ...newOptions.xAxis,
-    },
   }));
   setLoading(false);
 }

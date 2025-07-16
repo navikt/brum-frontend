@@ -4,11 +4,17 @@ import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navik
 import { FilterMenuProps } from '../types/filterTypes';
 import { FunnelFillIcon } from '@navikt/aksel-icons';
 
-export function FilterMenu({ filter, setFilter, tiltak }: FilterMenuProps) {
+export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
   return (
     <ActionMenu>
       <ActionMenu.Trigger>
-        <Button icon={<FunnelFillIcon />} variant="secondary-neutral" />
+        <Button
+          onClick={(e) => {
+            filterTabRef.current?.focus();
+          }}
+          icon={<FunnelFillIcon />}
+          variant="secondary-neutral"
+        />
       </ActionMenu.Trigger>
       <ActionMenu.Content>
         <ActionMenu.Group label="Avdelinger">

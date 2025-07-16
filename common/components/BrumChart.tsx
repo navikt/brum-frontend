@@ -15,7 +15,7 @@ import { ChartProps } from '../types/propTypes';
 import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
 
-const BrumChart = ({ data }: ChartProps) => {
+const BrumChart = ({ chartData, filterApplied }: ChartProps) => {
   const { theme } = useTheme();
   const ref = useRef<any>(null);
   const [loading, setLoading] = useState(true);
@@ -50,8 +50,11 @@ const BrumChart = ({ data }: ChartProps) => {
   });
 
   useEffect(() => {
-    updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
-  }, [data]);
+    updateGraphSeries({ chartData, setChartOptions, setLoading, filterApplied });
+    if (ref.current?.series) {
+      ref.current.series.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+    }
+  }, [chartData]);
 
   return (
     <div>
