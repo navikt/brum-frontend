@@ -21,8 +21,29 @@ const BrumChart = ({ data }: ChartProps) => {
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
-    chart: { inverted: false, type: 'column' },
-    plotOptions: { series: { stacking: undefined } },
+    chart: { 
+      inverted: false, 
+      type: 'column',
+      height: '50%'
+    },
+    plotOptions: {
+       series: { stacking: undefined },
+       column: {
+        pointPadding: 0.05,
+        groupPadding: 0.05,
+        centerInCategory: true
+       }
+      },
+    yAxis: { 
+      maxPadding: 0.05,
+      title: {text: 'Antall deltakere'},
+      labels: { format:  '{value:,0f}'}
+     },
+    xAxis: {
+      labels: {
+        style: { fontSize: '14px'},
+      }
+    },
     exporting: { enabled: true },
     accessibility: { enabled: true },
   });
