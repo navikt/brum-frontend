@@ -5,6 +5,7 @@ import Highcharts from 'highcharts/highcharts.src';
 import('highcharts/modules/exporting');
 import('highcharts/modules/accessibility');
 import('highcharts/modules/drilldown');
+import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
 
 import { updateGraphSeries } from '@/common/utils/updateGraphData';
@@ -21,37 +22,32 @@ const BrumChart = ({ data }: ChartProps) => {
 
   const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
     title: { text: '' },
-    chart: { 
-      inverted: false, 
+    chart: {
+      inverted: false,
       type: 'column',
-      height: '50%'
+      height: '50%',
     },
     plotOptions: {
-       series: { stacking: undefined },
-       column: {
+      series: { stacking: undefined },
+      column: {
         pointPadding: 0.05,
         groupPadding: 0.05,
-        centerInCategory: true
-       }
+        centerInCategory: true,
       },
-    yAxis: { 
+    },
+    yAxis: {
       maxPadding: 0.05,
-      title: {text: 'Antall deltakere'},
-      labels: { format:  '{value:,0f}'}
-     },
+      title: { text: 'Antall deltakere' },
+      labels: { format: '{value:,0f}' },
+    },
     xAxis: {
       labels: {
-        style: { fontSize: '14px'},
-      }
+        style: { fontSize: '14px' },
+      },
     },
     exporting: { enabled: true },
     accessibility: { enabled: true },
   });
-
-  useEffect(() => {
-    // Only run on client
-    import('highcharts/themes/adaptive');
-  }, []);
 
   useEffect(() => {
     updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
