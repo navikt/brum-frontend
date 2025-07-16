@@ -2,11 +2,16 @@ import { Dispatch, SetStateAction } from 'react';
 import { BrumData } from './brumData';
 
 export interface FilterType {
-  label: string;
-  comp_function: ((z: number) => boolean) | ((z: string) => boolean);
+  avdelinger: string[];
+  innsatsgrupper: string[];
+  tiltakMin: number[];
+  tiltakMaks: number[];
+  allAvdelinger: string[];
+  allInnsatsgrupper: string[];
 }
 
 export interface FilterMenuProps {
-  data: BrumData;
-  setFilters: Dispatch<SetStateAction<FilterType[]>>;
+  filter: FilterType;
+  setFilter: Dispatch<SetStateAction<FilterType>>;
+  tiltak: string[];
 }

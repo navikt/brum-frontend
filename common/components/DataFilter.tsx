@@ -1,167 +1,128 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { Button, HStack, Modal, TextField, UNSAFE_Combobox } from '@navikt/ds-react';
+import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navikt/ds-react';
 import { FilterMenuProps } from '../types/filterTypes';
+import { FunnelFillIcon } from '@navikt/aksel-icons';
 
-enum FilterKind {
-  NUM_GT,
-  NUM_LT,
-  NUM_EQUALS,
-  NUM_BETWEEN,
-  STR_CONTAINS,
-  STR_EQUALS,
-  STR_STARTS_WITH,
-}
-
-function makeFilter(type: FilterKind, column: string, x?: string, y?: number) {
-  switch (type) {
-    case FilterKind.NUM_GT: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z > +x! };
-    }
-    case FilterKind.NUM_LT: {
-      return { label: `${column} < ${x}`, comp_function: (z: number) => z < +x! };
-    }
-    case FilterKind.NUM_EQUALS: {
-      return { label: `${column} > ${x}`, comp_function: (z: number) => z == +x! };
-    }
-    case FilterKind.NUM_BETWEEN: {
-      return {
-        label: `${y} > ${column} > ${x}`,
-        comp_function: (z: number) => y! > z && z > +x!,
-      };
-    }
-    case FilterKind.STR_CONTAINS: {
-      return {
-        label: `${column} inneholder "${x}"`,
-        comp_function: (z: string) => z.includes(x!),
-      };
-    }
-    case FilterKind.STR_EQUALS: {
-      return {
-        label: `${column} er lik "${x}"`,
-        comp_function: (z: string) => z === x!,
-      };
-    }
-    case FilterKind.STR_STARTS_WITH: {
-      return {
-        label: `${column} begynner med "${x}"`,
-        comp_function: (z: string) => z.startsWith(x!),
-      };
-    }
-  }
-}
-
-export function FilterMenu({ data, setFilters }: FilterMenuProps) {
-  const [selectedColumn, setSelectedColumn] = useState({ header: '', type: '' });
-  const [selectedFilterType, setSelectedFilterType] = useState<FilterKind | null>(null);
-
-  const columns = [
-    ...data.headers.map((header) => ({ header, type: 'number' })),
-    { header: 'avdeling', type: 'string' },
-    { header: 'innsatstype', type: 'string' },
-  ];
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
-    setFilters((prev) => [
-      ...prev,
-      makeFilter(
-        selectedFilterType!,
-        selectedColumn.header,
-        // For number filters, pass x
-        selectedFilterType! <= FilterKind.NUM_BETWEEN
-          ? formData.get('filterVal')!.toString()
-          : undefined,
-        // For number filters, pass x
-        selectedFilterType! === FilterKind.NUM_BETWEEN ? +formData.get('extraVal')! : undefined,
-      ),
-    ]);
-    event.currentTarget.reset();
-    setSelectedColumn({ header: '', type: '' });
-    setSelectedFilterType(null);
-  };
-  /* idé, se: https://aksel.nav.no/komponenter/core/actionmenu?demo=actionmenudemo-filter
-  liste ut kolonner og innsatsbehov som checkboks-valgbare. kanskje basert på det, om filtrering, gjøre stackegreia? optionally.
-  resten må autogeneres som tall valg, men en enkel større enn x mindre enn y, med skalavelger? tja. kanskje ikke. men uansett. grupper og greier :) */
-  const ref = useRef<any>(null);
-
+export function FilterMenu({ filter, setFilter, tiltak }: FilterMenuProps) {
   return (
-    <div>
-      <Button onClick={() => ref?.current?.showModal()}>Åpne modal</Button>
-      <Modal aria-label="filtermeny" ref={ref}>
-        <Modal.Header>Filtre</Modal.Header>
-        <Modal.Body>
-          <HStack gap="3" minWidth="1000px">
-            <form onSubmit={handleSubmit}>
-              <UNSAFE_Combobox
-                label="Kolonne"
-                options={columns.map((c, i) => ({
-                  label: c.header.toString(),
-                  value: i.toString(),
-                }))}
-                onToggleSelected={(i) => {
-                  setSelectedColumn({
-                    header: columns[+i].header.toString(),
-                    type: columns[+i].type,
-                  });
-                }}
-              />
+    <ActionMenu>
+      <ActionMenu.Trigger>
+        <Button icon={<FunnelFillIcon />} variant="secondary-neutral" />
+      </ActionMenu.Trigger>
+      <ActionMenu.Content>
+        <ActionMenu.Group label="Avdelinger">
+          <ActionMenu.CheckboxItem
+            disabled={filter.avdelinger.length === filter.allAvdelinger.length}
+            checked={filter.avdelinger.length === filter.allAvdelinger.length}
+            onCheckedChange={(_) =>
+              setFilter((prev) => ({
+                ...prev,
+                avdelinger: filter.allAvdelinger,
+              }))
+            }
+          >
+            Velg alle
+          </ActionMenu.CheckboxItem>
+          {filter.allAvdelinger.map((d) => (
+            <ActionMenu.CheckboxItem
+              checked={filter.avdelinger.includes(d)}
+              onCheckedChange={(checked) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  avdelinger: checked
+                    ? [...prev.avdelinger, d]
+                    : prev.avdelinger.filter((item) => item !== d),
+                }));
+              }}
+            >
+              {d}
+            </ActionMenu.CheckboxItem>
+          ))}
+        </ActionMenu.Group>
+        <ActionMenu.Divider />
+        <ActionMenu.Group label="Innsatsgrupper">
+          <ActionMenu.CheckboxItem
+            disabled={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
+            checked={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
+            onCheckedChange={(_) =>
+              setFilter((prev) => ({
+                ...prev,
+                innsatsgrupper: filter.allInnsatsgrupper,
+              }))
+            }
+          >
+            Velg alle
+          </ActionMenu.CheckboxItem>
+          {filter.allInnsatsgrupper.map((d) => (
+            <ActionMenu.CheckboxItem
+              checked={filter.innsatsgrupper.includes(d)}
+              onCheckedChange={(checked) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  innsatsgrupper: checked
+                    ? [...prev.innsatsgrupper, d]
+                    : prev.innsatsgrupper.filter((item) => item !== d),
+                }));
+              }}
+            >
+              {d}
+            </ActionMenu.CheckboxItem>
+          ))}
+        </ActionMenu.Group>
+        <ActionMenu.Divider />
 
-              {selectedColumn.header && (
-                <UNSAFE_Combobox
+        <ActionMenu.Group label="Tiltak">
+          {tiltak.map((h, i) => (
+            <div>
+              <BodyShort size="small">{h}</BodyShort>
+              <HStack>
+                <Spacer />
+                <TextField
+                  defaultValue={filter.tiltakMin[i] === 0 ? '' : filter.tiltakMin[i]}
+                  placeholder="min"
+                  inputMode="numeric"
+                  htmlSize={3}
                   size="small"
-                  width="1rm"
-                  label="Filtrer for"
-                  options={
-                    selectedColumn.type === 'number'
-                      ? [
-                          { label: 'Større enn', value: FilterKind.NUM_GT.toString() },
-                          { label: 'Mindre enn', value: FilterKind.NUM_LT.toString() },
-                          { label: 'Er lik', value: FilterKind.NUM_EQUALS.toString() },
-                          { label: 'Mellom', value: FilterKind.NUM_BETWEEN.toString() },
-                        ]
-                      : [
-                          { label: 'Inneholder', value: FilterKind.STR_CONTAINS.toString() },
-                          { label: 'Er lik', value: FilterKind.STR_EQUALS.toString() },
-                          { label: 'Begynnner med', value: FilterKind.STR_STARTS_WITH.toString() },
-                        ]
-                  }
-                  onToggleSelected={(e) => setSelectedFilterType(+e as FilterKind)}
+                  label="Min"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 0;
+                    if (value >= 0) {
+                      setFilter((prev) => ({ ...prev, tiltakMin: prev.tiltakMin.with(i, value) }));
+                    }
+                  }}
+                  onInput={(e) => {
+                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                  }}
+                  hideLabel
                 />
-              )}
-
-              {selectedFilterType && (
-                <>
-                  <TextField
-                    name="filterVal"
-                    label="Verdi"
-                    inputMode={selectedColumn.type === 'number' ? 'numeric' : 'text'}
-                    placeholder="Skriv inn verdi..."
-                    required
-                  />
-                  {selectedFilterType == FilterKind.NUM_BETWEEN && (
-                    <TextField
-                      name="extraVal"
-                      label="Verdi"
-                      inputMode={'numeric'}
-                      placeholder="Skriv inn verdi..."
-                      required
-                    />
-                  )}
-
-                  <Button type="submit" size="small">
-                    Legg til filter
-                  </Button>
-                </>
-              )}
-            </form>
-          </HStack>
-        </Modal.Body>
-      </Modal>
-    </div>
+                <TextField
+                  defaultValue={filter.tiltakMaks[i] === Infinity ? '' : filter.tiltakMaks[i]}
+                  placeholder="maks"
+                  inputMode="numeric"
+                  htmlSize={3}
+                  size="small"
+                  label="Maks"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 0;
+                    if (value >= 0) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        tiltakMaks: prev.tiltakMaks.with(i, value),
+                      }));
+                    }
+                  }}
+                  onInput={(e) => {
+                    // Remove any non-numeric characters
+                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                  }}
+                  hideLabel
+                />
+              </HStack>
+            </div>
+          ))}
+        </ActionMenu.Group>
+      </ActionMenu.Content>
+    </ActionMenu>
   );
 }
