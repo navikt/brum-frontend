@@ -47,10 +47,14 @@ const BrumTable = ({ data }: { data: BrumData | null }) => {
       <Table size="small" zebraStripes>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader key={0}>Avdeling</Table.ColumnHeader>
-            <Table.ColumnHeader key={1}>Innsattsgruppe</Table.ColumnHeader>
+            <Table.ColumnHeader key={0} textSize="small">
+              Avdeling
+            </Table.ColumnHeader>
+            <Table.ColumnHeader key={1} textSize="small">
+              Innsattsgruppe
+            </Table.ColumnHeader>
             {data.headers.map((h, i) => (
-              <Table.ColumnHeader align={'right'} key={i + 2}>
+              <Table.ColumnHeader align={'right'} key={i + 2} textSize="small">
                 {h}
               </Table.ColumnHeader>
             ))}
