@@ -11,7 +11,7 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
     series: data.dataAvdeling.map((data) => {
       return {
         type: 'column',
-        data: data.verdier.map(v => v === 0 ? null : v),
+        data: data.verdier.map((v) => (v === 0 ? null : v)),
         name: data.avdeling,
         drilldown: data.avdeling,
         centerInCategory: true,
@@ -19,7 +19,12 @@ export function updateGraphSeries({ data, setChartOptions, setLoading }: UpdateS
     }),
     drilldown: {
       series: data.data.map((d) => {
-        return { type: 'column', id: d.avdeling, data: d.verdier, name: d.innsatsgruppe };
+        return {
+          type: 'column',
+          id: d.avdeling,
+          data: d.verdier,
+          name: d.innsatsgruppe,
+        };
       }),
     },
   };
