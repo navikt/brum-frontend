@@ -18,8 +18,8 @@ const currentWeekNumber = Math.ceil(
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
   const [dataParams, setDataParams] = useState<DataOptionsProps>({
-    aar: String(currentYear),
-    uke: String(currentWeekNumber),
+    aar: String(2025),
+    uke: String(27),
   });
 
   useFetchUkeAntall({ setData, dataParams });
