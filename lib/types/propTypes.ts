@@ -3,7 +3,7 @@ import { Dispatch, RefObject, SetStateAction } from 'react';
 import { BrumData } from './brumData';
 
 /**
- * Props for komponenter som håndterer chart-opsjoner
+ * Props for komponenter som håndterer innstillinger for grafen
  */
 export interface ChartOptionsProps {
   chartOptions: HighchartsOptionsType;
@@ -39,7 +39,7 @@ export interface UpdateDataOptionsProps {
 /**
  * Props for Chart-komponent
  */
-export interface ChartProps {
+export interface ChartProps extends ChartOptionsProps {
   data: BrumData | null;
   filterApplied: boolean;
   filteredData: BrumData;

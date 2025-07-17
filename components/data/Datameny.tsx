@@ -3,16 +3,11 @@
 import { UpdateDataOptionsProps } from '@/lib/types/propTypes';
 import { Button, TextField, HStack } from '@navikt/ds-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { 
-  FORSTE_AAR, 
-  SISTE_AAR, 
-  MAX_UKE_2025, 
-  DEFAULT_MAX_UKE 
-} from '@/lib/constants/dataMeny';
+import { FORSTE_AAR, SISTE_AAR, MAX_UKE_2025, DEFAULT_MAX_UKE } from '@/lib/constants/dataMeny';
 
 /**
  * Komponent for å velge år og uke for datavisning
- * 
+ *
  * @param dataParams - Nåværende valgte parametere
  * @param setDataParams - Funksjon for å oppdatere parametere
  */
@@ -39,7 +34,7 @@ const Datameny = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <HStack gap="4">
+      <HStack gap="4" align="end">
         <TextField
           id="velg-år"
           label="Velg år"
@@ -76,7 +71,7 @@ const Datameny = ({ dataParams, setDataParams }: UpdateDataOptionsProps) => {
             },
           })}
         />
-        <Button type="submit" size="small">
+        <Button type="submit" size="medium">
           Velg
         </Button>
       </HStack>

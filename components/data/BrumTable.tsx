@@ -16,7 +16,7 @@ const BrumTable = ({ data, filteredData, filterTabRef }: BrumTableProps) => {
     );
   }
   return (
-    <Page.Block width="md" aria-label="Datatabell">
+    <Page.Block width="xl" aria-label="Datatabell">
       <Tabs defaultValue="full" selectionFollowsFocus>
         <Tabs.Tab
           value="filter"

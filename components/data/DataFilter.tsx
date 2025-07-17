@@ -12,7 +12,9 @@ export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMe
           }}
           icon={<FunnelFillIcon />}
           variant="secondary-neutral"
-        />
+        >
+          Filtrer data
+        </Button>
       </ActionMenu.Trigger>
       <ActionMenu.Content>
         <ActionMenu.Group label="Avdelinger">

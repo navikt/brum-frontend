@@ -1,5 +1,6 @@
 'use client';
 import BrumChart from '@/components/chart/BrumChart';
+import ChartMenu from '@/components/chart/ChartMenu';
 import BrumTable from '@/components/data/BrumTable';
 import { FilterMenu } from '@/components/data/DataFilter';
 import Datameny from '@/components/data/Datameny';
@@ -8,7 +9,8 @@ import { BrumData } from '@/lib/types/brumData';
 import { FilterType } from '@/lib/types/filterTypes';
 import { DataOptionsProps } from '@/lib/types/propTypes';
 import { filtrerData } from '@/lib/utils/filtrerData';
-import { GuidePanel, Heading, HGrid, Switch, VStack } from '@navikt/ds-react';
+import { HighchartsOptionsType } from '@highcharts/react';
+import { GuidePanel, Heading, HStack, Loader, Spacer, Switch } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -47,54 +49,80 @@ export default function Dashboard() {
   useUkeData({ setData, dataParams });
   const ref = useRef<any>(null);
 
+  // alle instillinger for charten ligger her, inkl. dataen som vises
+  const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
+    title: { text: '' },
+    chart: {
+      inverted: false,
+      height: '50%',
+    },
+    plotOptions: {
+      series: { stacking: undefined },
+      column: {
+        pointPadding: 0.05,
+        groupPadding: 0.05,
+        centerInCategory: true,
+      },
+    },
+    yAxis: {
+      maxPadding: 0.05,
+      title: { text: 'Antall deltakere' },
+      labels: { format: '{value:,0f}' },
+    },
+    xAxis: {
+      labels: {
+        style: { fontSize: '14px' },
+      },
+    },
+    exporting: { enabled: true },
+    accessibility: { enabled: true },
+  });
+
   if (!data || !filter) {
-    return <div>Loading...</div>; // Add proper loading state
+    return <Loader size="3xlarge" />;
   }
 
   return (
     <Page>
       <Page.Block width="2xl" as="main">
-        <VStack gap="8">
-          <Heading level="1" size="xlarge" align="center">
-            Dashboard
-          </Heading>
-          <GuidePanel>
-            Her ser du statistikk og nøkkeltall for tiltak. Bruk menyen til venstre for å velge
-            datasett og filtrere informasjonen som vises i grafen.
-          </GuidePanel>
+        <Heading level="1" size="xlarge" align="center">
+          Dashboard
+        </Heading>
+        <GuidePanel>
+          Her ser du statistikk og nøkkeltall for tiltak. Bruk menyen til venstre for å velge
+          datasett og filtrere informasjonen som vises i grafen.
+        </GuidePanel>
 
-          <HGrid
-            gap="8"
-            align="start"
-            columns={{
-              md: '1fr', // Medium: stacked
-              lg: '2fr 1fr', // Large: side by side
+        <HStack margin="4" align="end" gap="10">
+          <Datameny dataParams={dataParams} setDataParams={setDataParams} />
+
+          <FilterMenu
+            filter={filter}
+            setFilter={
+              setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
+            }
+            tiltak={data.headers}
+            filterTabRef={ref}
+          />
+          <Spacer />
+          <Switch
+            onChange={(e) => {
+              setFilterChart(e.target.checked);
             }}
           >
-            <VStack>
-              <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-              <BrumChart data={data} filteredData={filteredData!} filterApplied={filterChart} />
-            </VStack>
-            <div>
-              <Switch
-                onChange={(e) => {
-                  setFilterChart(e.target.checked);
-                }}
-              >
-                Bruk filtrert data i graf
-              </Switch>
-              <FilterMenu
-                filter={filter}
-                setFilter={
-                  setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
-                }
-                tiltak={data.headers}
-                filterTabRef={ref}
-              />
-              <BrumTable data={data!} filteredData={filteredData!} filterTabRef={ref} />
-            </div>
-          </HGrid>
-        </VStack>
+            Bruk filtrert data i graf
+          </Switch>
+          <ChartMenu chartOptions={chartOptions} setChartOptions={setChartOptions} />
+        </HStack>
+
+        <BrumChart
+          data={data}
+          filteredData={filteredData!}
+          filterApplied={filterChart}
+          chartOptions={chartOptions}
+          setChartOptions={setChartOptions}
+        />
+        <BrumTable data={data!} filteredData={filteredData!} filterTabRef={ref} />
       </Page.Block>
     </Page>
   );

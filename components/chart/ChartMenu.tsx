@@ -9,7 +9,9 @@ const ChartMenu = (props: ChartOptionsProps) => {
   return (
     <ActionMenu>
       <ActionMenu.Trigger>
-        <Button icon={<ChevronDownIcon aria-hidden />}>Modifiser graf</Button>
+        <Button variant="secondary" icon={<ChevronDownIcon aria-hidden />}>
+          Modifiser graf
+        </Button>
       </ActionMenu.Trigger>
       <ActionMenu.Content>
         <TitleField {...props} />
@@ -27,7 +29,9 @@ const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
       setChartOptions({ ...chartOptions, title: { text: e.target.value } });
     }}
     value={chartOptions.title!.text}
-    label="Sett tittel"
+    label="Sett tittel på grafen"
+    size="small"
+    htmlSize={15}
   />
 );
 
