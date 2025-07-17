@@ -7,7 +7,7 @@ export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMe
     <ActionMenu>
       <ActionMenu.Trigger>
         <Button
-          onClick={(e) => {
+          onClick={(_) => {
             filterTabRef.current?.focus();
           }}
           icon={<FunnelFillIcon />}

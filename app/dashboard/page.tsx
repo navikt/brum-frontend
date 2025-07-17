@@ -10,7 +10,7 @@ import { FilterType } from '@/lib/types/filterTypes';
 import { DataOptionsProps } from '@/lib/types/propTypes';
 import { filtrerData } from '@/lib/utils/filtrerData';
 import { HighchartsOptionsType } from '@highcharts/react';
-import { GuidePanel, Heading, HStack, Loader, Spacer, Switch } from '@navikt/ds-react';
+import { GuidePanel, Heading, HStack, Loader, Spacer, Switch, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -78,24 +78,22 @@ export default function Dashboard() {
     accessibility: { enabled: true },
   });
 
-  if (!data || !filter) {
-    return <Loader size="3xlarge" />;
-  }
-
   return (
     <Page>
       <Page.Block width="2xl" as="main">
         <HStack margin="4" align="end" gap="10">
           <Datameny dataParams={dataParams} setDataParams={setDataParams} />
 
-          <FilterMenu
-            filter={filter}
-            setFilter={
-              setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
-            }
-            tiltak={data.headers}
-            filterTabRef={ref}
-          />
+          {data && filter && (
+            <FilterMenu
+              filter={filter}
+              setFilter={
+                setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
+              }
+              tiltak={data.headers}
+              filterTabRef={ref}
+            />
+          )}
           <Spacer />
           <Switch
             onChange={(e) => {
@@ -114,7 +112,9 @@ export default function Dashboard() {
           chartOptions={chartOptions}
           setChartOptions={setChartOptions}
         />
-        <BrumTable data={data!} filteredData={filteredData!} filterTabRef={ref} />
+        {data && filteredData && (
+          <BrumTable data={data} filteredData={filteredData} filterTabRef={ref} />
+        )}
       </Page.Block>
     </Page>
   );
