@@ -50,9 +50,10 @@ const BrumChart = ({ chartData, filterApplied }: ChartProps) => {
   });
 
   useEffect(() => {
+    // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
     updateGraphSeries({ chartData, setChartOptions, setLoading, filterApplied });
-    if (ref.current?.series) {
-      ref.current.series.update(chartOptions); // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+    if (ref.current?.chart) {
+      ref.current.chart.update(chartOptions, true, true); // (options, redraw, OneToOne)
     }
   }, [chartData]);
 
