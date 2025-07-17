@@ -1,8 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
-import { getOboToken } from '@/lib/auth/token';
-import { string } from 'zod';
-import { skip } from 'node:test';
 
 // oauth2 login path
 const NAIS_LOGIN_PATH = '/oauth2/login';
