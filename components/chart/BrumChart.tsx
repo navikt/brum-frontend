@@ -8,12 +8,12 @@ import('highcharts/modules/drilldown');
 import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
 
-import { updateGraphSeries } from '@/common/utils/updateGraphData';
 import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
-import { ChartProps } from '../types/propTypes';
-import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
+import { ChartProps } from '@/lib/types/propTypes';
+import { useTheme } from '@/providers';
+import { updateGraphSeries } from '@/lib/utils/chart';
 
 const BrumChart = ({ data, filterApplied, filteredData }: ChartProps) => {
   const { theme } = useTheme();
@@ -51,11 +51,16 @@ const BrumChart = ({ data, filterApplied, filteredData }: ChartProps) => {
 
   useEffect(() => {
     // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
-    updateGraphSeries({ chartData, setChartOptions, setLoading, filterApplied });
+    updateGraphSeries({
+      data: filterApplied ? data : filteredData,
+      setChartOptions,
+      setLoading,
+      filterApplied,
+    });
     if (ref.current?.chart) {
       ref.current.chart.update(chartOptions, true, true); // (options, redraw, OneToOne)
     }
-  }, [chartData]);
+  }, [data, filterApplied, chartOptions, filteredData]);
 
   return (
     <div>

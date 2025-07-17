@@ -1,5 +1,3 @@
-'use client';
-
 import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navikt/ds-react';
 import { FunnelFillIcon } from '@navikt/aksel-icons';
 import { FilterMenuProps } from '@/lib/types/filterTypes';
@@ -32,6 +30,7 @@ export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMe
           </ActionMenu.CheckboxItem>
           {filter.allAvdelinger.map((d) => (
             <ActionMenu.CheckboxItem
+              key={d}
               checked={filter.avdelinger.includes(d)}
               onCheckedChange={(checked) => {
                 setFilter((prev) => ({
@@ -62,6 +61,7 @@ export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMe
           </ActionMenu.CheckboxItem>
           {filter.allInnsatsgrupper.map((d) => (
             <ActionMenu.CheckboxItem
+              key={d}
               checked={filter.innsatsgrupper.includes(d)}
               onCheckedChange={(checked) => {
                 setFilter((prev) => ({
@@ -80,7 +80,7 @@ export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMe
 
         <ActionMenu.Group label="Tiltak">
           {tiltak.map((h, i) => (
-            <div>
+            <div key={h}>
               <BodyShort size="small">{h}</BodyShort>
               <HStack>
                 <Spacer />

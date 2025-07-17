@@ -37,7 +37,7 @@ export default function Dashboard() {
         allInnsatsgrupper,
       });
     }
-  }, [data]);
+  }, [data, filter]);
 
   const filteredData = useMemo(() => {
     if (!data || !filter) return null;
@@ -73,7 +73,7 @@ export default function Dashboard() {
           >
             <VStack>
               <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-              <BrumChart data={data} filteredData={filteredData} filterApplied={filterChart} />
+              <BrumChart data={data} filteredData={filteredData!} filterApplied={filterChart} />
             </VStack>
             <div>
               <Switch

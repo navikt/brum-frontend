@@ -15,10 +15,9 @@ export interface ChartOptionsProps {
  */
 export interface UpdateSeriesProps {
   data: BrumData | null;
-  chartOptions: HighchartsOptionsType;
   setChartOptions: Dispatch<SetStateAction<HighchartsOptionsType>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  ref: any;
+  filterApplied: boolean;
 }
 
 /**
