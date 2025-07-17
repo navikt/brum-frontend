@@ -2,7 +2,6 @@
 
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { Page, Skeleton, Table, Tabs, VStack } from '@navikt/ds-react';
-import { useRef } from 'react';
 import { BrumTableProps } from '@/lib/types/propTypes';
 import { BrumData } from '@/lib/types/brumData';
 

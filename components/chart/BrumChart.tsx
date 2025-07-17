@@ -49,18 +49,22 @@ const BrumChart = ({ data, filterApplied, filteredData }: ChartProps) => {
     accessibility: { enabled: true },
   });
 
+  // Update graph series whenever data changes
   useEffect(() => {
-    // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
     updateGraphSeries({
-      data: filterApplied ? data : filteredData,
+      data: filterApplied ? filteredData : data,
       setChartOptions,
       setLoading,
       filterApplied,
     });
-    if (ref.current?.chart) {
-      ref.current.chart.update(chartOptions, true, true); // (options, redraw, OneToOne)
-    }
   }, [data, filterApplied, filteredData]);
+
+  // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
+  useEffect(() => {
+    if (ref.current?.chart) {
+      ref.current.chart.update(chartOptions, true, true);
+    }
+  }, [chartOptions]);
 
   return (
     <div>

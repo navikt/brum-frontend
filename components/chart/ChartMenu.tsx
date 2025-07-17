@@ -21,8 +21,6 @@ const ChartMenu = (props: ChartOptionsProps) => {
   );
 };
 
-const convertToPercentages = (series: SeriesColumnOptions[]) => {};
-
 const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   <TextField
     onChange={(e) => {
