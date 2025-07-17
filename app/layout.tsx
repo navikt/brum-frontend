@@ -1,7 +1,7 @@
-import ThemeProvider from '@/common/UI/ThemeProvider';
+import ThemeProvider from '@/providers/ThemeProvider';
 import '@navikt/ds-css/darkside';
 import type { Metadata } from 'next';
-import MSWProvider from './MSWProvider';
+import MSWProvider from '../providers/MSWProvider';
 
 export const metadata: Metadata = {
   title: 'Brum',

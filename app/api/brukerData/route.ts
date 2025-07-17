@@ -1,15 +1,24 @@
+import { BrukerData } from '@/lib/types/brukerData';
+import { hentBrukerToken, requireEnv, hentOboAccessToken, sendFeilMelding } from '@/lib/utils/api';
 import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '../../../lib/utils/api';
-import { se } from 'date-fns/locale';
+import { UserInfo } from 'node:os';
+import { send } from 'node:process';
 
-// Henter gjennomføringer fra Ktor API
+// Henter brukerinfo fra Ktor API
 export async function GET(req: NextRequest) {
+  // For utvikling: return mock brukerinfo
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.json({
+      NAVident: 'Z123456',
+      email: 'test.user@nav.no',
+      name: 'Test User',
+    });
+  }
   try {
-    // hent brukertoken fra header
+    // Sjekker om brukersesjon finnes
     const brukerToken = hentBrukerToken(req);
     if (!brukerToken) {
-      logger.error('Ingen brukertoken i forespørselen.');
       return NextResponse.json(
         { melding: 'Ikke autorisert: Brukersesjon kreves.' },
         { status: 401 },
@@ -29,21 +38,20 @@ export async function GET(req: NextRequest) {
     const introspeksjonBody = await introspeksjonRes.json();
 
     if (!introspeksjonBody.active) {
-      logger.error('Bruker ikke innlogget.');
       return NextResponse.json({ melding: 'Bruker ikke innlogget.' }, { status: 401 });
     }
-    // Hent OBO-token for å kalle Ktor API
+
+  // Henter OBO-token for å kalle Ktor API
     const oboAccessToken = await hentOboAccessToken(brukerToken);
     if (!oboAccessToken) {
-      logger.error('Klarte ikke hente OBO-token.');
       return NextResponse.json(
         { melding: 'Intern serverfeil: Klarte ikke hente OBO-token.' },
         { status: 500 },
       );
     }
-    // Kaller Ktor API for å hente gjennomføringer med OBO-token
+    // Kaller Ktor API for å hente brukerinfo med OBO-token
     const BRUM_API_URL = requireEnv('BRUM_API_URL');
-    const ktorResponse = await fetch(`${BRUM_API_URL}/gjennomforing`, {
+    const ktorResponse = await fetch(`${BRUM_API_URL}/bruker-info`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -53,20 +61,22 @@ export async function GET(req: NextRequest) {
 
     if (!ktorResponse.ok) {
       const feilBody = await ktorResponse.text();
-      logger.error(`Ktor API-forespørsel feilet med status ${ktorResponse.status}:`, feilBody);
-      return new NextResponse(feilBody, {
-        status: ktorResponse.status,
-        headers: { 'Content-Type': 'text/plain' },
-      });
+      return NextResponse.json(
+        { melding: 'Ktor API-forespørsel feilet', feil: feilBody },
+        { status: ktorResponse.status },
+      );
     }
+    // Leser og returnerer brukerinfo fra Ktor API
+    const data = await ktorResponse.json();
+    const userInfo: BrukerData = {
+      NAVident: data.NAVident,
+      email: data.email,
+      name: data.name,
+    };
+    logger.warn('Brukerinfo:', userInfo);
 
-    const data = await ktorResponse.text();
-    return new NextResponse(data, {
-      status: 200,
-      headers: { 'Content-Type': 'text/plain' },
-    });
+    return NextResponse.json(userInfo, { status: 200 });
   } catch (error) {
-    logger.error('Feil i gjennomføringer API-handler:', error);
     return sendFeilMelding(error);
   }
 }

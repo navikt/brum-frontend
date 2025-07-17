@@ -1,0 +1,134 @@
+'use client';
+
+import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navikt/ds-react';
+import { FunnelFillIcon } from '@navikt/aksel-icons';
+import { FilterMenuProps } from '@/lib/types/filterTypes';
+
+export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
+  return (
+    <ActionMenu>
+      <ActionMenu.Trigger>
+        <Button
+          onClick={(e) => {
+            filterTabRef.current?.focus();
+          }}
+          icon={<FunnelFillIcon />}
+          variant="secondary-neutral"
+        />
+      </ActionMenu.Trigger>
+      <ActionMenu.Content>
+        <ActionMenu.Group label="Avdelinger">
+          <ActionMenu.CheckboxItem
+            disabled={filter.avdelinger.length === filter.allAvdelinger.length}
+            checked={filter.avdelinger.length === filter.allAvdelinger.length}
+            onCheckedChange={(_) =>
+              setFilter((prev) => ({
+                ...prev,
+                avdelinger: filter.allAvdelinger,
+              }))
+            }
+          >
+            Velg alle
+          </ActionMenu.CheckboxItem>
+          {filter.allAvdelinger.map((d) => (
+            <ActionMenu.CheckboxItem
+              checked={filter.avdelinger.includes(d)}
+              onCheckedChange={(checked) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  avdelinger: checked
+                    ? [...prev.avdelinger, d]
+                    : prev.avdelinger.filter((item) => item !== d),
+                }));
+              }}
+            >
+              {d}
+            </ActionMenu.CheckboxItem>
+          ))}
+        </ActionMenu.Group>
+        <ActionMenu.Divider />
+        <ActionMenu.Group label="Innsatsgrupper">
+          <ActionMenu.CheckboxItem
+            disabled={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
+            checked={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
+            onCheckedChange={(_) =>
+              setFilter((prev) => ({
+                ...prev,
+                innsatsgrupper: filter.allInnsatsgrupper,
+              }))
+            }
+          >
+            Velg alle
+          </ActionMenu.CheckboxItem>
+          {filter.allInnsatsgrupper.map((d) => (
+            <ActionMenu.CheckboxItem
+              checked={filter.innsatsgrupper.includes(d)}
+              onCheckedChange={(checked) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  innsatsgrupper: checked
+                    ? [...prev.innsatsgrupper, d]
+                    : prev.innsatsgrupper.filter((item) => item !== d),
+                }));
+              }}
+            >
+              {d}
+            </ActionMenu.CheckboxItem>
+          ))}
+        </ActionMenu.Group>
+        <ActionMenu.Divider />
+
+        <ActionMenu.Group label="Tiltak">
+          {tiltak.map((h, i) => (
+            <div>
+              <BodyShort size="small">{h}</BodyShort>
+              <HStack>
+                <Spacer />
+                <TextField
+                  defaultValue={filter.tiltakMin[i] === 0 ? '' : filter.tiltakMin[i]}
+                  placeholder="min"
+                  inputMode="numeric"
+                  htmlSize={3}
+                  size="small"
+                  label="Min"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 0;
+                    if (value >= 0) {
+                      setFilter((prev) => ({ ...prev, tiltakMin: prev.tiltakMin.with(i, value) }));
+                    }
+                  }}
+                  onInput={(e) => {
+                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                  }}
+                  hideLabel
+                />
+                <TextField
+                  defaultValue={filter.tiltakMaks[i] === Infinity ? '' : filter.tiltakMaks[i]}
+                  placeholder="maks"
+                  inputMode="numeric"
+                  htmlSize={3}
+                  size="small"
+                  label="Maks"
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 0;
+                    if (value >= 0) {
+                      setFilter((prev) => ({
+                        ...prev,
+                        tiltakMaks: prev.tiltakMaks.with(i, value),
+                      }));
+                    }
+                  }}
+                  onInput={(e) => {
+                    // Remove any non-numeric characters
+                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                  }}
+                  hideLabel
+                />
+              </HStack>
+            </div>
+          ))}
+        </ActionMenu.Group>
+      </ActionMenu.Content>
+    </ActionMenu>
+  );
+}

@@ -1,16 +1,16 @@
 'use client';
-import BrumChart from '@/common/components/BrumChart';
-import BrumTable from '@/common/components/BrumTable';
-import { FilterMenu } from '@/common/components/DataFilter';
-import Datameny from '@/common/components/Datameny';
-import { BrumData } from '@/common/types/brumData';
-import { FilterType } from '@/common/types/filterTypes';
-import { DataOptionsProps } from '@/common/types/propTypes';
-import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { filtrerData } from '@/common/utils/filtrerData';
+import BrumChart from '@/components/chart/BrumChart';
+import BrumTable from '@/components/data/BrumTable';
+import { FilterMenu } from '@/components/data/DataFilter';
+import Datameny from '@/components/data/Datameny';
+import { useUkeData } from '@/hooks/useUkedata';
+import { BrumData } from '@/lib/types/brumData';
+import { FilterType } from '@/lib/types/filterTypes';
+import { DataOptionsProps } from '@/lib/types/propTypes';
+import { filtrerData } from '@/lib/utils/filtrerData';
 import { GuidePanel, Heading, HGrid, Switch, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
@@ -44,7 +44,8 @@ export default function Dashboard() {
     return filtrerData(filter, data);
   }, [filter, data]);
 
-  useFetchUkeAntall({ setData, dataParams });
+  useUkeData({ setData, dataParams });
+  const ref = useRef<any>(null);
 
   if (!data || !filter) {
     return <div>Loading...</div>; // Add proper loading state
@@ -82,8 +83,15 @@ export default function Dashboard() {
               >
                 Bruk filtrert data i graf
               </Switch>
-              <FilterMenu filter={filter} setFilter={setFilter} />
-              <BrumTable data={data!} filteredData={filteredData} />
+              <FilterMenu
+                filter={filter}
+                setFilter={
+                  setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
+                }
+                tiltak={data.headers}
+                filterTabRef={ref}
+              />
+              <BrumTable data={data!} filteredData={filteredData!} filterTabRef={ref} />
             </div>
           </HGrid>
         </VStack>

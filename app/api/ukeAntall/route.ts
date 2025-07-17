@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { testData } from '@/common/mocks/mocks';
-import { getUserToken, getOboAccessToken, requireEnv, handleError } from '../../../common/utils/apiHelpers';
+import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '@/lib/utils/api';
+import { testData } from '@/mocks/mocks';
 
 // Henter antall uker for valgt år og uke
 export async function GET(req: NextRequest) {
@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   }
   try {
     // Hent brukertoken fra header
-    const brukerToken = getUserToken(req);
+    const brukerToken = hentBrukerToken(req);
     if (!brukerToken) {
       return NextResponse.json(
         { melding: 'Ikke autorisert: Brukersesjon kreves.' },
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Hent OBO-token
-    const oboAccessToken = await getOboAccessToken(brukerToken);
+    const oboAccessToken = await hentOboAccessToken(brukerToken);
     if (!oboAccessToken) {
       return NextResponse.json(
         { melding: 'Intern serverfeil: Klarte ikke hente OBO-token.' },
@@ -53,6 +53,6 @@ export async function GET(req: NextRequest) {
     const data = await ktorResponse.json();
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
-    return handleError(error);
+    return sendFeilMelding(error);
   }
 }
