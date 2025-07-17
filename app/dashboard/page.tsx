@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState<FilterType | null>(null);
 
   useEffect(() => {
-    if (data && !filter) {
+    if (data) {
       const allAvdelinger = data.dataAvdeling.map((d) => d.avdeling);
       const allInnsatsgrupper = Array.from(new Set(data.data.map((d) => d.innsatsgruppe)));
 
@@ -37,7 +37,7 @@ export default function Dashboard() {
         allInnsatsgrupper,
       });
     }
-  }, [data, filter]);
+  }, [data]);
 
   const filteredData = useMemo(() => {
     if (!data || !filter) return null;

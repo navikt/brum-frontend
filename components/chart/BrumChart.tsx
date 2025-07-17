@@ -60,7 +60,7 @@ const BrumChart = ({ data, filterApplied, filteredData }: ChartProps) => {
     if (ref.current?.chart) {
       ref.current.chart.update(chartOptions, true, true); // (options, redraw, OneToOne)
     }
-  }, [data, filterApplied, chartOptions, filteredData]);
+  }, [data, filterApplied, filteredData]);
 
   return (
     <div>
