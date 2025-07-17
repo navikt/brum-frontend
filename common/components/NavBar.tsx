@@ -36,16 +36,3 @@ export default function NavBar() {
     </InternalHeader>
   );
 }
-
-export function DummyBar() {
-  return (
-    <Theme>
-      <InternalHeader>
-        <InternalHeader.Title href="/">
-          <BarChartIcon title="a11y-title" fontSize="1.5rem" />
-          Brum
-        </InternalHeader.Title>
-      </InternalHeader>
-    </Theme>
-  );
-}
