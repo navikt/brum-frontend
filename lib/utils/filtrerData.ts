@@ -2,13 +2,30 @@ import { BrumData } from '../types/brumData';
 import { FilterType } from '../types/filterTypes';
 
 export function filtrerData(filter: FilterType, data: BrumData): BrumData {
-  return {
-    ...data,
-    data: data.data.filter(
+  const selectedIndices = filter.selectedTiltak
+    .map((selected, index) => (selected ? index : -1))
+    .filter((index) => index !== -1);
+
+  const filteredHeaders = selectedIndices.map((index) => data.headers[index]);
+
+  const filteredData = data.data
+    .filter(
       (d) =>
         filter.avdelinger.includes(d.avdeling) &&
         filter.innsatsgrupper.includes(d.innsatsgruppe) &&
-        d.verdier.every((v, i) => v >= filter.tiltakMin[i] && v <= filter.tiltakMaks[i]),
-    ),
+        selectedIndices.every((i) => {
+          const value = d.verdier[i];
+          return value >= filter.tiltakMin[i] && value <= filter.tiltakMaks[i];
+        }),
+    )
+    .map((row) => ({
+      ...row,
+      verdier: selectedIndices.map((index) => row.verdier[index]),
+    }));
+
+  return {
+    ...data,
+    headers: filteredHeaders,
+    data: filteredData,
   };
 }

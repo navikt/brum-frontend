@@ -81,52 +81,77 @@ export function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMe
         <ActionMenu.Divider />
 
         <ActionMenu.Group label="Tiltak">
+          <ActionMenu.CheckboxItem
+            disabled={filter.selectedTiltak.every(Boolean)}
+            checked={filter.selectedTiltak.every(Boolean)}
+            onCheckedChange={(_) =>
+              setFilter((prev) => ({
+                ...prev,
+                selectedTiltak: prev.selectedTiltak.map(() => true),
+              }))
+            }
+          >
+            Velg alle
+          </ActionMenu.CheckboxItem>
           {tiltak.map((h, i) => (
             <div key={h}>
-              <BodyShort size="small">{h}</BodyShort>
-              <HStack>
-                <Spacer />
-                <TextField
-                  defaultValue={filter.tiltakMin[i] === 0 ? '' : filter.tiltakMin[i]}
-                  placeholder="min"
-                  inputMode="numeric"
-                  htmlSize={3}
-                  size="small"
-                  label="Min"
-                  onChange={(e) => {
-                    const value = parseInt(e.target.value) || 0;
-                    if (value >= 0) {
-                      setFilter((prev) => ({ ...prev, tiltakMin: prev.tiltakMin.with(i, value) }));
-                    }
-                  }}
-                  onInput={(e) => {
-                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
-                  }}
-                  hideLabel
-                />
-                <TextField
-                  defaultValue={filter.tiltakMaks[i] === Infinity ? '' : filter.tiltakMaks[i]}
-                  placeholder="maks"
-                  inputMode="numeric"
-                  htmlSize={3}
-                  size="small"
-                  label="Maks"
-                  onChange={(e) => {
-                    const value = parseInt(e.target.value) || 0;
-                    if (value >= 0) {
-                      setFilter((prev) => ({
-                        ...prev,
-                        tiltakMaks: prev.tiltakMaks.with(i, value),
-                      }));
-                    }
-                  }}
-                  onInput={(e) => {
-                    // Remove any non-numeric characters
-                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
-                  }}
-                  hideLabel
-                />
-              </HStack>
+              <ActionMenu.CheckboxItem
+                checked={filter.selectedTiltak[i]}
+                onCheckedChange={(checked) => {
+                  setFilter((prev) => ({
+                    ...prev,
+                    selectedTiltak: prev.selectedTiltak.with(i, checked),
+                  }));
+                }}
+              >
+                {h}
+              </ActionMenu.CheckboxItem>
+              {filter.selectedTiltak[i] && (
+                <HStack style={{ paddingLeft: '1rem', paddingTop: '0.5rem' }}>
+                  <TextField
+                    defaultValue={filter.tiltakMin[i] === 0 ? '' : filter.tiltakMin[i]}
+                    placeholder="min"
+                    inputMode="numeric"
+                    htmlSize={3}
+                    size="small"
+                    label="Min"
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 0;
+                      if (value >= 0) {
+                        setFilter((prev) => ({
+                          ...prev,
+                          tiltakMin: prev.tiltakMin.with(i, value),
+                        }));
+                      }
+                    }}
+                    onInput={(e) => {
+                      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                    }}
+                    hideLabel
+                  />
+                  <TextField
+                    defaultValue={filter.tiltakMaks[i] === Infinity ? '' : filter.tiltakMaks[i]}
+                    placeholder="maks"
+                    inputMode="numeric"
+                    htmlSize={3}
+                    size="small"
+                    label="Maks"
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 0;
+                      if (value >= 0) {
+                        setFilter((prev) => ({
+                          ...prev,
+                          tiltakMaks: prev.tiltakMaks.with(i, value),
+                        }));
+                      }
+                    }}
+                    onInput={(e) => {
+                      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                    }}
+                    hideLabel
+                  />
+                </HStack>
+              )}
             </div>
           ))}
         </ActionMenu.Group>
