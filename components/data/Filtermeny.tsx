@@ -2,7 +2,7 @@ import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navik
 import { FunnelFillIcon } from '@navikt/aksel-icons';
 import { FilterMenuProps } from '@/lib/types/filterTypes';
 
-export function FilterMenu({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
+export function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
   return (
     <ActionMenu>
       <ActionMenu.Trigger>

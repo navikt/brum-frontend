@@ -67,12 +67,10 @@ function DataTable({ data }: { data: BrumData }) {
 
     const orderByStr = String(orderBy);
     if (orderByStr.startsWith('verdier.')) {
-      // Extract the index from "verdier.0", "verdier.1", etc.
       const index = parseInt(orderByStr.split('.')[1]);
       aValue = (a as any).verdier[index];
       bValue = (b as any).verdier[index];
     } else {
-      // Direct property access for avdeling and innsatsgruppe
       aValue = a[orderBy as keyof T];
       bValue = b[orderBy as keyof T];
     }

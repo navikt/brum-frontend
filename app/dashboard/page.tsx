@@ -2,7 +2,7 @@
 import BrumChart from '@/components/chart/BrumChart';
 import ChartMenu from '@/components/chart/ChartMenu';
 import BrumTable from '@/components/data/BrumTable';
-import { FilterMenu } from '@/components/data/DataFilter';
+import { Filtermeny } from '@/components/data/Filtermeny';
 import Datameny from '@/components/data/Datameny';
 import { useUkeData } from '@/hooks/useUkedata';
 import { BrumData } from '@/lib/types/brumData';
@@ -85,7 +85,7 @@ export default function Dashboard() {
           <Datameny dataParams={dataParams} setDataParams={setDataParams} />
 
           {data && filter && (
-            <FilterMenu
+            <Filtermeny
               filter={filter}
               setFilter={
                 setFilter as (filter: FilterType | ((prev: FilterType) => FilterType)) => void
