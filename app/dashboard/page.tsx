@@ -10,7 +10,7 @@ import { FilterType } from '@/lib/types/filterTypes';
 import { DataOptionsProps } from '@/lib/types/propTypes';
 import { filtrerData } from '@/lib/utils/filtrerData';
 import { HighchartsOptionsType } from '@highcharts/react';
-import { GuidePanel, Heading, HStack, Loader, Spacer, Switch, VStack } from '@navikt/ds-react';
+import { HStack, Spacer, Switch } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
