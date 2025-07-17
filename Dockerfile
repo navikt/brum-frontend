@@ -10,10 +10,13 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY next.config.ts tsconfig.json ./
+COPY middleware.ts ./
 COPY app app
 COPY components components
 COPY hooks hooks
 COPY lib lib
+COPY mocks mocks
+COPY providers providers
 COPY public public
 COPY styles styles
 
