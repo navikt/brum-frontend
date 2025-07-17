@@ -1,15 +1,15 @@
-'use client'
-import { BarChartIcon } from "@navikt/aksel-icons";
-import { InternalHeader, Spacer, Button, Theme } from "@navikt/ds-react";
-import { ThemeButton } from "./ThemeButton";
-import { UserMenu } from "./UserMenu";
-import { useBruker } from "@/hooks/useBrukerData";
-import Image from "next/image";
+'use client';
+import { BarChartIcon } from '@navikt/aksel-icons';
+import { InternalHeader, Spacer, Button, Theme } from '@navikt/ds-react';
+import { ThemeButton } from './ThemeButton';
+import { UserMenu } from './UserMenu';
+import { useBruker } from '@/hooks/useBrukerData';
+import Image from 'next/image';
 
 export default function NavBar() {
   const user = useBruker();
   return (
-    <InternalHeader className="px-4" data-color ="Blue-100">
+    <InternalHeader className="px-4" data-color="Blue-100">
       <InternalHeader.Title href="/">
         <Image
           src="/StatBear.svg"
@@ -25,7 +25,6 @@ export default function NavBar() {
         />
         Brum
       </InternalHeader.Title>
-
       <Spacer />
       {user ? (
         <UserMenu user={user} />
@@ -36,18 +35,5 @@ export default function NavBar() {
       )}
       <ThemeButton />
     </InternalHeader>
-  );
-}
-
-export function DummyBar() {
-  return (
-    <Theme>
-      <InternalHeader>
-        <InternalHeader.Title href="/">
-          <BarChartIcon title="a11y-title" fontSize="1.5rem" />
-          Brum
-        </InternalHeader.Title>
-      </InternalHeader>
-    </Theme>
   );
 }
