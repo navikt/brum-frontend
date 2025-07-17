@@ -1,7 +1,6 @@
 # Brum Frontend
 
-En moderne dashboard-applikasjon for å vise statistikk og tiltak fra ulike avdelinger i NAV.
-
+En moderne dashboard-applikasjon for å vise statistikk og tiltak
 ## 📋 Innhold
 
 - [Om prosjektet](#om-prosjektet)
@@ -37,8 +36,7 @@ Brum Frontend er en Next.js-applikasjon som gir brukerne:
 ### Forutsetninger
 
 ```bash
-# Installer Node.js 20 eller nyere
-node --version  # Bør være v20+
+node --version  
 npm --version
 ```
 
