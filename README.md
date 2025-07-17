@@ -72,15 +72,10 @@ npm --version
 npm run dev          # Start utviklingsserver
 npm run build        # Bygg for produksjon
 npm run start        # Start produksjonsserver
-npm run lint         # Sjekk kode med ESLint
-npm run format       # Formater kode med Prettier
-npm run format:check # Sjekk kodeformatering
-```
 
 ### Utviklingsmiljø
 
 - **Mock data** - Bruker MSW for å simulere API-kall
-- **Hot reload** - Automatisk oppdatering under utvikling
 - **TypeScript** - Type-sjekking i sanntid
 - **ESLint** - Kodekvalitetskontroll
 
@@ -126,69 +121,3 @@ docker build -t brum-frontend .
 # Kjør container
 docker run -p 3000:3000 brum-frontend
 ```
-
-### Produksjon
-
-```bash
-# Bygg applikasjon
-npm run build
-
-# Start produksjonsserver
-npm run start
-```
-
-### Miljøvariabler
-
-```bash
-NODE_ENV=production
-BRUM_API_URL=<backend-url>
-NODE_AUTH_TOKEN=<npm-token>
-```
-
-## 🔧 Hvordan bidra
-
-1. **Opprett en ny branch**
-   ```bash
-   git checkout -b feature/ny-funksjon
-   ```
-
-2. **Gjør endringer**
-   - Følg eksisterende kodestruktur
-   - Bruk TypeScript
-   - Legg til tester hvis nødvendig
-
-3. **Sjekk kode**
-   ```bash
-   npm run lint
-   npm run format
-   ```
-
-4. **Commit endringer**
-   ```bash
-   git add .
-   git commit -m "feat: beskrivelse av endring"
-   ```
-
-5. **Push og opprett PR**
-   ```bash
-   git push origin feature/ny-funksjon
-   ```
-
-## 📚 Ytterligere ressurser
-
-- [Next.js dokumentasjon](https://nextjs.org/docs)
-- [NAV Design System](https://aksel.nav.no/)
-- [Highcharts dokumentasjon](https://www.highcharts.com/docs)
-- [TypeScript dokumentasjon](https://www.typescriptlang.org/docs/)
-
-## 🆘 Hjelp
-
-Hvis du har spørsmål eller problemer:
-
-1. Sjekk [eksisterende issues](../../issues)
-2. Opprett en ny issue med detaljert beskrivelse
-3. Kontakt utviklingsteamet
-
----
-
-Laget med ❤️ av NAV IT
