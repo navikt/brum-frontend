@@ -1,12 +1,13 @@
 import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserToken, getOboAccessToken, requireEnv, handleError } from '../../../common/utils/apiHelpers';
+import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '../../../lib/utils/api';
+import { se } from 'date-fns/locale';
 
 // Henter gjennomføringer fra Ktor API
 export async function GET(req: NextRequest) {
   try {
     // hent brukertoken fra header
-    const brukerToken = getUserToken(req);
+    const brukerToken = hentBrukerToken(req);
     if (!brukerToken) {
       logger.error('Ingen brukertoken i forespørselen.');
       return NextResponse.json(
@@ -32,7 +33,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ melding: 'Bruker ikke innlogget.' }, { status: 401 });
     }
     // Hent OBO-token for å kalle Ktor API
-    const oboAccessToken = await getOboAccessToken(brukerToken);
+    const oboAccessToken = await hentOboAccessToken(brukerToken);
     if (!oboAccessToken) {
       logger.error('Klarte ikke hente OBO-token.');
       return NextResponse.json(
@@ -66,6 +67,6 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     logger.error('Feil i gjennomføringer API-handler:', error);
-    return handleError(error);
+    return sendFeilMelding(error);
   }
 }

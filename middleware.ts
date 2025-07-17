@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
-import { getOboToken } from '@/common/utils/getOboToken';
+import { getOboToken } from '@/lib/auth/token';
 import { string } from 'zod';
 import { skip } from 'node:test';
 
