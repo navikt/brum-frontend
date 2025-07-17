@@ -85,14 +85,6 @@ export default function Dashboard() {
   return (
     <Page>
       <Page.Block width="2xl" as="main">
-        <Heading level="1" size="xlarge" align="center">
-          Dashboard
-        </Heading>
-        <GuidePanel>
-          Her ser du statistikk og nøkkeltall for tiltak. Bruk menyen til venstre for å velge
-          datasett og filtrere informasjonen som vises i grafen.
-        </GuidePanel>
-
         <HStack margin="4" align="end" gap="10">
           <Datameny dataParams={dataParams} setDataParams={setDataParams} />
 
