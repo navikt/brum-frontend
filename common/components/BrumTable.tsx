@@ -3,19 +3,10 @@
 import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
 import { HStack, Page, Skeleton, Spacer, Switch, Table, Tabs, VStack } from '@navikt/ds-react';
 import { BrumData } from '../types/brumData';
-import { useMemo, useRef, useState } from 'react';
-import { FilterMenu } from './DataFilter';
-import { FilterType } from '../types/filterTypes';
+import { useRef } from 'react';
+import { BrumTableProps } from '../types/propTypes';
 
-const BrumTable = ({
-  data,
-  setChartData,
-  setFilterApplied,
-}: {
-  data: BrumData | null;
-  setChartData: (data: BrumData | null) => void;
-  setFilterApplied: (a: boolean) => void;
-}) => {
+const BrumTable = ({ data, filteredData }: BrumTableProps) => {
   if (!data) {
     return (
       <section aria-label="Laster datatabell">
@@ -26,47 +17,11 @@ const BrumTable = ({
     );
   }
 
-  const [filter, setFilter] = useState<FilterType>(() => {
-    const allAvdelinger = data.dataAvdeling.map((d) => d.avdeling);
-    const allInnsatsgrupper = Array.from(new Set(data.data.map((d) => d.innsatsgruppe)));
-
-    return {
-      avdelinger: allAvdelinger,
-      innsatsgrupper: allInnsatsgrupper,
-      tiltakMin: data.headers.map((_) => 0),
-      tiltakMaks: data.headers.map((_) => Infinity),
-      allAvdelinger,
-      allInnsatsgrupper,
-    };
-  });
-
-  const filteredData = useMemo(() => filtrerData(filter, data), [filter]);
-
   // for å autofokusere i filtertabben når filtere blir satt
   const filterTabRef = useRef<any>(null);
 
   return (
     <Page.Block width="md" aria-label="Datatabell">
-      <HStack>
-        <Switch
-          onChange={(e) => {
-            setFilterApplied(e.target.checked);
-            setChartData(e.target.checked ? filteredData : data);
-          }}
-        >
-          Bruk filtrert data i graf
-        </Switch>
-
-        <Spacer />
-
-        <FilterMenu
-          filter={filter}
-          setFilter={setFilter}
-          tiltak={data.headers}
-          filterTabRef={filterTabRef}
-        />
-      </HStack>
-
       <Tabs defaultValue="full" selectionFollowsFocus>
         <Tabs.Tab
           value="filter"
@@ -88,18 +43,6 @@ const BrumTable = ({
 };
 
 export default BrumTable;
-
-function filtrerData(filter: FilterType, data: BrumData): BrumData {
-  return {
-    ...data,
-    data: data.data.filter(
-      (d) =>
-        filter.avdelinger.includes(d.avdeling) &&
-        filter.innsatsgrupper.includes(d.innsatsgruppe) &&
-        d.verdier.every((v, i) => v >= filter.tiltakMin[i] && v <= filter.tiltakMaks[i]),
-    ),
-  };
-}
 
 function DataTable({ data }: { data: BrumData }) {
   return (

@@ -1,29 +1,54 @@
 'use client';
 import BrumChart from '@/common/components/BrumChart';
 import BrumTable from '@/common/components/BrumTable';
+import { FilterMenu } from '@/common/components/DataFilter';
 import Datameny from '@/common/components/Datameny';
 import { BrumData } from '@/common/types/brumData';
+import { FilterType } from '@/common/types/filterTypes';
 import { DataOptionsProps } from '@/common/types/propTypes';
 import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
-import { GuidePanel, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
+import { filtrerData } from '@/common/utils/filtrerData';
+import { GuidePanel, Heading, HGrid, Switch, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
-  const [chartData, setChartData] = useState<BrumData | null>(null);
-  const [filterApplied, setFilterApplied] = useState(false);
+  const [filterChart, setFilterChart] = useState(false);
 
   const [dataParams, setDataParams] = useState<DataOptionsProps>({
     aar: 2025,
     uke: 27,
   }); // hardcoded as this is the end of our mock data
 
-  useFetchUkeAntall({ setData, dataParams });
+  const [filter, setFilter] = useState<FilterType | null>(null);
 
   useEffect(() => {
-    setChartData(data);
+    if (data && !filter) {
+      const allAvdelinger = data.dataAvdeling.map((d) => d.avdeling);
+      const allInnsatsgrupper = Array.from(new Set(data.data.map((d) => d.innsatsgruppe)));
+
+      setFilter({
+        avdelinger: allAvdelinger,
+        innsatsgrupper: allInnsatsgrupper,
+        tiltakMin: data.headers.map((_) => 0),
+        tiltakMaks: data.headers.map((_) => Infinity),
+        allAvdelinger,
+        allInnsatsgrupper,
+      });
+    }
   }, [data]);
+
+  const filteredData = useMemo(() => {
+    if (!data || !filter) return null;
+    return filtrerData(filter, data);
+  }, [filter, data]);
+
+  useFetchUkeAntall({ setData, dataParams });
+
+  if (!data || !filter) {
+    return <div>Loading...</div>; // Add proper loading state
+  }
 
   return (
     <Page>
@@ -47,14 +72,18 @@ export default function Dashboard() {
           >
             <VStack>
               <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-              <BrumChart chartData={chartData} filterApplied={filterApplied} />
+              <BrumChart data={data} filteredData={filteredData} filterApplied={filterChart} />
             </VStack>
             <div>
-              <BrumTable
-                data={data!}
-                setFilterApplied={setFilterApplied}
-                setChartData={setChartData}
-              />
+              <Switch
+                onChange={(e) => {
+                  setFilterChart(e.target.checked);
+                }}
+              >
+                Bruk filtrert data i graf
+              </Switch>
+              <FilterMenu filter={filter} setFilter={setFilter} />
+              <BrumTable data={data!} filteredData={filteredData} />
             </div>
           </HGrid>
         </VStack>

@@ -25,8 +25,14 @@ export interface UpdateDataOptionsProps {
 }
 
 export interface ChartProps {
-  chartData: BrumData | null;
+  data: BrumData | null;
   filterApplied: boolean;
+  filteredData: BrumData;
+}
+
+export interface BrumTableProps {
+  data: BrumData;
+  filteredData: BrumData;
 }
 export interface useFetchDataProps {
   setData: Dispatch<SetStateAction<BrumData | null>>;
