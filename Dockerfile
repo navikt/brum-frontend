@@ -1,4 +1,4 @@
-FROM node:20@sha256:fd0115473b293460df5b217ea73ff216928f2b0bb7650c5e7aa56aae4c028426 AS builder
+FROM node:24@sha256:601f205b7565b569d3b909a873cc9aa9c6f79b5052a9fe09d73e885760237c4c AS builder
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ COPY styles styles
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs20-debian11@sha256:8cf9967ae9ba1e64089f853abac42b41f2af95ff3aa00d08c26e5f75714605d4 AS runtime
+FROM gcr.io/distroless/nodejs20-debian11@sha256:a3c4d477f3f303cfdf2b43b0a255fb5a0d435957b466819b3c0940d9d05404b6 AS runtime
 
 WORKDIR /app
 
