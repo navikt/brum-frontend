@@ -1,21 +1,20 @@
 'use client';
 
+import { ChartProps } from '@/lib/types/propTypes';
+import { updateGraphSeries } from '@/lib/utils/chart';
+import { useTheme } from '@/providers';
 import { Chart, HighchartsOptionsType, setHighcharts } from '@highcharts/react';
+import { VStack, Loader } from '@navikt/ds-react';
 import Highcharts from 'highcharts/highcharts.src';
 import('highcharts/modules/exporting');
 import('highcharts/modules/accessibility');
 import('highcharts/modules/drilldown');
 import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
-
-import { updateGraphSeries } from '@/common/utils/updateGraphData';
-import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
-import { ChartProps } from '../types/propTypes';
-import { useTheme } from '../UI/ThemeContext';
 import ChartMenu from './ChartMenu';
 
-const BrumChart = ({ chartData, filterApplied }: ChartProps) => {
+const BrumChart = ({ data }: ChartProps) => {
   const { theme } = useTheme();
   const ref = useRef<any>(null);
   const [loading, setLoading] = useState(true);
@@ -49,13 +48,9 @@ const BrumChart = ({ chartData, filterApplied }: ChartProps) => {
     accessibility: { enabled: true },
   });
 
-  useEffect(() => {
-    // in order to properly update the chart for new series. w/o it, old series would stay if # old series > # new series
-    updateGraphSeries({ chartData, setChartOptions, setLoading, filterApplied });
-    if (ref.current?.chart) {
-      ref.current.chart.update(chartOptions, true, true); // (options, redraw, OneToOne)
-    }
-  }, [chartData]);
+useEffect(() => {
+  updateGraphSeries({ data, chartOptions, setChartOptions, setLoading, ref });
+}, [data, chartOptions]);
 
   return (
     <div>

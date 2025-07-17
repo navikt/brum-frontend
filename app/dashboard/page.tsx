@@ -1,29 +1,23 @@
 'use client';
-import BrumChart from '@/common/components/BrumChart';
-import BrumTable from '@/common/components/BrumTable';
-import Datameny from '@/common/components/Datameny';
-import { BrumData } from '@/common/types/brumData';
-import { DataOptionsProps } from '@/common/types/propTypes';
-import useFetchUkeAntall from '@/common/utils/fetchUkeAntall';
+import BrumChart from '@/components/chart/BrumChart';
+import BrumTable from '@/components/data/BrumTable';
+import Datameny from '@/components/data/Datameny';
+import { useUkeData } from '@/hooks/useUkedata';
+import { BrumData } from '@/lib/types/brumData';
+import { DataOptionsProps } from '@/lib/types/propTypes';
 import { GuidePanel, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';
 import { useEffect, useState } from 'react';
 
+
 export default function Dashboard() {
   const [data, setData] = useState<BrumData | null>(null);
-  const [chartData, setChartData] = useState<BrumData | null>(null);
-  const [filterApplied, setFilterApplied] = useState(false);
-
   const [dataParams, setDataParams] = useState<DataOptionsProps>({
     aar: 2025,
     uke: 27,
   }); // hardcoded as this is the end of our mock data
 
-  useFetchUkeAntall({ setData, dataParams });
-
-  useEffect(() => {
-    setChartData(data);
-  }, [data]);
+  useUkeData({ setData, dataParams });
 
   return (
     <Page>
@@ -47,14 +41,11 @@ export default function Dashboard() {
           >
             <VStack>
               <Datameny dataParams={dataParams} setDataParams={setDataParams} />
-              <BrumChart chartData={chartData} filterApplied={filterApplied} />
+
+              <BrumChart data={data} />
             </VStack>
             <div>
-              <BrumTable
-                data={data!}
-                setFilterApplied={setFilterApplied}
-                setChartData={setChartData}
-              />
+              <BrumTable data={data!} />
             </div>
           </HGrid>
         </VStack>
