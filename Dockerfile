@@ -1,4 +1,4 @@
-FROM node:22@sha256:9e6918e8e32a47a58ed5fb9bd235bbc1d18a8c272e37f15d502b9db9e36821ee AS builder
+FROM node:20@sha256:fd0115473b293460df5b217ea73ff216928f2b0bb7650c5e7aa56aae4c028426 AS builder
 
 WORKDIR /app
 
@@ -10,16 +10,19 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY next.config.ts tsconfig.json ./
+COPY middleware.ts ./
 COPY app app
 COPY components components
 COPY hooks hooks
 COPY lib lib
+COPY mocks mocks
+COPY providers providers
 COPY public public
 COPY styles styles
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs22-debian12@sha256:fd90468f47e91d0d3c9bc055c8c09edbf0c225c3c795d0c266e2ca94b3ba17e3 AS runtime
+FROM gcr.io/distroless/nodejs20-debian11@sha256:8cf9967ae9ba1e64089f853abac42b41f2af95ff3aa00d08c26e5f75714605d4 AS runtime
 
 WORKDIR /app
 
