@@ -137,7 +137,7 @@ export function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMe
                     size="small"
                     label="Maks"
                     onChange={(e) => {
-                      const value = parseInt(e.target.value) || 0;
+                      const value = e.target.value === '' ? Infinity : parseInt(e.target.value);
                       if (value >= 0) {
                         setFilter((prev) => ({
                           ...prev,
