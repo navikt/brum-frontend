@@ -1,5 +1,4 @@
 import { Dispatch, RefObject, SetStateAction } from 'react';
-import { BrumData } from './brumData';
 
 export interface FilterType {
   avdelinger: string[];
