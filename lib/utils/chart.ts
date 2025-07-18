@@ -21,7 +21,7 @@ export function updateChartSeries({
   // denne kalles kun fra en useeffect i chartoptions
 
   /* litt corny løsninger her, men det å bruke datamodulen for å innputte data til grafen gjør at vi kan gjøre valg for hele grafen enkelt via chartoptions, som f.eks. type 
-  i chartoptions.chart, heller enn å måtte individuelt sette det for hver serie. dette gjør at vi ikke trenger å legge til masse ny state for at sånt skal kunne styres av bruker */
+  i chartoptions.chart, heller enn å måtte individuelt sette det for hver serie. dette gjør at vi ikke trenger å legge til flere states for at sånt skal kunne styres av bruker */
 
   const categories = ['', ...data.headers]; // "" først for å aligne navna på kategoriene med resten av verdiene
 
