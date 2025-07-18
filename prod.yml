@@ -8,7 +8,7 @@ metadata:
   namespace: brum
 spec:
   ingresses:
-    - https://brum.intern.nav.no
+    - https://brum.ansatt.nav.no
   image: {{ image }}
   port: 3000
   prometheus:
