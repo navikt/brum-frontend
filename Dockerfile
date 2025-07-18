@@ -18,6 +18,7 @@ COPY mocks mocks
 COPY providers providers
 COPY public public
 COPY styles styles
+COPY middleware.ts middleware.ts
 
 RUN npm run build
 
