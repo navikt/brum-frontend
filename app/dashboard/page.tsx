@@ -35,8 +35,6 @@ export default function Dashboard() {
         avdelinger: allAvdelinger,
         innsatsgrupper: allInnsatsgrupper,
         selectedTiltak: new Array(data.headers.length).fill(true),
-        tiltakMin: data.headers.map((_) => 0),
-        tiltakMaks: data.headers.map((_) => Infinity),
         allAvdelinger,
         allInnsatsgrupper,
       });

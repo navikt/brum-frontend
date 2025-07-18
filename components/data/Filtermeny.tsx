@@ -1,6 +1,6 @@
 import { FilterMenuProps } from '@/lib/types/filterTypes';
 import { FunnelFillIcon } from '@navikt/aksel-icons';
-import { ActionMenu, Button, HStack, TextField } from '@navikt/ds-react';
+import { ActionMenu, Button } from '@navikt/ds-react';
 
 export default function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
   return (

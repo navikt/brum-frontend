@@ -13,9 +13,7 @@ export const defaultChartOptions = {
       groupPadding: 0.05,
       centerInCategory: true,
       stacking: undefined,
-    },
-    series: {
-      dataSorting: true,
+      dataSorting: { enabled: true },
     },
   },
   yAxis: {
