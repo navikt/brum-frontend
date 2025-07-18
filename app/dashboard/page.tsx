@@ -5,6 +5,7 @@ import BrumTable from '@/components/data/BrumTable';
 import Datameny from '@/components/data/Datameny';
 import Filtermeny from '@/components/data/Filtermeny';
 import useUkeData from '@/hooks/useUkedata';
+import { defaultChartOptions } from '@/lib/constants/chartOptions';
 import BrumData from '@/lib/types/brumData';
 import FilterType from '@/lib/types/filterTypes';
 import { DataOptionsProps } from '@/lib/types/propTypes';
@@ -51,33 +52,7 @@ export default function Dashboard() {
   const ref = useRef<any>(null);
 
   // alle instillinger for charten ligger her, inkl. dataen som vises
-  const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>({
-    title: { text: '' },
-    chart: {
-      inverted: false,
-      height: '50%',
-    },
-    plotOptions: {
-      series: { stacking: undefined },
-      column: {
-        pointPadding: 0.05,
-        groupPadding: 0.05,
-        centerInCategory: true,
-      },
-    },
-    yAxis: {
-      maxPadding: 0.05,
-      title: { text: 'Antall deltakere' },
-      labels: { format: '{value:,0f}' },
-    },
-    xAxis: {
-      labels: {
-        style: { fontSize: '14px' },
-      },
-    },
-    exporting: { enabled: true },
-    accessibility: { enabled: true },
-  });
+  const [chartOptions, setChartOptions] = useState<HighchartsOptionsType>(defaultChartOptions);
 
   return (
     <Page>

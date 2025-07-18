@@ -2,13 +2,14 @@
 
 import { Chart, setHighcharts } from '@highcharts/react';
 import Highcharts from 'highcharts/highcharts.src';
-import('highcharts/modules/exporting');
-import('highcharts/modules/accessibility');
-import('highcharts/themes/adaptive');
+import('highcharts/modules/data'); // gjør det lettere for oss å gjøre valg for hele grafen
+import('highcharts/modules/exporting'); // tillater eksportering i grafen
+import('highcharts/modules/accessibility'); // legger opp for god uu
+import('highcharts/themes/adaptive'); // tema som kan følge sidens tema
 setHighcharts(Highcharts);
 
 import { ChartProps } from '@/lib/types/propTypes';
-import { updateGraphSeries } from '@/lib/utils/chart';
+import { updateChartSeries } from '@/lib/utils/chart';
 import { useTheme } from '@/providers';
 import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
@@ -26,7 +27,7 @@ const BrumChart = ({
 
   // Update graph series whenever data changes
   useEffect(() => {
-    updateGraphSeries({
+    updateChartSeries({
       data: filterApplied ? filteredData : data,
       setChartOptions,
       setLoading,

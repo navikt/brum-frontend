@@ -1,7 +1,7 @@
 'use client';
 import { ChartOptionsProps } from '@/lib/types/propTypes';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
-import { ActionMenu, Button, Switch, TextField } from '@navikt/ds-react';
+import { ActionMenu, Button, Radio, RadioGroup, Switch, TextField } from '@navikt/ds-react';
 import { SeriesColumnOptions } from 'highcharts/highcharts.src';
 import { useMemo, useState } from 'react';
 
@@ -14,14 +14,34 @@ const ChartMenu = (props: ChartOptionsProps) => {
         </Button>
       </ActionMenu.Trigger>
       <ActionMenu.Content>
+        <ChartTypeRadio {...props} />
+        <ActionMenu.Divider />
         <TitleField {...props} />
+        <ActionMenu.Divider />
         <PercentModeSwitch {...props} />
         <InversionSwitch {...props} />
-        <StackingSwitch {...props} />
+        {props.chartOptions.chart!.type === 'column' && <StackingSwitch {...props} />}
       </ActionMenu.Content>
     </ActionMenu>
   );
 };
+
+const ChartTypeRadio = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
+  <RadioGroup
+    onChange={(e) => {
+      setChartOptions({
+        ...chartOptions,
+        chart: { type: e },
+        plotOptions: { series: { stacking: undefined } },
+      });
+    }}
+    value={chartOptions.chart!.type}
+    legend="Velg graftype"
+  >
+    <Radio value="column">Column</Radio>
+    <Radio value="line">Line</Radio>
+  </RadioGroup>
+);
 
 const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   <TextField
@@ -30,8 +50,7 @@ const TitleField = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
     }}
     value={chartOptions.title!.text}
     label="Sett tittel på grafen"
-    size="small"
-    htmlSize={15}
+    htmlSize={14}
   />
 );
 
