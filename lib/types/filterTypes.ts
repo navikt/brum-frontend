@@ -4,8 +4,6 @@ export default interface FilterType {
   avdelinger: string[];
   innsatsgrupper: string[];
   selectedTiltak: boolean[];
-  tiltakMin: number[];
-  tiltakMaks: number[];
   allAvdelinger: string[];
   allInnsatsgrupper: string[];
 }

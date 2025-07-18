@@ -11,12 +11,7 @@ export default function filtrerData(filter: FilterType, data: BrumData): BrumDat
   const filteredData = data.data
     .filter(
       (d) =>
-        filter.avdelinger.includes(d.avdeling) &&
-        filter.innsatsgrupper.includes(d.innsatsgruppe) &&
-        selectedIndices.every((i) => {
-          const value = d.verdier[i];
-          return value >= filter.tiltakMin[i] && value <= filter.tiltakMaks[i];
-        }),
+        filter.avdelinger.includes(d.avdeling) && filter.innsatsgrupper.includes(d.innsatsgruppe),
     )
     .map((row) => ({
       ...row,
