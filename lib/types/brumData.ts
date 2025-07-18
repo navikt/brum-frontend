@@ -1,7 +1,7 @@
 /**
  * Hoved-datastruktur for Brum-data
  */
-export interface BrumData {
+export default interface BrumData {
   aar: number;
   uke: number;
   headers: string[];

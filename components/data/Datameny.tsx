@@ -1,9 +1,9 @@
 'use client';
 
+import { DEFAULT_MAX_UKE, FORSTE_AAR, MAX_UKE_2025, SISTE_AAR } from '@/lib/constants/dataMeny';
 import { UpdateDataOptionsProps } from '@/lib/types/propTypes';
-import { Button, TextField, HStack } from '@navikt/ds-react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { FORSTE_AAR, SISTE_AAR, MAX_UKE_2025, DEFAULT_MAX_UKE } from '@/lib/constants/dataMeny';
+import { Button, HStack, TextField } from '@navikt/ds-react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 /**
  * Komponent for å velge år og uke for datavisning

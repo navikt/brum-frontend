@@ -1,7 +1,7 @@
-import { BrumData } from "@/lib/types/brumData";
+import BrumData from '@/lib/types/brumData';
 /**
  * Test-data for Mock Service Worker
- * 
+ *
  * Inneholder simulerte data som brukes for testing og utvikling
  * når backend ikke er tilgjengelig.
  */

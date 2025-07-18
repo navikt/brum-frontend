@@ -3,11 +3,11 @@ import { useFetchDataProps } from '../lib/types/propTypes';
 
 /**
  * Hook for å hente ukedata
- * 
+ *
  * @param setData - Callback for å sette data
  * @param dataParams - Parametere for datahenting (år og uke)
  */
-export function useUkeData({ setData, dataParams }: useFetchDataProps) {
+export default function useUkeData({ setData, dataParams }: useFetchDataProps) {
   useEffect(() => {
     fetch(`/api/ukeAntall?aar=${dataParams.aar}&uke=${dataParams.uke}`)
       .then((res) => {

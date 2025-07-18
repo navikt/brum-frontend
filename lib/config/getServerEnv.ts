@@ -2,7 +2,7 @@ import { ServerEnv, ServerEnvSchema } from '../types/config';
 
 /**
  * Henter og validerer server-miljøvariabler
- * 
+ *
  * @returns Validerte miljøvariabler for server
  * @throws Error hvis påkrevde miljøvariabler mangler
  */

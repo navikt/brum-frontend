@@ -8,11 +8,11 @@ import('highcharts/modules/drilldown');
 import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
 
+import { ChartProps } from '@/lib/types/propTypes';
+import { updateGraphSeries } from '@/lib/utils/chart';
+import { useTheme } from '@/providers';
 import { Loader, VStack } from '@navikt/ds-react';
 import { useEffect, useRef, useState } from 'react';
-import { ChartProps } from '@/lib/types/propTypes';
-import { useTheme } from '@/providers';
-import { updateGraphSeries } from '@/lib/utils/chart';
 
 const BrumChart = ({
   data,

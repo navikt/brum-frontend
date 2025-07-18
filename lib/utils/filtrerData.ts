@@ -1,7 +1,7 @@
-import { BrumData } from '../types/brumData';
-import { FilterType } from '../types/filterTypes';
+import BrumData from '../types/brumData';
+import FilterType from '../types/filterTypes';
 
-export function filtrerData(filter: FilterType, data: BrumData): BrumData {
+export default function filtrerData(filter: FilterType, data: BrumData): BrumData {
   const selectedIndices = filter.selectedTiltak
     .map((selected, index) => (selected ? index : -1))
     .filter((index) => index !== -1);

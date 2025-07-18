@@ -1,6 +1,6 @@
 import { Dispatch, RefObject, SetStateAction } from 'react';
 
-export interface FilterType {
+export default interface FilterType {
   avdelinger: string[];
   innsatsgrupper: string[];
   selectedTiltak: boolean[];

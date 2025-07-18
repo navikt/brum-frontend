@@ -1,15 +1,6 @@
-import React from "react";
-import {
-  Alert,
-  BodyShort,
-  Box,
-  Heading,
-  Link,
-  List,
-  VStack,
-} from "@navikt/ds-react";
-import { Page, PageBlock } from "@navikt/ds-react/Page";
-import { ListItem } from "@navikt/ds-react/List";
+import { Alert, BodyShort, Box, Heading, Link, List } from '@navikt/ds-react';
+import { ListItem } from '@navikt/ds-react/List';
+import { Page, PageBlock } from '@navikt/ds-react/Page';
 
 const NotFound = () => {
   return (
