@@ -17,9 +17,13 @@ Man må selvsagt passe på at det går overens med strukturen på dataen, osv. D
 Valg man vil skal gjelde for én graftype kan legges til i chartOptions.plotOptions.navnetpågraftypen.
 
 **Mer tydelighet**
-Bedre labelling av data/serier/akser
+Bedre labelling av data/serier/akser.
+Valgt tidsperiode burde vises.
+Det burde være en respons på at bruker har inputtet valid dataparametre.
 
 **Layout**
-I hvert fall må tabellen ordnes så den holder seg fint på sida når det er mange datapunkter. Kan gi mening å implementere pagination også, alt ettersom hvor mye data man ender opp med.
+I hvert fall må tabellen ordnes så den holder seg fint på sida når det er mange datapunkter. Kan gi mening å implementere pagination også, alt ettersom hvor mye data man ender opp med. Errormeldinger burde også fikses slik at de ikke ødelegger layouten.
 
-**Mulighet til å eksportere tabellen**
+**Eksportering**
+Eksporteringsmenyen burde ikke bruke highcharts-defaulten men heller lage en egen som er på norsk.
+Behovseier viste også interesse i mulighet til å eksportere tabelldataen.
