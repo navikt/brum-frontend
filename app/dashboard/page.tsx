@@ -77,6 +77,7 @@ export default function Dashboard() {
     },
     exporting: { enabled: true },
     accessibility: { enabled: true },
+    boost: { enabled: true },
   });
 
   return (
