@@ -20,6 +20,7 @@ const ChartMenu = (props: ChartOptionsProps) => {
         <ActionMenu.Divider />
         <PercentModeSwitch {...props} />
         <InversionSwitch {...props} />
+        {/* foreløpig er stacking linka 100% til column som chart type. se stackingswitch for mer */}
         {props.chartOptions.chart!.type === 'column' && <StackingSwitch {...props} />}
       </ActionMenu.Content>
     </ActionMenu>
@@ -32,7 +33,6 @@ const ChartTypeRadio = ({ chartOptions, setChartOptions }: ChartOptionsProps) =>
       setChartOptions({
         ...chartOptions,
         chart: { type: e },
-        plotOptions: { series: { stacking: undefined } },
       });
     }}
     value={chartOptions.chart!.type}
@@ -68,6 +68,7 @@ const InversionSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) =
   </Switch>
 );
 
+// hardkoda for column som serietype, om flere serier legges til som kan ha stacking må man endre så det funker for dem også
 const StackingSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) => (
   <Switch
     checked={chartOptions.plotOptions!.series!.stacking !== undefined}
@@ -75,7 +76,7 @@ const StackingSwitch = ({ chartOptions, setChartOptions }: ChartOptionsProps) =>
       setChartOptions({
         ...chartOptions,
         plotOptions: {
-          series: { stacking: e.target.checked ? 'normal' : undefined },
+          column: { stacking: e.target.checked ? 'normal' : undefined },
         },
       });
     }}
