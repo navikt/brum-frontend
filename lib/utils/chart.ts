@@ -23,6 +23,7 @@ export function updateGraphSeries({
         series: data.data.map((avdelingsData) => {
           return {
             type: 'column' as const,
+            boostThreshold: 1,
             data: avdelingsData.verdier,
             name: `${avdelingsData.avdeling} - ${avdelingsData.innsatsgruppe}`,
           };
@@ -39,16 +40,6 @@ export function updateGraphSeries({
             centerInCategory: true,
           };
         }),
-        drilldown: {
-          series: data.data.map((d) => {
-            return {
-              type: 'column' as const,
-              id: d.avdeling,
-              data: d.verdier,
-              name: d.innsatsgruppe,
-            };
-          }),
-        },
       };
 
   setChartOptions((prev: HighchartsOptionsType) => ({

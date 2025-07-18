@@ -2,17 +2,9 @@
 
 import { Chart, setHighcharts } from '@highcharts/react';
 import Highcharts from 'highcharts/highcharts.src';
-import HighchartsExporting from 'highcharts/modules/exporting';
-import HighchartsAccessibility from 'highcharts/modules/accessibility';
-import HighchartsDrilldown from 'highcharts/modules/drilldown';
-
-// Initialize Highcharts modules
-if (typeof Highcharts === 'object') {
-  HighchartsExporting(Highcharts);
-  HighchartsAccessibility(Highcharts);
-  HighchartsDrilldown(Highcharts);
-}
-
+import('highcharts/modules/exporting');
+import('highcharts/modules/accessibility');
+import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
 
 import { ChartProps } from '@/lib/types/propTypes';
