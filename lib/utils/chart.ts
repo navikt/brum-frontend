@@ -34,7 +34,6 @@ export function updateGraphSeries({
         series: data.dataAvdeling.map((d) => {
           return {
             type: 'column' as const,
-            boostThreshold: 1,
             data: d.verdier.map((v) => (v === 0 ? null : v)),
             name: d.avdeling,
             drilldown: d.avdeling,

@@ -4,7 +4,6 @@ import { Chart, setHighcharts } from '@highcharts/react';
 import Highcharts from 'highcharts/highcharts.src';
 import('highcharts/modules/exporting');
 import('highcharts/modules/accessibility');
-import('highcharts/modules/boost');
 import('highcharts/themes/adaptive');
 setHighcharts(Highcharts);
 
