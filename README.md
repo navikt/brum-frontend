@@ -1,3 +1,7 @@
+## Videre arbeid
+
+Se videre_arbeid.md for kjente mangler og ønskede forbedringer fra behovseier.
+
 ## Docker Deployment (Local)
 
 1. Build the Docker image:
