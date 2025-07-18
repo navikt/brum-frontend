@@ -1,5 +1,5 @@
 'use client';
-import { BrukerData } from '@/lib/types/brukerData';
+import BrukerData from '@/lib/types/brukerData';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import {
@@ -8,9 +8,9 @@ import {
   ActionMenuGroup,
   ActionMenuItem,
   ActionMenuTrigger,
-} from '@navikt/ds-react/ActionMenu'; 
+} from '@navikt/ds-react/ActionMenu';
 
-export function UserMenu({ user }: { user: BrukerData }) {
+export default function UserMenu({ user }: { user: BrukerData }) {
   return (
     <ActionMenu>
       <ActionMenuTrigger>

@@ -9,7 +9,7 @@ const MSWProvider = () => {
     // Kun start MSW i utviklingsmiljø
     if (process.env.NODE_ENV === 'development') {
       console.log('🔧 Starter Mock Service Worker i utviklingsmiljø');
-      
+
       // Dynamisk import for å unngå å laste MSW i produksjon
       import('../mocks/browser')
         .then(({ worker }) => {

@@ -1,21 +1,12 @@
 'use client';
 
-import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
-import { Page, Skeleton, SortState, Table, Tabs, VStack } from '@navikt/ds-react';
+import BrumData from '@/lib/types/brumData';
 import { BrumTableProps } from '@/lib/types/propTypes';
-import { BrumData } from '@/lib/types/brumData';
+import { FunnelIcon, TableIcon } from '@navikt/aksel-icons';
+import { Page, SortState, Table, Tabs } from '@navikt/ds-react';
 import { useState } from 'react';
 
 const BrumTable = ({ data, filteredData, filterTabRef }: BrumTableProps) => {
-  if (!data) {
-    return (
-      <section aria-label="Laster datatabell">
-        <VStack width="100%" align="center">
-          <Skeleton />
-        </VStack>
-      </section>
-    );
-  }
   return (
     <Page.Block width="xl" aria-label="Datatabell">
       <Tabs defaultValue="full" selectionFollowsFocus>

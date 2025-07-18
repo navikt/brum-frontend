@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '@/lib/utils/api';
 import { testData } from '@/mocks/mocks';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Henter antall uker for valgt år og uke
 export async function GET(req: NextRequest) {

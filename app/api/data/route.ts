@@ -1,10 +1,10 @@
+import { testData } from '@/mocks/mocks';
 import { NextRequest, NextResponse } from 'next/server';
 import { getOboToken } from '../../../lib/auth/token';
-import { testData } from '@/mocks/mocks';
 
 /**
  * GET endpoint for å hente Brum-data
- * 
+ *
  * I utviklingsmiljø returneres mock-data, i produksjon hentes
  * data fra backend API ved hjelp av OBO-token.
  */

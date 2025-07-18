@@ -2,13 +2,13 @@
 import BrumChart from '@/components/chart/BrumChart';
 import ChartMenu from '@/components/chart/ChartMenu';
 import BrumTable from '@/components/data/BrumTable';
-import { Filtermeny } from '@/components/data/Filtermeny';
 import Datameny from '@/components/data/Datameny';
-import { useUkeData } from '@/hooks/useUkedata';
-import { BrumData } from '@/lib/types/brumData';
-import { FilterType } from '@/lib/types/filterTypes';
+import Filtermeny from '@/components/data/Filtermeny';
+import useUkeData from '@/hooks/useUkedata';
+import BrumData from '@/lib/types/brumData';
+import FilterType from '@/lib/types/filterTypes';
 import { DataOptionsProps } from '@/lib/types/propTypes';
-import { filtrerData } from '@/lib/utils/filtrerData';
+import filtrerData from '@/lib/utils/filtrerData';
 import { HighchartsOptionsType } from '@highcharts/react';
 import { HStack, Spacer, Switch } from '@navikt/ds-react';
 import { Page } from '@navikt/ds-react/Page';

@@ -1,6 +1,6 @@
 import { HighchartsOptionsType } from '@highcharts/react';
 import { Dispatch, RefObject, SetStateAction } from 'react';
-import { BrumData } from './brumData';
+import BrumData from './brumData';
 
 /**
  * Props for komponenter som håndterer innstillinger for grafen

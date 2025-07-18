@@ -3,7 +3,7 @@ import { MoonIcon, SunIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { useTheme } from '../../providers/ThemeContext';
 
-function ThemeButton() {
+export default function ThemeButton() {
   const { theme, setTheme } = useTheme();
   return (
     <>
@@ -25,5 +25,3 @@ function ThemeButton() {
     </>
   );
 }
-
-export { ThemeButton };

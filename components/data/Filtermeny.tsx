@@ -1,8 +1,8 @@
-import { ActionMenu, BodyShort, Button, HStack, Spacer, TextField } from '@navikt/ds-react';
-import { FunnelFillIcon } from '@navikt/aksel-icons';
 import { FilterMenuProps } from '@/lib/types/filterTypes';
+import { FunnelFillIcon } from '@navikt/aksel-icons';
+import { ActionMenu, Button, HStack, TextField } from '@navikt/ds-react';
 
-export function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
+export default function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: FilterMenuProps) {
   return (
     <ActionMenu>
       <ActionMenu.Trigger>

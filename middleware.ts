@@ -1,5 +1,5 @@
-import { NextResponse, NextRequest } from 'next/server';
 import { logger } from '@navikt/next-logger';
+import { NextRequest, NextResponse } from 'next/server';
 
 // oauth2 login path
 const NAIS_LOGIN_PATH = '/oauth2/login';

@@ -1,10 +1,9 @@
 'use client';
-import { BarChartIcon } from '@navikt/aksel-icons';
-import { InternalHeader, Spacer, Button, Theme } from '@navikt/ds-react';
-import { ThemeButton } from './ThemeButton';
-import { UserMenu } from './UserMenu';
-import { useBruker } from '@/hooks/useBrukerData';
+import useBruker from '@/hooks/useBrukerData';
+import { Button, InternalHeader, Spacer } from '@navikt/ds-react';
 import Image from 'next/image';
+import ThemeButton from './ThemeButton';
+import UserMenu from './UserMenu';
 
 export default function NavBar() {
   const user = useBruker();

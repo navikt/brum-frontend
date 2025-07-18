@@ -16,12 +16,12 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const htmlTheme = document.documentElement.className;
-      
+
       if (htmlTheme === 'light' || htmlTheme === 'dark') {
         setTheme(htmlTheme as ThemeType);
       } else {
         const savedTheme = localStorage.getItem('theme') as ThemeType | null;
-        
+
         if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
           setTheme(savedTheme);
         } else {

@@ -3,7 +3,7 @@ import { getOboToken } from '../auth/token';
 
 /**
  * Henter brukertoken fra request header
- * 
+ *
  * @param forespørsel - NextRequest objekt
  * @returns Brukertoken eller null hvis ikke funnet
  */
@@ -13,7 +13,7 @@ export function hentBrukerToken(forespørsel: NextRequest): string | null {
 
 /**
  * Henter OBO-token for å kalle backend API
- * 
+ *
  * @param brukerToken - Brukerens access token
  * @returns OBO access token eller null hvis feil
  */
@@ -23,7 +23,7 @@ export async function hentOboAccessToken(brukerToken: string): Promise<string | 
 
 /**
  * Henter miljøvariabel og kaster feil hvis den ikke er definert
- * 
+ *
  * @param navn - Navn på miljøvariabel
  * @returns Verdien av miljøvariabelen
  * @throws Error hvis miljøvariabel ikke er definert
@@ -36,7 +36,7 @@ export function requireEnv(navn: string): string {
 
 /**
  * Håndterer feil i API-kall og returnerer JSON-respons
- * 
+ *
  * @param feil - Feil som oppstod
  * @returns NextResponse med feilmelding
  */

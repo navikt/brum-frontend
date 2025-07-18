@@ -1,7 +1,11 @@
 import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '../../../lib/utils/api';
-import { se } from 'date-fns/locale';
+import {
+  hentBrukerToken,
+  hentOboAccessToken,
+  requireEnv,
+  sendFeilMelding,
+} from '../../../lib/utils/api';
 
 // Henter gjennomføringer fra Ktor API
 export async function GET(req: NextRequest) {

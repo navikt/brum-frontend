@@ -1,14 +1,14 @@
 'use client';
 import { logger } from '@navikt/next-logger';
 import { useEffect, useState } from 'react';
-import { BrukerData } from '../lib/types/brukerData';
+import BrukerData from '../lib/types/brukerData';
 
 /**
  * Hook for å hente brukerdata
- * 
+ *
  * @returns BrukerData eller null hvis ikke innlogget
  */
-export function useBruker() {
+export default function useBruker() {
   const [bruker, setBruker] = useState<BrukerData | null>(null);
 
   useEffect(() => {

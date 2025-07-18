@@ -1,9 +1,7 @@
-import { BrukerData } from '@/lib/types/brukerData';
-import { hentBrukerToken, requireEnv, hentOboAccessToken, sendFeilMelding } from '@/lib/utils/api';
+import BrukerData from '@/lib/types/brukerData';
+import { hentBrukerToken, hentOboAccessToken, requireEnv, sendFeilMelding } from '@/lib/utils/api';
 import { logger } from '@navikt/next-logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { UserInfo } from 'node:os';
-import { send } from 'node:process';
 
 // Henter brukerinfo fra Ktor API
 export async function GET(req: NextRequest) {
@@ -41,7 +39,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ melding: 'Bruker ikke innlogget.' }, { status: 401 });
     }
 
-  // Henter OBO-token for å kalle Ktor API
+    // Henter OBO-token for å kalle Ktor API
     const oboAccessToken = await hentOboAccessToken(brukerToken);
     if (!oboAccessToken) {
       return NextResponse.json(
