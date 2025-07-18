@@ -19,12 +19,11 @@ export default function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: 
       <ActionMenu.Content>
         <ActionMenu.Group label="Avdelinger">
           <ActionMenu.CheckboxItem
-            disabled={filter.avdelinger.length === filter.allAvdelinger.length}
             checked={filter.avdelinger.length === filter.allAvdelinger.length}
-            onCheckedChange={(_) =>
+            onCheckedChange={(e) =>
               setFilter((prev) => ({
                 ...prev,
-                avdelinger: filter.allAvdelinger,
+                avdelinger: e ? filter.allAvdelinger : [],
               }))
             }
           >
@@ -50,12 +49,11 @@ export default function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: 
         <ActionMenu.Divider />
         <ActionMenu.Group label="Innsatsgrupper">
           <ActionMenu.CheckboxItem
-            disabled={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
             checked={filter.innsatsgrupper.length === filter.allInnsatsgrupper.length}
-            onCheckedChange={(_) =>
+            onCheckedChange={(e) =>
               setFilter((prev) => ({
                 ...prev,
-                innsatsgrupper: filter.allInnsatsgrupper,
+                innsatsgrupper: e ? filter.allInnsatsgrupper : [],
               }))
             }
           >
@@ -82,12 +80,11 @@ export default function Filtermeny({ filter, setFilter, tiltak, filterTabRef }: 
 
         <ActionMenu.Group label="Tiltak">
           <ActionMenu.CheckboxItem
-            disabled={filter.selectedTiltak.every(Boolean)}
             checked={filter.selectedTiltak.every(Boolean)}
-            onCheckedChange={(_) =>
+            onCheckedChange={(e) =>
               setFilter((prev) => ({
                 ...prev,
-                selectedTiltak: prev.selectedTiltak.map(() => true),
+                selectedTiltak: prev.selectedTiltak.map(() => (e ? true : false)),
               }))
             }
           >
