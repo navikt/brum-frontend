@@ -29,7 +29,7 @@ export function updateChartSeries({
     ? {
         data: {
           columns: [
-            categories, // denne må først for å gi navn til alle kategoriene
+            categories, // denne må først som labels på alle kategoriene på x-aksen
             ...data.data.map((d) => [`${d.avdeling} (${d.innsatsgruppe})`, ...d.verdier]), // første verdi i arrayet blir navnet på serien
           ],
         },
