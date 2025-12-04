@@ -1,4 +1,4 @@
-FROM node:22@sha256:9e6918e8e32a47a58ed5fb9bd235bbc1d18a8c272e37f15d502b9db9e36821ee AS builder
+FROM node:24@sha256:dd5c5e4d0a67471a683116483409d1e46605a79521b000c668cff29df06efd51 AS builder
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ COPY middleware.ts middleware.ts
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs22-debian12@sha256:fd90468f47e91d0d3c9bc055c8c09edbf0c225c3c795d0c266e2ca94b3ba17e3 AS runtime
+FROM gcr.io/distroless/nodejs22-debian12@sha256:5651f73a3ed008391f5fa842312db2e9ebf22d945ede6382cb8087a2fcac9f9c AS runtime
 
 WORKDIR /app
 
